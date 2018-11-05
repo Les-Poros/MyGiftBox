@@ -3,7 +3,8 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as DB;
-use trivial\bd\Connection;
+use MyGiftBox\bd\Connection;
+use MyGiftBox\controllers\HomeController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -32,6 +33,6 @@ require('container.php');
 
 $app = new \Slim\App($container);
 
-
+$app->get('/','HomeController:displayHome')->setName('Home');
 
 $app->run();

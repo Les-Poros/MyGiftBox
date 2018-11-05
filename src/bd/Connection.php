@@ -1,6 +1,6 @@
 <?php
 
-namespace trivial\bd;
+namespace MyGiftBox\bd;
 
 /**
  * Class Connection

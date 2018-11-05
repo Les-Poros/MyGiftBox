@@ -1,5 +1,5 @@
 {
-    "name": "Trivial Navigo",
+    "name": "MyGiftBox",
     "type": "project",
     "require": {
         "illuminate/database": "5.5.*",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "trivial\\": "src/"
+            "MyGiftBox\\": "src/"
         }
     }
 }
