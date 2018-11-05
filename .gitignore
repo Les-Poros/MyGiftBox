@@ -1,0 +1,8 @@
+*.idea
+src/*.ini
+.project
+bin/
+out/
+conf.ini
+vendor
+.DS_Store
