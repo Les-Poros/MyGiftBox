@@ -64,7 +64,7 @@ class ConnectionController{
         $member->prenomMembre = $prenom;
         $member->mailMembre = $email;
         $member->passwordMembre = $mdp;
-
+        $member->role = 0;
         $member->save();
 
     }
