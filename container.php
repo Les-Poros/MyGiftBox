@@ -3,6 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MyGiftBox\controllers\HomeController;
+use MyGiftBox\controllers\ConnectionController;
 
 $configuration = [
     'settings' => [
@@ -23,5 +24,10 @@ $container['view'] = function ($container) {
 $container['HomeController'] = function ($c){
     $view = $c->get('view');
     return new HomeController($view);
+};
+
+$container['ConnectionController'] = function ($c){
+    $view = $c->get('view');
+    return new ConnectionController($view);
 };
 ?>
