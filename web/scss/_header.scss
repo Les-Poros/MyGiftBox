@@ -1,0 +1,46 @@
+header{
+    width: 100%;
+    margin:0;
+    & .container_header{
+        width: 70%;
+        margin:auto;
+        & a{
+            text-decoration: none;
+            color:$fontColor;
+        }
+    
+        & .homeButton{
+            color:$fontColor;
+            font-size: 2em;
+        }
+    
+        & .pres_header{
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding-left: 10%;
+    
+            & h1{
+                font-size: 40pt;
+                font-weight: bold;
+                color: $fontColor;
+            }
+       
+            & .descr_header{
+                color: $descrColor;
+            }
+        }
+    
+        & .list_grid {
+            display: grid;
+            grid-template-columns: 4fr 1fr 1fr;
+            grid-template-rows: 30px;
+            padding-top: 15px;
+            
+            & li{
+                font-weight: bold;
+                color:$fontColor;
+            }
+        }
+        
+    }
+}
