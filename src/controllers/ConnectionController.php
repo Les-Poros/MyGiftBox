@@ -30,8 +30,9 @@ class ConnectionController{
     }
 
     public static function checkTheConnection(){
-		$email = $_POST['email'];
-		$mdp = $_POST['mdp'];
+        $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+        $mdp = filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
+
 		$membre = m\Membre::where('mailMembre', '=', $email);
 		if ($membre->count() != 1) {
 			echo "Email invalide" ;
