@@ -50,4 +50,11 @@ $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Con
 
 $app->get('/CreateBox', 'BoxController:displayCreationBox')->setName("CreateBox");
 
+$app->post('/CreateBox', function($request, $response, $args){
+	$controller = $this['BoxController'];
+	$CreationBox = $controller->creationBox($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+})->setName("CreationBox");
+
 $app->run();
