@@ -18,10 +18,10 @@ class ConnectionController{
     }
     
     public function checkAccountCreation(){
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $mdp = $_POST['mdp'];
+        $nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
+        $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
+        $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+        $mdp = filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
 
         //hash du mot de  passe
         $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT, ['cost'=>12]);
