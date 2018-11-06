@@ -39,4 +39,7 @@ footer{
 .main_container{
     width: 70%;
     margin: auto;
+    @media only screen and (max-width: 850px) {
+        width: 95%;
+    }
 }
