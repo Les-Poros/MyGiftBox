@@ -47,4 +47,10 @@ $app->post('/CreateAccount', function($request, $response, $args){
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
 
+$app->get('/Exit', function($request, $response, $args){
+	$controller = $this['ConnectionController'];
+	$checkDestroySession = $controller->checkDestroySession($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+})->setName('Disconnection');
 $app->run();

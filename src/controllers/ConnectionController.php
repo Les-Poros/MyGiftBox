@@ -46,6 +46,10 @@ class ConnectionController{
 				echo "Mot de passe invalide";
 			}
 		} 
+    }
+    
+    public static function checkDestroySession($request, $response, $args) {
+		Authentication::destroySession();
 	}
 
     public static function createMember($nom,$prenom,$mdp,$email){
