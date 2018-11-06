@@ -6,6 +6,7 @@ use Illuminate\Database\Capsule\Manager as DB;
 use MyGiftBox\bd\Connection;
 use MyGiftBox\controllers\HomeController;
 use MyGiftBox\controllers\ConnectionController;
+use MyGiftBox\controllers\BoxController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -46,5 +47,7 @@ $app->post('/CreateAccount', function($request, $response, $args){
 })->setName("checkAccountCreation");
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
+
+$app->get('/CreateBox', 'BoxController:displayCreationBox')->setName("CreateBox");
 
 $app->run();
