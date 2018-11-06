@@ -5,6 +5,7 @@ namespace MyGiftBox\controllers;
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreationBoxView;
 use MyGiftBox\models\Coffret;
+use MyGiftBox\models\Membre;
 
 /**
  * Class BoxController
@@ -39,15 +40,16 @@ class BoxController {
     public function CreationBox(){
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
         $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
-        $dateBox = filter_var($_POST['dateBox'],FILTER_SANITIZE_DATE);
+        $dateBox = $_POST['dateBox'];
         
-        $membre= m\Membre::where('mailMembre','=',$_SESSION['mailMembre'])->first();
-
-        $box = new m\Coffret();
+        $membre= Membre::where('mailMembre','=',$_SESSION['mailMembre'])->first();
+        $box = new Coffret();
         $box->nomCoffret = $nameBox;
         $box->messageCoffret = $messageBox;
         $box->dateOuvertureCoffret = $dateBox;
-        $idMember->idMembre = $membre['idMembre'];
+        $box->idMembre = $membre['idMembre'];
+        $box->estOuvert = 0;
+        $box->msgRemerciement = "";
 
         $box->save();
     }
