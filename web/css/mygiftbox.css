@@ -171,10 +171,10 @@ a {
 .grid_container_categories .nomCategory {
   text-align: center;
 }
-.grid_container_categories .btnAttention,
-.grid_container_categories .btnActivite,
-.grid_container_categories .btnRestauration,
-.grid_container_categories .btnHebergement {
+.grid_container_categories #btnAttention:hover,
+.grid_container_categories #btnActivite:hover,
+.grid_container_categories #btnRestauration:hover,
+.grid_container_categories #btnHebergement:hover {
   cursor: pointer;
 }
 

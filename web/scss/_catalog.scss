@@ -11,10 +11,10 @@
     & .nomCategory {
         text-align: center;
     }
-    & .btnAttention:hover,
-    .btnActivite:hover,
-    .btnRestauration:hover,
-    .btnHebergement:hover {
+    & #btnAttention:hover,
+    #btnActivite:hover,
+    #btnRestauration:hover,
+    #btnHebergement:hover {
         cursor: pointer;
     }
 }
