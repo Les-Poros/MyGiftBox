@@ -38,6 +38,13 @@ $app->get('/','HomeController:displayHome')->setName('Home');
 
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
+$app->post('/CreateAccount', function($request, $response, $args){
+	$controller = $this['ConnectionController'];
+	$checkAccountCreation = $controller->checkAccountCreation($request, $response, $args);
+	$router = $this->router;
+	//return $response->withRedirect($router->pathFor('Home', []));
+})->setName("checkAccountCreation");
+
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
 
 $app->run();
