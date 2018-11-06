@@ -2,9 +2,15 @@
 	<div class="container_header">
 		<nav class="nav_header">
 			<ul class="list_grid">
-				<li class="li">Bienvenue sur MyGiftBox</li>
-				<li class="grid_item_header"><a href="">Se connecter</a></li>
-				<li class="grid_item_header"><a href="">Créer un compte</a></li>
+				{% if nomMembre == "" %}
+				<li class="li">Bienvenue sur MyGiftBox </li>
+				<li class="grid_item_header"><a href="{{base_url()}}/Connexion">Connexion</a></li>
+				<li class="grid_item_header"><a href="{{base_url()}}/CreateAccount">Inscription</a></li>
+				{% else %}
+				<li class="li">Bienvenue sur MyGiftBox {{nomMembre}}</li>
+				<li class="grid_item_header"><a href="">Mon Compte</a></li>
+				<li class="grid_item_header"><a href="{{base_url()}}/Exit">Déconnexion</a></li>
+				{% endif %}
 			</ul>
 		</nav>
 		<div class="pres_header">
@@ -13,5 +19,5 @@
 		</div>
 		<a class="homeButton fas fa-home" href="{{base_url()}}/"></a>
 		<hr/>
-	<div>
+	</div>
 </header>

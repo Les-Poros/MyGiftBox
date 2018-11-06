@@ -7,3 +7,4 @@ conf.ini
 vendor
 .DS_Store
 composer.lock
+*.map

@@ -3,6 +3,7 @@
 namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
+use MyGiftBox\controllers\Authentication;
 use MyGiftBox\views\HomeView;
 use MyGiftBox\models\Prestation;
 
@@ -28,16 +29,22 @@ class HomeController {
 	 * @param args
 	 */
 	public function displayHome($request, $response, $args) {
-		$prestations = array();
-		$listPrest = Prestation::select('img')->get()->toArray();
-		shuffle($listPrest);
-		for($i=0;$i<9;$i++){
-			$prestations[$i]=$listPrest[$i];
+
+		if (Authentication::checkConnection()) {
+			$nomMembre = $_SESSION['nomMembre'].' '.$_SESSION['prenomMembre'];
 		}
-		
+		else {
+			$nomMembre = "";
+		}
+
+
+		$prestations = array();
+		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();		
 		return $this->view->render($response, 'HomeView.html.twig', [
 			'prestations' => $prestations,
+      'nomMembre' => $nomMembre,
 		]);
+
 	}
 
 }
