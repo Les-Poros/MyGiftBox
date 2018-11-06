@@ -29,12 +29,7 @@ class HomeController {
 	 */
 	public function displayHome($request, $response, $args) {
 		$prestations = array();
-		$listPrest = Prestation::select('img')->get()->toArray();
-		shuffle($listPrest);
-		for($i=0;$i<9;$i++){
-			$prestations[$i]=$listPrest[$i];
-		}
-		
+		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();		
 		return $this->view->render($response, 'HomeView.html.twig', [
 			'prestations' => $prestations,
 		]);
