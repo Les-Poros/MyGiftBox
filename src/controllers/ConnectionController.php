@@ -5,6 +5,7 @@ use MyGiftBox\models as m;
 use MyGiftBox\controllers\Authentication;
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreateAccountView;
+use MyGiftBox\views\ConnexionView;
 
 class ConnectionController{
     
@@ -15,6 +16,11 @@ class ConnectionController{
     public function displayCreateAccount($request, $response, $args) {
 		
 		return $this->view->render($response, 'CreateAccountView.html.twig', []);
+    }
+
+    public function displayConnection($request, $response, $args) {
+		
+		return $this->view->render($response, 'ConnexionView.html.twig', []);
     }
     
     public function checkAccountCreation(){
