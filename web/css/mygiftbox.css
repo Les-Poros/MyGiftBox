@@ -94,6 +94,11 @@ footer {
     width: 95%;
   }
 }
+@media only screen and (max-width: 1250px) {
+  .main_container {
+    width: 80%;
+  }
+}
 
 .boutton {
   padding: 6px 0 6px 0;
@@ -166,8 +171,10 @@ header .container_header .list_grid li:last-child {
   header .container_header .list_grid li:first-child {
     display: none;
   }
-  header .container_header .list_grid li {
-    font-weight: initial;
+}
+@media only screen and (max-width: 1250px) {
+  header .container_header {
+    width: 80%;
   }
 }
 
@@ -205,6 +212,11 @@ header .container_header .list_grid li:last-child {
   }
   .grid_container_item .grid_item:nth-child(n+5) {
     display: none;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .grid_container_item {
+    width: 80%;
   }
 }
 
