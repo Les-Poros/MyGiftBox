@@ -6,7 +6,6 @@
 	<title>MyGiftBox</title>
 </head>
 <body>
-
 	<header>
 		<div class="grid_container_header">
 			<div class="grid_item_header">Bienvenue sur MyGiftBox</div>
@@ -26,15 +25,10 @@
 	<h2>Créer vos coffrets de cadeaux personnalisés avec un choix incroyable de prestations</h2>
 
 	<div class="grid_container_item">
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
-		<div class="grid_item"></div>
+	
+	{% for p in prestations %}
+		<div class="grid_item"><img src="{{base_url}}/web/img/{{p['img']}}"/> </div>
+	{% endfor %}
 	</div>
 
 	<div class="border"></div>
