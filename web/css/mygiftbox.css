@@ -236,4 +236,35 @@ a {
   color: black;
 }
 
+.containerCreationBox h2 {
+  margin-left: 30%;
+  margin-bottom: 20px;
+}
+.containerCreationBox .form {
+  width: 40%;
+  margin: auto;
+  margin-bottom: 20px;
+  border: solid grey;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-align: center;
+}
+.containerCreationBox input {
+  width: 150px;
+  height: 25px;
+  padding: 10px;
+  margin: 10px;
+}
+.containerCreationBox label {
+  font-size: 14pt;
+  margin-top: 10px;
+}
+.formCreationBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /*# sourceMappingURL=mygiftbox.css.map */

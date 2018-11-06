@@ -3,9 +3,10 @@ namespace MyGiftBox\controllers;
 
 
 class Authentication{
-    public static function instantiateSession($nomMembre, $prenomMembre){
+    public static function instantiateSession($nomMembre, $prenomMembre, $mailMembre){
       $_SESSION['nomMembre'] = $nomMembre;
       $_SESSION['prenomMembre'] = $prenomMembre;
+      $_SESSION['mailMembre'] = $mailMembre;
     } 
 
     public static function checkConnection(){
@@ -15,5 +16,9 @@ class Authentication{
         else{
           return false;
         }
+      }
+
+      public static function destroySession(){
+        session_destroy();
       }
 }
