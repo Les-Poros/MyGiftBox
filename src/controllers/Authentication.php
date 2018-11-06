@@ -16,4 +16,8 @@ class Authentication{
           return false;
         }
       }
+
+      public static function destroySession(){
+        session_destroy();
+      }
 }
