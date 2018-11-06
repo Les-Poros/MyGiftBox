@@ -6,18 +6,34 @@
 				<li class="li">Bienvenue sur MyGiftBox </li>
 				<li class="grid_item_header"><a href="{{base_url()}}/Connection">Connexion</a></li>
 				<li class="grid_item_header"><a href="{{base_url()}}/CreateAccount">Inscription</a></li>
+				</nav>
+		</ul>
+			<div class="pres_header">
+			<h1>MyGiftBox</h1>
+			<p class="descr_header">Concocter de fabuleux présents pour vos amis.</p>
+		</div>
+		 <nav class="nav_menu">
+		<a class="homeButton fas fa-home" href="{{base_url()}}/"></a>
 				{% else %}
 				<li class="li">Bienvenue sur MyGiftBox {{nomMembre}}</li>
 				<li class="grid_item_header"><a href="">Mon Compte</a></li>
 				<li class="grid_item_header"><a href="{{base_url()}}/Exit">Déconnexion</a></li>
-				{% endif %}
-			</ul>
 		</nav>
-		<div class="pres_header">
+		</ul>
+			<div class="pres_header">
 			<h1>MyGiftBox</h1>
 			<p class="descr_header">Concocter de fabuleux présents pour vos amis.</p>
 		</div>
+		<nav class="nav_menu">
+		<ul class="list_grid">
 		<a class="homeButton fas fa-home" href="{{base_url()}}/"></a>
+		
+		<li class="grid_item_header"><a href="{{base_url()}}/ConsultCatalog">Consulter Catalogue</a></li>
+		<li class="grid_item_header"><a href="{{base_url()}}/BoxCreation">Créer un Coffret</a></li>
+		</ul>
+		</nav>
+				{% endif %}
+		
 		<hr/>
 	</div>
 </header>
