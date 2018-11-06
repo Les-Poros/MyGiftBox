@@ -48,6 +48,7 @@ $app->post('/CreateAccount', function($request, $response, $args){
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
 
+<<<<<<< HEAD
 $app->get('/CreateBox', 'BoxController:displayCreationBox')->setName("CreateBox");
 
 $app->post('/CreateBox', function($request, $response, $args){
@@ -57,4 +58,19 @@ $app->post('/CreateBox', function($request, $response, $args){
 	return $response->withRedirect($router->pathFor('Home', []));
 })->setName("CreationBox");
 
+=======
+$app->post('/Connection', function($request, $response, $args){
+	$controller = $this['ConnectionController'];
+	$checkConnection = $controller->checkTheConnection($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+})->setName("checkAccountCreation");
+
+$app->get('/Exit', function($request, $response, $args){
+	$controller = $this['ConnectionController'];
+	$checkDestroySession = $controller->checkDestroySession($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+})->setName('Disconnection');
+>>>>>>> 9485d63fdfcff0e8d7c138419df0abb80f48285f
 $app->run();
