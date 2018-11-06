@@ -1,7 +1,7 @@
 <?php
 
 namespace MyGiftBox\controllers;
-
+use MyGiftBox\models as m;
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreateAccountView;
 
@@ -28,6 +28,13 @@ class ConnectionController{
     }
 
     public static function createMember($nom,$prenom,$mdp,$email){
+        $member = new m\Membre();
+        $member->nomMembre = $nom;
+        $member->prenomMembre = $prenom;
+        $member->mailMembre = $email;
+        $member->passwordMembre = $mdp;
+
+        $member->save();
 
     }
 }
