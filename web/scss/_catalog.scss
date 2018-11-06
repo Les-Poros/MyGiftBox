@@ -1,0 +1,55 @@
+.grid_container_categories {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 100px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 15px;
+    & .nomCategory {
+        text-align: center;
+    }
+    & .btnAttention:hover,
+    .btnActivite:hover,
+    .btnRestauration:hover,
+    .btnHebergement:hover {
+        cursor: pointer;
+    }
+}
+
+.grid_item_cat {
+    border: solid black;
+    font-size: 60px;
+    text-align: center;
+    display: flex;
+    & i {
+        margin: auto;
+    }
+}
+
+.grid_container_prestations {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 270px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 25px;
+    & .detailsPrestations {
+        text-align: center;
+    }
+}
+
+.grid_item_pres {
+    width: 200px;
+    height: 200px;
+    padding-bottom: 10px;
+    & img {
+        width: 100%;
+        height: 100%;
+    }
+}

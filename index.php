@@ -5,6 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as DB;
 use MyGiftBox\bd\Connection;
 use MyGiftBox\controllers\HomeController;
+use MyGiftBox\controllers\CatalogController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -38,5 +39,7 @@ $app->get('/','HomeController:displayHome')->setName('Home');
 $app->get('/CreateAccount', 'ConnectionController:createAccount')->setName('CreateAccount');
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
+
+$app->get('/ConsultCatalog', 'CatalogController:displayCatalog')->setName('ConsultCatalog');
 
 $app->run();
