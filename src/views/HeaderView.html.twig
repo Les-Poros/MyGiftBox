@@ -4,8 +4,8 @@
 			<ul class="list_grid">
 				{% if nomMembre == "" %}
 				<li class="li">Bienvenue sur MyGiftBox </li>
-				<li class="grid_item_header"><a href="{{base_url()}}/Connection">Se connecter</a></li>
-				<li class="grid_item_header"><a href="{{base_url()}}/CreateAccount">Créer un compte</a></li>
+				<li class="grid_item_header"><a href="{{base_url()}}/Connexion">Connexion</a></li>
+				<li class="grid_item_header"><a href="{{base_url()}}/CreateAccount">Inscription</a></li>
 				{% else %}
 				<li class="li">Bienvenue sur MyGiftBox {{nomMembre}}</li>
 				<li class="grid_item_header"><a href="">Mon Compte</a></li>
@@ -19,5 +19,5 @@
 		</div>
 		<a class="homeButton fas fa-home" href="{{base_url()}}/"></a>
 		<hr/>
-	<div>
+	</div>
 </header>
