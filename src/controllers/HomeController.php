@@ -31,7 +31,7 @@ class HomeController {
 	public function displayHome($request, $response, $args) {
 
 		if (Authentication::checkConnection()) {
-			$nomMembre = $_SESSION['nomMembre'].' '.$_SESSION['prenomMembre'];
+			$nomMembre = $_SESSION['prenomMembre'];
 		}
 		else {
 			$nomMembre = "";
