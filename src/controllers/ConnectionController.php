@@ -32,14 +32,14 @@ class ConnectionController{
     public static function checkTheConnection(){
 		$email = $_POST['email'];
 		$mdp = $_POST['mdp'];
-		$member = m\Membre::where('mailMembre', '=', $email);
-		if ($member->count() != 1) {
+		$membre = m\Membre::where('mailMembre', '=', $email);
+		if ($membre->count() != 1) {
 			echo "Email invalide" ;
 		}
 		else {	
-			if (password_verify($mdp, $member->first()->password)) {
-				$member = $member->first();
-				Authentication::instantiateSession($member->nomMembre, $member->prenomMembre);
+			if (password_verify($mdp, $membre->first()->passwordMembre)) {
+				$membre = $membre->first();
+				Authentication::instantiateSession($membre->nomMembre, $membre->prenomMembre);
 			}
 			else {
 				echo "Mot de passe invalide";

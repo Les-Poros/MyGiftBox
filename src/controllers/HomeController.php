@@ -3,6 +3,7 @@
 namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
+use MyGiftBox\controllers\Authentication;
 use MyGiftBox\views\HomeView;
 
 /**
@@ -27,8 +28,13 @@ class HomeController {
 	 * @param args
 	 */
 	public function displayHome($request, $response, $args) {
-		
-		return $this->view->render($response, 'HomeView.html.twig', []);
+		if (Authentication::checkConnection()) {
+			$nomMembre = $_SESSION['nomMembre'].' '.$_SESSION['prenomMembre'];
+		}
+		else {
+			$nomMembre = "";
+		}
+		return $this->view->render($response, 'HomeView.html.twig', ['nomMembre' => $nomMembre,]);
 	}
 
 }
