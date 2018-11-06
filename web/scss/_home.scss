@@ -2,61 +2,8 @@ $backgColor: lightgrey !default;
 $fontColor: #303030 !default;
 $descrColor: grey !default;
 
-body{
-    background-color: $backgColor;
-    width: 70%;
-    margin: auto;
-}
-
 a{
     text-decoration: none;
-}
-
-.grid_container_header {
-    display: grid;
-    grid-template-columns: 5fr 1fr 1fr;
-    grid-template-rows: 30px;
-    margin-top: 15px;
-    margin-bottom: 50px;
-}
-
-
-h1{
-    font-size: 40pt;
-    font-weight: bold;
-    padding: 4%;
-    color: $fontColor;
-}
-
-p, div{
-    font-size: 16pt;
-    color: $fontColor;
-}
-
-#descr{
-    padding-left: 4%;
-    color: $descrColor;
-}
-
-#home{
-    height: 42px;
-    width: 42px;
-    margin-left: 1%; 
-    margin-top: 80px;
-}
-
-.border{
-    border-top: solid $descrColor;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-h2{
-    font-size: 20pt;
-    font-weight: bold;
-    color: $fontColor;
-    width: 90%;
-    margin: auto;
 }
 
 .grid_container_item {
@@ -74,14 +21,4 @@ h2{
 .grid_item{
     border: solid black;
     border-radius: 10px;
-}
-
-footer{
-    font-size: 15px;
-    color: $fontColor;
-    width: 10%;
-    margin-top: 20px;
-    margin-bottom:10px;
-    margin-left: auto;
-    margin-right: auto;
 }
