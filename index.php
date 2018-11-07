@@ -38,7 +38,7 @@ $app = new \Slim\App($container);
 
 $app->get('/','HomeController:displayHome')->setName('Home');
 
-$app->get('/HomeConnect','HomeController:displayHome')->setName('HomeConnect');
+$app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
 
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
