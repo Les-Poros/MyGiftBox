@@ -36,7 +36,9 @@ class PrestationController {
         $category = Categorie::find($idCategory)->toArray();
         $categoriePrestation = $category['nomCategorie'];
         $prixPrestation = $prestation['prix'];
+		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'PrestationView.html.twig', [
+            'nomMembre' => $nomMembre,
             'imgPrestation' => $imgPrestation,
             'nomPrestation' => $nomPrestation,
             'categoriePrestation' =>$categoriePrestation,
