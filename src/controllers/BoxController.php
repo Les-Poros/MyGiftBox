@@ -51,6 +51,7 @@ class BoxController {
         $box->idMembre = $membre['idMembre'];
         $box->estOuvert = 0;
         $box->estPaye = 0;
+        $box->hasContenuCoffret = 0;
         $box->msgRemerciement = "";
 
         $box->save();
@@ -71,24 +72,43 @@ class BoxController {
                     $memberHaveBox = true;
                 }
             }
+
+
+            // On vérifie si il y a du contenu dans le coffret
+        //     if($memberHaveBox){
+        //         $listIdCoffret = Coffret::select('idCoffret')->get()->toArray();
+        //         $listIdCoffretContenu = ContenuCoffret::select('idCoffret')->get()->toArray();
+                
+        //         foreach($listIdCoffret as $values){
+        //             $indexListId =$values['idCoffret'];
+                  
+
+        //             foreach($listIdCoffretContenu as $values2){
+                        
+        //                 $indexListIdContenu = $values2['idCoffret'];
+        //                 var_dump($indexListIdContenu);
+        //         }
+        //     }
+        // }
+
             //Si il a un ou des coffrets, on les affiches
-            if($memberHaveBox){
-			//récupère id du coffret
-            $coffret = Coffret::where('idMembre','=',$idMember)->get()->toArray();
-            $infoCoffret = array();
-            foreach($coffret as $values) {
-                $nomCoffret = $values['nomCoffret'];
-                $idCoffret = $values['idCoffret'];
-                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
-                $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
-                $imgPrestation = $prestation['img'];
+            // if($memberHaveBox){
+			// //récupère id du coffret
+            // $coffret = Coffret::where('idMembre','=',$idMember)->get()->toArray();
+            // $infoCoffret = array();
+            // foreach($coffret as $values) {
+            //     $nomCoffret = $values['nomCoffret'];
+            //     $idCoffret = $values['idCoffret'];
+            //     $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
+            //     $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+            //     $imgPrestation = $prestation['img'];
                 
     
-               array_push($infoCoffret,[$nomCoffret,$imgPrestation]);
-            }
-            return $infoCoffret;
+            //    array_push($infoCoffret,[$nomCoffret,$imgPrestation]);
+            // }
+            // return $infoCoffret;
 
-        }
+        // }
 			
     }
     
