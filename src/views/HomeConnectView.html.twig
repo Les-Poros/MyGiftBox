@@ -7,16 +7,18 @@
 
 	<div class="main_container">
         <h2> Vos derniers Coffrets</h2>
-		 <div class ="contenu_coffret">
+		 <div class ="grid_container_prestations">
 		 {% for values in variables %}
-             <div class="nom_coffret">
-			 {{values[0]}} 
-			 </div>
-
-				<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[1]}}"/>
-         {% endfor %} 
-			</div>
+		 <div class ="detailsPrestations">
 		 
+			<p> {{values[0]}}</p> 
+			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[1]}}"/></div>
+			<button class="boutton"><a href="{{base_url()}}/ConnectHomeAndPay">Voir</a></button>
+			<button class="boutton"><a href="{{base_url()}}/Pay">Payer</a></button>
+		</div>
+         {% endfor %} 
+			</div> 
+         		 
 		
     </div>
 </body>
