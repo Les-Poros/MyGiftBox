@@ -57,29 +57,56 @@ class BoxController {
     }
 
     public function displayBox($request, $response, $args){
-        $mail = $_SESSION['mailMembre'];
+            $mail = $_SESSION['mailMembre'];
 			//récupère id du membre connecté
 			$member= Membre::where('mailMembre', '=', $mail);
 			$memberFirst = $member->first();
 			$idMember = $memberFirst->idMembre;
 			
 			//récupère id du coffret
-			$coffret = Coffret::where('idMembre','=',$idMember);
-			$coffretFirst = $coffret->first();
-			$idCoffret = $coffretFirst->idCoffret;
+            $coffret = Coffret::where('idMembre','=',$idMember)->get()->toArray();
+            $infoCoffret = array();
+            foreach($coffret as $values) {
+                $nomCoffret = $values['nomCoffret'];
+                $idCoffret = $values['idCoffret'];
+                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
+                $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+                $imgPrestation = $prestation['img'];
+                
+            //    echo $nomCoffret." ". $imgPrestation." /";
+               array_push($infoCoffret,[$nomCoffret,$imgPrestation]);
+            }
+            return $infoCoffret;
+
+            
+
+			// $coffretFirst = $coffret->first();
+			// $idCoffret = $coffretFirst->idCoffret;
+
+            // $memberCoffret = Coffret::where('idMembre', '=', $idMember)->get()->toArray();
+		    // $listCoffret = array();
+		    // foreach($memberCoffret as $nomCoffret) {
+			// $coffretMember = $nomCoffret;
+            //     array_push($listCoffret, $coffretMember);
+            //}
+            
+    
 
 			//récupère le nom du coffret
-			$nomCoffret = $coffretFirst->nomCoffret;
+			// $nomCoffret = $coffretFirst->nomCoffret;
 			
-			//récupère id Prestation
-			$prestation = ContenuCoffret::where('idCoffret','=',$idCoffret);
-			$prestationFirst = $prestation->first();
-			$idPrestation = $prestationFirst->idPrestation;
+			// //récupère id Prestation
+			// $prestation = ContenuCoffret::where('idCoffret','=',$idCoffret);
+			// $prestationFirst = $prestation->first();
+			// $idPrestation = $prestationFirst->idPrestation;
 
-			//récupère img de la prestation
-			$image = Prestation::where('idPrestation','=',$idPrestation);
-			$imageFirst = $image->first();
-			$lienImage = $imageFirst->img;
+			// //récupère img de la prestation
+			// $image = Prestation::where('idPrestation','=',$idPrestation);
+			// $imageFirst = $image->first();
+            // $lienImage = $imageFirst->img;
+            
+            // $varBox = array($listCoffret);
+            // return $varBox;
 
 			
     }
