@@ -55,7 +55,7 @@ $('.tabPrestations').each(function() {
 
 function equalCategory(element) {
     return tabPrestations.filter(function(prest) {
-        return prest.children()[2]['innerHTML'] === element;
+        return prest.children().children()[2]['innerHTML'] === element;
     });
 }
 

@@ -352,4 +352,22 @@ a {
   background-color: cyan;
 }
 
+.flex_prestation {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  justify-content: space-evenly;
+}
+.flex_prestation .flex_detailsPrestation {
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+.flex_prestation .flex_detailsPrestation div {
+  font-size: 22pt;
+  line-height: 0;
+}
+
 /*# sourceMappingURL=mygiftbox.css.map */
