@@ -80,7 +80,7 @@ $app->post('/CreateBox', function($request, $response, $args){
 		$controller = $this['BoxController'];
 		$CreationBox = $controller->creationBox($request, $response, $args);
 		$router = $this->router;
-		return $response->withRedirect($router->pathFor('Home', []));
+		return $response->withRedirect($router->pathFor('ConsultCatalogPurchase', []));
 	}
 	else {
 		$router = $this->router;
@@ -118,5 +118,16 @@ $app->get('/Prestation/{id}', function($request, $response, $args){
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("Prestation");
+
+$app->get('/ConsultCatalogPurchase', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['CatalogController'];
+		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ConsultCatalogPurchase');
 
 $app->run();
