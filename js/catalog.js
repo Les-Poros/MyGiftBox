@@ -63,6 +63,7 @@ let tabPrestVariable = tabPrestations;
 function equalCategory(element) {
     tabPrestVariable = tabPrestations.filter(function(prest) {
         return prest.children().children()[2]['innerHTML'] === element;
+        
     });
 }
 
@@ -90,9 +91,9 @@ function tri(value){
 }
 
 function increasing(x, y) {
-    return x.children()[3]['innerHTML'] - y.children()[3]['innerHTML'];
+    return x.children().children()[3]['innerHTML'] - y.children().children()[3]['innerHTML'];
 }
 
 function decrease(x, y) {
-    return y.children()[3]['innerHTML'] - x.children()[3]['innerHTML'];
+    return y.children().children()[3]['innerHTML'] - x.children().children()[3]['innerHTML'];
 }
