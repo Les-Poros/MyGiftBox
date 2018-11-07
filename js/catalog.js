@@ -62,7 +62,7 @@ let tabPrestVariable = tabPrestations;
 
 function equalCategory(element) {
     tabPrestVariable = tabPrestations.filter(function(prest) {
-        return prest.children()[2]['innerHTML'] === element;
+        return prest.children().children()[2]['innerHTML'] === element;
     });
 }
 
