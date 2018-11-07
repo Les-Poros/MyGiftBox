@@ -56,7 +56,7 @@ class BoxController {
         $box->save();
     }
 
-    public function displayBox($request, $response, $args){
+    public static function displayBox($request, $response, $args){
             $mail = $_SESSION['mailMembre'];
 			//récupère id du membre connecté
 			$member= Membre::where('mailMembre', '=', $mail);
