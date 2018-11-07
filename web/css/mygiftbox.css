@@ -451,4 +451,24 @@ header .container_header .list_grid_menu li a {
   line-height: 0;
 }
 
+.modifMembre {
+  display: none;
+}
+
+.myaccount {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.infoMembre {
+  width: 30%;
+}
+.infoMembre h2 {
+  margin-bottom: 10px;
+}
+.infoMembre .buttonAccount {
+  margin-top: 10px;
+}
+
 /*# sourceMappingURL=mygiftbox.css.map */
