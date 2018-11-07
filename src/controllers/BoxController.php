@@ -29,15 +29,14 @@ class BoxController {
 	 * @param args
 	 */
 	public function displayCreationBox($request, $response, $args) {
-
-			
+		$nomMembre = $_SESSION['prenomMembre'];
 		return $this->view->render($response, 'CreationBoxView.html.twig', [
-		
+            'nomMembre' => $nomMembre,
 		]);
 
     }
 
-    public function CreationBox(){
+    public function creationBox(){
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
         $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
         $dateBox = $_POST['dateBox'];
