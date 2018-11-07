@@ -1,0 +1,17 @@
+.flex_prestation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    & .flex_detailsPrestation {
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px;
+        padding-left: 5px;
+        justify-content: space-evenly;
+        align-items: stretch;
+        & div {
+            font-size: 22pt;
+            line-height: 0;
+        }
+    }
+}

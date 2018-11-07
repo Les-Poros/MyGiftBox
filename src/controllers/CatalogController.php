@@ -32,13 +32,16 @@ class CatalogController {
         $prestations = Prestation::all();
         $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
+            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
             $prest[$i]['img'] = $prestations[$i]['img'];
             $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
             $category = $prestations[$i]->categorie()->first()->toArray();
             $prest[$i]['categorie'] = $category['nomCategorie'];
             $prest[$i]['prix'] = $prestations[$i]['prix'];
         }
+		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'CatalogView.html.twig', [
+            'nomMembre' => $nomMembre,
             'categAttention' => $listCategories[0]['nomCategorie'],
             'categActivite' => $listCategories[1]['nomCategorie'],
             'categRestauration' => $listCategories[2]['nomCategorie'],
