@@ -36,8 +36,6 @@ class HomeController {
 		if (Authentication::checkConnection()) {		
 			
 			$variables = BoxController::displayBox($request, $response, $args);
-				
-         
 			$nomMembre = $_SESSION['prenomMembre'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
 				  'nomMembre' => $nomMembre,
