@@ -4,8 +4,12 @@ namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
 use MyGiftBox\controllers\Authentication;
+use MyGiftBox\controllers\BoxController;
 use MyGiftBox\views\HomeView;
 use MyGiftBox\models\Prestation;
+
+
+
 
 /**
  * Class HomeController
@@ -29,7 +33,9 @@ class HomeController {
 	 * @param args
 	 */
 	public function displayHomeConnect($request, $response, $args) {
-		if (Authentication::checkConnection()) {
+		if (Authentication::checkConnection()) {		
+			
+			BoxController::displayBox($request, $response, $args);
 			$nomMembre = $_SESSION['prenomMembre'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
 		  		'nomMembre' => $nomMembre,
@@ -46,6 +52,7 @@ class HomeController {
 			]);
 		}	
 
+		
 	}
 
 	public function displayHome($request, $response, $args) {

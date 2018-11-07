@@ -4,8 +4,10 @@ namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreationBoxView;
-use MyGiftBox\models\Coffret;
+use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
+use MyGiftBox\models\Coffret;
+use MyGiftBox\models\ContenuCoffret;
 
 /**
  * Class BoxController
@@ -52,6 +54,34 @@ class BoxController {
         $box->msgRemerciement = "";
 
         $box->save();
+    }
+
+    public function displayBox($request, $response, $args){
+        $mail = $_SESSION['mailMembre'];
+			//récupère id du membre connecté
+			$member= Membre::where('mailMembre', '=', $mail);
+			$memberFirst = $member->first();
+			$idMember = $memberFirst->idMembre;
+			
+			//récupère id du coffret
+			$coffret = Coffret::where('idMembre','=',$idMember);
+			$coffretFirst = $coffret->first();
+			$idCoffret = $coffretFirst->idCoffret;
+
+			//récupère le nom du coffret
+			$nomCoffret = $coffretFirst->nomCoffret;
+			
+			//récupère id Prestation
+			$prestation = ContenuCoffret::where('idCoffret','=',$idCoffret);
+			$prestationFirst = $prestation->first();
+			$idPrestation = $prestationFirst->idPrestation;
+
+			//récupère img de la prestation
+			$image = Prestation::where('idPrestation','=',$idPrestation);
+			$imageFirst = $image->first();
+			$lienImage = $imageFirst->img;
+
+			
     }
     
 }
