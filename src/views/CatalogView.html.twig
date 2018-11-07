@@ -33,6 +33,16 @@
             </div>
         </div>
         <hr/>
+        <div class="tri">
+            <p>Trier par : </p>
+            <div class="select">
+				<select id="tri" name="tri" onchange="tri(this.value)">
+				<option value="0">défaut</option>
+				<option value="1" name="tri">prix croissant</option>
+				<option value="2" name="tri">prix décroissant</option>
+				</select>
+			</div>
+        </div>
         <div class="grid_container_prestations">
 			{% for prestations in listPrestations %}
                 <div class="tabPrestations">

@@ -5,9 +5,9 @@ header{
     & .container_header{
         width: 70%;
         margin:auto;
+        word-wrap: break-word;
         & a{
             text-decoration: none;
-            color:$fontColor;
         }
     
         & .homeButton{
@@ -33,7 +33,7 @@ header{
             }
         }
     
-        & .list_grid {
+        & .list_grid_account {
             display: flex;
             & li{
                 padding: 15px;
@@ -52,22 +52,53 @@ header{
             }
            
         }
+
+        & .list_grid_menu {
+            display: flex;
+            justify-content: left;
+            & li{
+                padding-left:15px;
+                text-decoration: underline;
+                align-self: flex-end;
+                & a{
+                    color: $descrColor;
+                }
+            }
+        }
         
     }
 
     @media only screen and (max-width: 850px) {
         & .container_header{
             width: 95%;
-            & .list_grid {
+            & .list_grid_account {
                 & li:first-child{
                 display: none;
                 }
             }
+
         }
     }
     @media only screen and (max-width: 1250px) {
         & .container_header{
-        width: 80%;
+            width: 80%;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+        & .container_header{
+            & .list_grid_account {
+                justify-content : space-between;
+                & li:nth-child(2){
+                    margin-left: 0;
+                    padding-left:0; 
+                }
+            }
+            & .list_grid_menu{
+                justify-content: space-between;
+                & li{
+                    width: 4.1em;
+                }
+            }  
         }
     }
 }
