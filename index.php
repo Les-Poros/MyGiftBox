@@ -38,7 +38,7 @@ $app = new \Slim\App($container);
 
 $app->get('/','HomeController:displayHome')->setName('Home');
 
-$app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
+$app->get('/HomeConnect','HomeController:displayHome')->setName('HomeConnect');
 
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
@@ -46,7 +46,7 @@ $app->post('/CreateAccount', function($request, $response, $args){
 	$controller = $this['ConnectionController'];
 	$checkAccountCreation = $controller->checkAccountCreation($request, $response, $args);
 	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	return $response->withRedirect($router->pathFor('HomeConnect', []));
 })->setName("checkAccountCreation");
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
@@ -66,7 +66,7 @@ $app->post('/Connection', function($request, $response, $args){
 	$controller = $this['ConnectionController'];
 	$checkConnection = $controller->checkTheConnection($request, $response, $args);
 	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	return $response->withRedirect($router->pathFor('HomeConnect', []));
 })->setName("checkAccountCreation");
 
 $app->get('/Exit', function($request, $response, $args){
