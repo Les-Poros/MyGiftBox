@@ -28,23 +28,38 @@ class HomeController {
 	 * @param response
 	 * @param args
 	 */
-	public function displayHome($request, $response, $args) {
-
+	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {
 			$nomMembre = $_SESSION['prenomMembre'];
+			return $this->view->render($response, 'HomeConnectView.html.twig', [
+		  		'nomMembre' => $nomMembre,
+			]);
+	
 		}
 		else {
-			$nomMembre = "";
-		}
-
-
-		$prestations = array();
-		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();		
-		return $this->view->render($response, 'HomeView.html.twig', [
-			'prestations' => $prestations,
-      'nomMembre' => $nomMembre,
-		]);
+			$nomMembre = "";		
+			$prestations = array();
+			$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
+			return $this->view->render($response, 'HomeView.html.twig', [
+				'prestations' => $prestations,
+		  'nomMembre' => $nomMembre,
+			]);
+		}	
 
 	}
 
+	public function displayHome($request, $response, $args) {
+		if (Authentication::checkConnection()) {
+			$nomMembre = $_SESSION['prenomMembre'];
+		}else
+		$nomMembre = "";
+		$prestations = array();
+		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
+			return $this->view->render($response, 'HomeView.html.twig', [
+				'prestations' => $prestations,
+		        'nomMembre' => $nomMembre,
+			]);
+	}
+
+	
 }
