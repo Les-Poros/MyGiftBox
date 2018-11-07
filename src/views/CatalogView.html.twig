@@ -35,10 +35,10 @@
         <hr/>
         <div class="grid_container_prestations">
 			{% for prestations in listPrestations %}
-                <div>
+                <div class="tabPrestations">
                     <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
                     <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
-                    <p class='detailsPrestations'>{{prestations['categorie']}}</p>
+                    <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
                     <p class='detailsPrestations'>{{prestations['prix']}}</p>
                 </div>
             {% endfor %}
