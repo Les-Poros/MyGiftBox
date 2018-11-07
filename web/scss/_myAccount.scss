@@ -1,5 +1,22 @@
 .modifMembre{
     display : none;
+    width: 30%;
+}
+
+.formMembre{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin : 10px;
+    & input{
+        width: 45%;
+        margin-bottom : 5px;
+    }
+    & label{
+        width: 45%;
+        margin-bottom : 5px;
+    }
 }
 
 .myaccount{

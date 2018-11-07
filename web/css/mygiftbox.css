@@ -415,6 +415,23 @@ header .container_header .list_grid_menu li a {
 
 .modifMembre {
   display: none;
+  width: 30%;
+}
+
+.formMembre {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+.formMembre input {
+  width: 45%;
+  margin-bottom: 5px;
+}
+.formMembre label {
+  width: 45%;
+  margin-bottom: 5px;
 }
 
 .myaccount {
