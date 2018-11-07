@@ -214,11 +214,6 @@ header .container_header .list_grid li:last-child {
     display: none;
   }
 }
-@media only screen and (max-width: 1250px) {
-  .grid_container_item {
-    width: 80%;
-  }
-}
 
 /*FORMULAIRE*/
 .screen {
@@ -248,7 +243,6 @@ a {
   color: black;
 }
 
-
 @media screen and (max-width: 500px) {
   h2 {
     text-align: center;
@@ -265,7 +259,7 @@ a {
   button {
     padding: 20px 10px 20px 10px;
   }
-
+}
 .containerCreationBox h2 {
   margin-left: 30%;
   margin-bottom: 20px;
@@ -295,7 +289,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .grid_container_categories {
