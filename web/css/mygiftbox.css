@@ -66,6 +66,11 @@ p, div {
   color: black;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 h2 {
   font-size: 20pt;
   font-weight: bold;
@@ -122,10 +127,10 @@ header {
 header .container_header {
   width: 70%;
   margin: auto;
+  word-wrap: break-word;
 }
 header .container_header a {
   text-decoration: none;
-  color: black;
 }
 header .container_header .homeButton {
   color: black;
@@ -146,35 +151,62 @@ header .container_header .pres_header h1 {
 header .container_header .pres_header .descr_header {
   color: grey;
 }
-header .container_header .list_grid {
+header .container_header .list_grid_account {
   display: flex;
 }
-header .container_header .list_grid li {
+header .container_header .list_grid_account li {
   padding: 15px;
   text-decoration: underline;
   color: black;
 }
-header .container_header .list_grid li:first-child {
+header .container_header .list_grid_account li:first-child {
   padding-left: 0;
   text-decoration: none;
 }
-header .container_header .list_grid li:nth-child(2) {
+header .container_header .list_grid_account li:nth-child(2) {
   margin-left: auto;
 }
-header .container_header .list_grid li:last-child {
+header .container_header .list_grid_account li:last-child {
   padding-right: 0;
+}
+header .container_header .list_grid_menu {
+  display: flex;
+  justify-content: left;
+}
+header .container_header .list_grid_menu li {
+  padding-left: 15px;
+  text-decoration: underline;
+  align-self: flex-end;
+}
+header .container_header .list_grid_menu li a {
+  color: grey;
 }
 @media only screen and (max-width: 850px) {
   header .container_header {
     width: 95%;
   }
-  header .container_header .list_grid li:first-child {
+  header .container_header .list_grid_account li:first-child {
     display: none;
   }
 }
 @media only screen and (max-width: 1250px) {
   header .container_header {
     width: 80%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  header .container_header .list_grid_account {
+    justify-content: space-between;
+  }
+  header .container_header .list_grid_account li:nth-child(2) {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  header .container_header .list_grid_menu {
+    justify-content: space-between;
+  }
+  header .container_header .list_grid_menu li {
+    width: 4.1em;
   }
 }
 
@@ -214,11 +246,6 @@ header .container_header .list_grid li:last-child {
     display: none;
   }
 }
-@media only screen and (max-width: 1250px) {
-  .grid_container_item {
-    width: 80%;
-  }
-}
 
 /*FORMULAIRE*/
 .screen {
@@ -243,12 +270,6 @@ header .container_header .list_grid li:last-child {
   border-radius: 2px;
 }
 
-a {
-  text-decoration: none;
-  color: black;
-}
-
-
 @media screen and (max-width: 500px) {
   h2 {
     text-align: center;
@@ -265,7 +286,7 @@ a {
   button {
     padding: 20px 10px 20px 10px;
   }
-
+}
 .containerCreationBox h2 {
   margin-left: 30%;
   margin-bottom: 20px;
@@ -295,7 +316,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .grid_container_categories {
