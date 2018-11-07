@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+    {% include 'HeaderView.html.twig' %}
+
+    <div class="main_container myaccount">
+        <div class="infoMembre">
+            <h2>Mes informations : </h2>
+            <p>Mail : {{mail}}</p>
+            <p>Nom :  {{nom}}</p>
+            <p>Prénom : {{prenom}} </p>
+
+            <button class="bouttonBlack buttonAccount">Modifier mes informations</button>
+        </div>
+        <div class="modifMembre">
+            <form class="formMenu" action="" method="post">
+                <p>
+                    <label for="nom" id="labelnom"></label>
+                    <input type="text" name="nom" id="nom" placeholder="{{nom}}"/>
+                </p>
+                <p>
+                    <label for="prenom" id="labelmdp"></label>
+                    <input type="text" name="prenom" id="prenom" placeholder="{{prenom}}"/>
+                </p>
+                <p>
+                    <label for="email" id="labelemail"></label>
+                    <input type="text" name="email" id="email" placeholder="{{mail}}"/>
+                </p>
+                <p>
+                    <label for="mdp" id="labelmdp"></label>
+                    <input type="password" name="mdp" id="mdp"placeholder="Mot de passe..."/>
+                </p>
+                <button type="submit" class="bouttonBlack">Valider</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{base_url()}}/js/account.js"></script>
+</body>
+</html>

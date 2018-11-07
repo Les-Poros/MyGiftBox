@@ -119,15 +119,27 @@ $app->get('/Prestation/{id}', function($request, $response, $args){
 	}
 })->setName("Prestation");
 
-$app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
+
+$app->get('/MyAccount', 'ConnectionController:displayAccount')->setName("MyAccount");
+
+$app->post('/MyAccount', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
-		$controller = $this['CatalogController'];
-		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
-	}
+		$controller = $this['ConnectionController'];
+		$modifMember = $controller->modifMember($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('MyAccount', []));
+    }
 	else {
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
+})->setName("ModifAccount");
+
+$app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['CatalogController'];
+		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
 })->setName('ConsultCatalogPurchase');
+
 
 $app->run();

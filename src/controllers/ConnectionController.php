@@ -68,4 +68,42 @@ class ConnectionController{
         $member->save();
 
     }
+
+    public function displayAccount($request, $response, $args){
+        
+        return $this->view->render($response, 'MyAccountView.html.twig', [
+            'mail' => $_SESSION['mailMembre'],
+            'nom' => $_SESSION['nomMembre'],
+            'prenom' => $_SESSION['prenomMembre'],
+            'nomMembre' => $_SESSION['prenomMembre'],
+        ]);
+    }
+
+    public function modifMember(){
+        $nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
+        $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
+        $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+        $mdp = filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
+        $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT, ['cost'=>12]);
+
+        $member = m\Membre::where('mailMembre','=',$_SESSION['mailMembre'])->first();
+
+        if ($nom != ""){
+            $member->nomMembre = $nom;
+            $_SESSION['nomMembre'] = $nom;
+        }
+        if ($prenom != ""){
+            $member->prenomMembre = $prenom;
+            $_SESSION['prenomMembre'] = $prenom;
+        }
+        if ($email != ""){
+            $member->mailMembre = $email;
+            $_SESSION['mailMembre'] = $email;
+        }
+        if ($mdp != ""){
+            $member->passwordMembre = $mdp;
+        }
+        $member->save();
+        self::checkTheConnection();
+    }
 }

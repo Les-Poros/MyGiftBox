@@ -1,0 +1,19 @@
+.modifMembre{
+    display : none;
+}
+
+.myaccount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.infoMembre{
+    width: 30%;
+    & h2{
+        margin-bottom: 10px;
+    }
+    & .buttonAccount{
+        margin-top: 10px;
+    }
+}
