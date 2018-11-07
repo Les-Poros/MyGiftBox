@@ -75,21 +75,27 @@ class BoxController {
 
 
             // On vérifie si il y a du contenu dans le coffret
-        //     if($memberHaveBox){
-        //         $listIdCoffret = Coffret::select('idCoffret')->get()->toArray();
-        //         $listIdCoffretContenu = ContenuCoffret::select('idCoffret')->get()->toArray();
-                
-        //         foreach($listIdCoffret as $values){
-        //             $indexListId =$values['idCoffret'];
-                  
-
-        //             foreach($listIdCoffretContenu as $values2){
-                        
-        //                 $indexListIdContenu = $values2['idCoffret'];
-        //                 var_dump($indexListIdContenu);
-        //         }
-        //     }
-        // }
+            if($memberHaveBox){
+                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idMembre','=',$idMember)->get()->toArray();
+                $nomCoffretListe = array();
+                foreach($isContenuList as $values){
+                    $isContenu = $values['hasContenuCoffret'];
+                    $nomCoffret = $values['nomCoffret'];
+                    $idCoffret = $values['idCoffret'];
+                    if($isContenu == 0 ){
+                        $imgDefault = "defaultBox.png";
+                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault]);
+                    }
+                   else{
+                        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
+                        $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+                        $imgPrestation = $prestation['img'];
+                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation]);
+                   }
+                }
+               
+                return($nomCoffretListe);
+        }
 
             //Si il a un ou des coffrets, on les affiches
             // if($memberHaveBox){
