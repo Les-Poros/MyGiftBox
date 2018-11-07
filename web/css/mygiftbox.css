@@ -396,13 +396,13 @@ header .container_header .list_grid_menu li a {
 .flex_prestation {
   display: flex;
   flex-direction: row;
-  padding-top: 10px;
   justify-content: space-evenly;
 }
 .flex_prestation .flex_detailsPrestation {
   display: flex;
   flex-direction: column;
   padding-top: 25px;
+  padding-left: 5px;
   justify-content: space-evenly;
   align-items: stretch;
 }
