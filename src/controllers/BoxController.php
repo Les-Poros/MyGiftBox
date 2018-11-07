@@ -49,6 +49,7 @@ class BoxController {
         $box->dateOuvertureCoffret = $dateBox;
         $box->idMembre = $membre['idMembre'];
         $box->estOuvert = 0;
+        $box->estPaye = 0;
         $box->msgRemerciement = "";
 
         $box->save();
