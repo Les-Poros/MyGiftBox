@@ -8,6 +8,7 @@ use MyGiftBox\controllers\HomeController;
 use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
+use MyGiftBox\controllers\PrestationController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -75,5 +76,7 @@ $app->get('/Exit', function($request, $response, $args){
 	$router = $this->router;
 	return $response->withRedirect($router->pathFor('Home', []));
 })->setName('Disconnection');
+
+$app->get('/Prestation/{id}', 'PrestationController:displayPrestation')->setName("Prestation");
 
 $app->run();

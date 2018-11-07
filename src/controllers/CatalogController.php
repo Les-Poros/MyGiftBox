@@ -32,6 +32,7 @@ class CatalogController {
         $prestations = Prestation::all();
         $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
+            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
             $prest[$i]['img'] = $prestations[$i]['img'];
             $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
             $category = $prestations[$i]->categorie()->first()->toArray();

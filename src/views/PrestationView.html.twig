@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+	{% include 'HeaderView.html.twig' %}
+    <div class="main_container">
+        <div class="flex_prestation">
+            <div class="imgPrestation"><img src="{{base_url()}}/web/img/{{imgPrestation}}"/></div>
+            <div class="flex_detailsPrestation">
+                <div class="nomPrestation">{{nomPrestation}}</div>
+                <div class="categoriePrestation">{{categoriePrestation}}</div>
+                <div class="prixPrestation">{{prixPrestation}}</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
