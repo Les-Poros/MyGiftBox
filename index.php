@@ -4,6 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as DB;
 use MyGiftBox\bd\Connection;
+use MyGiftBox\controllers\Authentication;
 use MyGiftBox\controllers\HomeController;
 use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
@@ -52,15 +53,39 @@ $app->post('/CreateAccount', function($request, $response, $args){
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
 
-$app->get('/ConsultCatalog', 'CatalogController:displayCatalog')->setName('ConsultCatalog');
+$app->get('/ConsultCatalog', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['CatalogController'];
+		$displayCatalog = $controller->displayCatalog($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ConsultCatalog');
 
-$app->get('/CreateBox', 'BoxController:displayCreationBox')->setName("CreateBox");
+$app->get('/CreateBox', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$displayCreationBox = $controller->displayCreationBox($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("CreateBox");
 
 $app->post('/CreateBox', function($request, $response, $args){
-	$controller = $this['BoxController'];
-	$CreationBox = $controller->creationBox($request, $response, $args);
-	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$CreationBox = $controller->creationBox($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
 })->setName("CreationBox");
 
 $app->post('/Connection', function($request, $response, $args){
@@ -71,12 +96,27 @@ $app->post('/Connection', function($request, $response, $args){
 })->setName("checkAccountCreation");
 
 $app->get('/Exit', function($request, $response, $args){
-	$controller = $this['ConnectionController'];
-	$checkDestroySession = $controller->checkDestroySession($request, $response, $args);
-	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	if (Authentication::checkConnection()) {
+		$controller = $this['ConnectionController'];
+		$checkDestroySession = $controller->checkDestroySession($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
 })->setName('Disconnection');
 
-$app->get('/Prestation/{id}', 'PrestationController:displayPrestation')->setName("Prestation");
+$app->get('/Prestation/{id}', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PrestationController'];
+		$displayPrestation = $controller->displayPrestation($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("Prestation");
 
 $app->run();
