@@ -75,6 +75,7 @@ class ConnectionController{
             'mail' => $_SESSION['mailMembre'],
             'nom' => $_SESSION['nomMembre'],
             'prenom' => $_SESSION['prenomMembre'],
+            'nomMembre' => $_SESSION['prenomMembre'],
         ]);
     }
 }
