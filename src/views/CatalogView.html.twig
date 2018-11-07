@@ -5,57 +5,7 @@
 
 	{% include 'HeaderView.html.twig' %}
     <div class="main_container">
-        <div class="grid_container_categories">
-            <h2>Sélectionner une catégorie :</h2>
-            <div id="btnAttention">
-                <div class="grid_item_cat">
-                    <i class="fas fa-gift"></i>
-                </div>
-                <p class="nomCategory">{{categAttention}}</p>
-            </div>
-            <div id="btnActivite">
-                <div class="grid_item_cat">
-                    <i class="fas fa-map-marked"></i>
-                </div>
-                <p class="nomCategory">{{categActivite}}</p>
-            </div>
-            <div id="btnRestauration">
-                <div class="grid_item_cat">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <p class="nomCategory">{{categRestauration}}</p>
-            </div>
-            <div id="btnHebergement">
-                <div class="grid_item_cat">
-                    <i class="fas fa-bed"></i>
-                </div>
-                <p class="nomCategory">{{categHebergement}}</p>
-            </div>
-        </div>
-        <hr/>
-        <div class="tri">
-            <p>Trier par : </p>
-            <div class="select">
-				<select id="tri" name="tri" onchange="tri(this.value)">
-				<option value="0">défaut</option>
-				<option value="1" name="tri">prix croissant</option>
-				<option value="2" name="tri">prix décroissant</option>
-				</select>
-			</div>
-        </div>
-        <div class="grid_container_prestations">
-			{% for prestations in listPrestations %}
-                <div class="tabPrestations">
-                    <a href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}'>
-                    <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
-                    <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
-                    <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
-                    <p class='detailsPrestations'>{{prestations['prix']}}</p>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-        <hr/>
+{% include 'PrestationCatView.html.twig' %}
     </div>
 	<script type="text/javascript" src="{{base_url()}}/js/catalog.js"></script>
 </body>
