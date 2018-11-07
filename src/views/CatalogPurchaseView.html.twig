@@ -43,15 +43,15 @@
 				</select>
 			</div>
         </div>
-        <div class="grid_container_prestations">
+        <div class="grid_container_prestations_buy">
 			{% for prestations in listPrestations %}
                 <div class="tabPrestations">
-                    <a href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}'>
                     <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
                     <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
                     <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
-                    <p class='detailsPrestations'>{{prestations['prix']}}</p>
-                    </a>
+                    <p class='detailsPrestationsPrix'>{{prestations['prix']}}</p>
+                    <i class="addButton_buy fas fa-plus-circle"></i>
+                    <a href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}'>Plus d'info</a>
                 </div>
             {% endfor %}
         </div>
