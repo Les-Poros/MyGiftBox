@@ -44,12 +44,12 @@ footer{
 .main_container{
     width: 70%;
     margin: auto;
-    @media only screen and (max-width: 850px) {
-          width: 95%;
-    }
     @media only screen and (max-width: 1250px) {
         width: 80%;
         }
+    @media only screen and (max-width: 850px) {
+            width: 95%;
+    }
 }
 
 .boutton {
