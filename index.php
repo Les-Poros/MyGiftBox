@@ -119,7 +119,7 @@ $app->get('/Prestation/{id}', function($request, $response, $args){
 	}
 })->setName("Prestation");
 
-$app->get('/ConsultCatalogPurchase', function($request, $response, $args){
+$app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
