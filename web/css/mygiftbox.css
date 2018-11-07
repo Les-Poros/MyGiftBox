@@ -265,12 +265,12 @@ a {
   margin-bottom: 20px;
 }
 .containerCreationBox .form {
-  width: 10%;
+  width: 40%;
   margin: auto;
   margin-bottom: 20px;
   border: solid grey;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
   padding-top: 5%;
   padding-bottom: 5%;
   text-align: center;
