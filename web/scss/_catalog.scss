@@ -59,17 +59,54 @@
     background-color: cyan;
 }
 
-.tri{
+.tri {
     width: 40%;
-    display : flex;
+    display: flex;
     flex-direction: row;
     padding: 5px;
 }
 
-#tri{
+#tri {
     width: 150px;
 }
 
-.select{
+.select {
     margin-left: 10px;
+}
+
+
+/*@media only screen and (max-width: 1250px) {
+    & .container_header {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    & .container_header {
+        width: 95%;
+        & .list_grid_account {
+            & li:first-child {
+                display: none;
+            }
+        }
+    }
+}*/
+
+@media only screen and (max-width: 500px) {
+    .grid_container_prestations {
+        grid-template-columns: 1fr 1fr;
+    }
+    .grid_item_pres {
+        width: 100%;
+        height: 200px;
+    }
+    .tri {
+        width: 100%;
+    }
+    .select {
+        width: 75%;
+    }
+    #tri {
+        width: 75%;
+    }
 }
