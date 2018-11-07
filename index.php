@@ -139,6 +139,7 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
+	}
 })->setName('ConsultCatalogPurchase');
 
 
