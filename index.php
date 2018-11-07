@@ -79,4 +79,6 @@ $app->get('/Exit', function($request, $response, $args){
 
 $app->get('/Prestation/{id}', 'PrestationController:displayPrestation')->setName("Prestation");
 
+$app->get('/MyAccount', 'ConnectionController:displayAccount')->setName("MyAccount");
+
 $app->run();

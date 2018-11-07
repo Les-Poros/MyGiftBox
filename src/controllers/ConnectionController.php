@@ -68,4 +68,13 @@ class ConnectionController{
         $member->save();
 
     }
+
+    public function displayAccount($request, $response, $args){
+        
+        return $this->view->render($response, 'MyAccountView.html.twig', [
+            'mail' => $_SESSION['mailMembre'],
+            'nom' => $_SESSION['nomMembre'],
+            'prenom' => $_SESSION['prenomMembre'],
+        ]);
+    }
 }
