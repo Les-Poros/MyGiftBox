@@ -29,21 +29,24 @@ class HomeController {
 	 * @param args
 	 */
 	public function displayHome($request, $response, $args) {
-
+		
+		$prestations = array();
+		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
 		if (Authentication::checkConnection()) {
-			$nomMembre = $_SESSION['nomMembre'].' '.$_SESSION['prenomMembre'];
+			$nomMembre = $_SESSION['prenomMembre'];
+			return $this->view->render($response, 'HomeConnectView.html.twig', [
+				'prestations' => $prestations,
+		  'nomMembre' => $nomMembre,
+			]);
+	
 		}
 		else {
 			$nomMembre = "";
-		}
-
-
-		$prestations = array();
-		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();		
-		return $this->view->render($response, 'HomeView.html.twig', [
-			'prestations' => $prestations,
-      'nomMembre' => $nomMembre,
-		]);
+			return $this->view->render($response, 'HomeView.html.twig', [
+				'prestations' => $prestations,
+		  'nomMembre' => $nomMembre,
+			]);
+		}	
 
 	}
 

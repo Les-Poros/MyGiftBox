@@ -89,83 +89,15 @@ footer {
   width: 70%;
   margin: auto;
 }
-
-header {
-  width: 100%;
-  margin: 0;
+@media only screen and (max-width: 850px) {
+  .main_container {
+    width: 95%;
+  }
 }
-header .container_header {
-  width: 70%;
-  margin: auto;
-}
-header .container_header a {
-  text-decoration: none;
-  color: black;
-}
-header .container_header .homeButton {
-  color: black;
-  font-size: 2em;
-}
-header .container_header .pres_header {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  padding-left: 10%;
-}
-header .container_header .pres_header h1 {
-  font-size: 40pt;
-  font-weight: bold;
-  color: black;
-}
-header .container_header .pres_header .descr_header {
-  color: grey;
-}
-header .container_header .list_grid {
-  display: grid;
-  grid-template-columns: 4fr 1fr 1fr;
-  grid-template-rows: 30px;
-  padding-top: 15px;
-}
-header .container_header .list_grid li {
-  font-weight: bold;
-  color: black;
-}
-
-a {
-  text-decoration: none;
-}
-
-.grid_container_item {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 140px 140px 140px;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 10px;
-}
-
-.grid_item {
-  border: solid black;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 100%;
-}
-.grid_item img {
-  width: 100%;
-  height: 100%;
-}
-
-/*FORMULAIRE*/
-.screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  border: 2px solid #5f5959;
-  padding-bottom: 15px;
-  padding-top: 15px;
+@media only screen and (max-width: 1250px) {
+  .main_container {
+    width: 80%;
+  }
 }
 
 .boutton {
@@ -180,6 +112,118 @@ a {
   text-align: center;
   margin-bottom: 15px;
   margin-top: 15px;
+}
+
+header {
+  width: 100%;
+  margin: 0;
+  background-color: #ccffff;
+}
+header .container_header {
+  width: 70%;
+  margin: auto;
+}
+header .container_header a {
+  text-decoration: none;
+  color: black;
+}
+header .container_header .homeButton {
+  color: black;
+  font-size: 2em;
+}
+header .container_header .pres_header {
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: fit-content;
+  text-align: center;
+}
+header .container_header .pres_header h1 {
+  font-size: 40pt;
+  font-weight: bold;
+  color: black;
+}
+header .container_header .pres_header .descr_header {
+  color: grey;
+}
+header .container_header .list_grid {
+  display: flex;
+}
+header .container_header .list_grid li {
+  padding: 15px;
+  text-decoration: underline;
+  color: black;
+}
+header .container_header .list_grid li:first-child {
+  padding-left: 0;
+  text-decoration: none;
+}
+header .container_header .list_grid li:nth-child(2) {
+  margin-left: auto;
+}
+header .container_header .list_grid li:last-child {
+  padding-right: 0;
+}
+@media only screen and (max-width: 850px) {
+  header .container_header {
+    width: 95%;
+  }
+  header .container_header .list_grid li:first-child {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  header .container_header {
+    width: 80%;
+  }
+}
+
+.grid_container_item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 140px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.grid_container_item .grid_item {
+  border: solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+}
+.grid_container_item .grid_item:nth-child(2n) {
+  transform: rotate(2deg);
+}
+.grid_container_item .grid_item:nth-child(2n+1) {
+  transform: rotate(-2deg);
+}
+.grid_container_item .grid_item img {
+  width: 100%;
+  height: 100%;
+}
+@media only screen and (max-width: 850px) {
+  .grid_container_item {
+    width: 90%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid_container_item .grid_item:nth-child(n+5) {
+    display: none;
+  }
+}
+
+/*FORMULAIRE*/
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: 2px solid #5f5959;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 .formMenu {
@@ -199,6 +243,23 @@ a {
   color: black;
 }
 
+@media screen and (max-width: 500px) {
+  h2 {
+    text-align: center;
+  }
+
+  .screen {
+    border: inherit;
+  }
+
+  input {
+    margin-bottom: 50px;
+  }
+
+  button {
+    padding: 20px 10px 20px 10px;
+  }
+}
 .containerCreationBox h2 {
   margin-left: 30%;
   margin-bottom: 20px;
@@ -228,6 +289,62 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.grid_container_categories {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  gap: 15px;
+}
+.grid_container_categories .nomCategory {
+  text-align: center;
+}
+.grid_container_categories #btnAttention:hover,
+.grid_container_categories #btnActivite:hover,
+.grid_container_categories #btnRestauration:hover,
+.grid_container_categories #btnHebergement:hover {
+  cursor: pointer;
+}
+
+.grid_item_cat {
+  border: solid black;
+  font-size: 60px;
+  text-align: center;
+  display: flex;
+}
+.grid_item_cat i {
+  margin: auto;
+}
+
+.grid_container_prestations {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 270px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  gap: 25px;
+}
+.grid_container_prestations .detailsPrestations {
+  text-align: center;
+}
+
+.grid_item_pres {
+  width: 200px;
+  height: 200px;
+  padding-bottom: 10px;
+}
+.grid_item_pres img {
+  width: 100%;
+  height: 100%;
 }
 
 /*# sourceMappingURL=mygiftbox.css.map */

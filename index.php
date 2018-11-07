@@ -5,6 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as DB;
 use MyGiftBox\bd\Connection;
 use MyGiftBox\controllers\HomeController;
+use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
 
@@ -37,6 +38,8 @@ $app = new \Slim\App($container);
 
 $app->get('/','HomeController:displayHome')->setName('Home');
 
+$app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
+
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
 $app->post('/CreateAccount', function($request, $response, $args){
@@ -47,6 +50,8 @@ $app->post('/CreateAccount', function($request, $response, $args){
 })->setName("checkAccountCreation");
 
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
+
+$app->get('/ConsultCatalog', 'CatalogController:displayCatalog')->setName('ConsultCatalog');
 
 $app->get('/CreateBox', 'BoxController:displayCreationBox')->setName("CreateBox");
 
@@ -70,4 +75,5 @@ $app->get('/Exit', function($request, $response, $args){
 	$router = $this->router;
 	return $response->withRedirect($router->pathFor('Home', []));
 })->setName('Disconnection');
+
 $app->run();

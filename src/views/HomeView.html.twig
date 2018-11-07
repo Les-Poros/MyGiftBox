@@ -3,17 +3,14 @@
 	{% include 'HeadView.html.twig' %}
 <body>
 
-
 	{% include 'HeaderView.html.twig' %}
 
 	<div class="main_container">
 		<h2>Créer vos coffrets de cadeaux personnalisés avec un choix incroyable de prestations.</h2>
 		<div class="grid_container_item">
-
 			{% for p in prestations %}
-		<div class="grid_item"><img src="{{base_url()}}/web/img/{{p['img']}}"/> </div>
-	{% endfor %}
-
+				<div class="grid_item"><img src="{{base_url()}}/web/img/{{p['img']}}"/> </div>
+			{% endfor %}
 		</div>
 		<h2>Connectez-vous pour profiter de toutes les fonctionnalités de MyGiftBox.</h2>
 		<hr/>

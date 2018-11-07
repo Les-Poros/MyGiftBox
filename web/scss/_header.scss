@@ -1,6 +1,7 @@
 header{
     width: 100%;
     margin:0;
+    background-color:darken($backgColor,10%);
     & .container_header{
         width: 70%;
         margin:auto;
@@ -15,9 +16,11 @@ header{
         }
     
         & .pres_header{
+            margin: auto;
             margin-top: 30px;
             margin-bottom: 30px;
-            padding-left: 10%;
+            width:fit-content;
+            text-align:center;
     
             & h1{
                 font-size: 40pt;
@@ -31,16 +34,40 @@ header{
         }
     
         & .list_grid {
-            display: grid;
-            grid-template-columns: 4fr 1fr 1fr;
-            grid-template-rows: 30px;
-            padding-top: 15px;
-            
+            display: flex;
             & li{
-                font-weight: bold;
+                padding: 15px;
+                text-decoration: underline;
                 color:$fontColor;
+                &:first-child{
+                    padding-left:0;
+                    text-decoration: none;
+                }
+                &:nth-child(2){
+                    margin-left: auto;
+                }
+                &:last-child{
+                    padding-right: 0;
+                }
             }
+           
         }
         
+    }
+
+    @media only screen and (max-width: 850px) {
+        & .container_header{
+            width: 95%;
+            & .list_grid {
+                & li:first-child{
+                display: none;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 1250px) {
+        & .container_header{
+        width: 80%;
+        }
     }
 }
