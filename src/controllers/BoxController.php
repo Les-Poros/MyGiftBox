@@ -4,8 +4,10 @@ namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreationBoxView;
-use MyGiftBox\models\Coffret;
+use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
+use MyGiftBox\models\Coffret;
+use MyGiftBox\models\ContenuCoffret;
 
 /**
  * Class BoxController
@@ -52,6 +54,42 @@ class BoxController {
         $box->msgRemerciement = "";
 
         $box->save();
+    }
+
+    public function displayBox($request, $response, $args){
+            $mail = $_SESSION['mailMembre'];
+			//récupère id du membre connecté
+			$member= Membre::where('mailMembre', '=', $mail);
+			$memberFirst = $member->first();
+			$idMember = $memberFirst->idMembre;
+            //On vérifie si le membre connecté à déjà un coffret
+            $memberHaveBox = false;
+            $listMembre = Coffret::select('idMembre')->get()->toArray();
+            foreach($listMembre as $values){
+                $idMembre = $values['idMembre'];
+                if($idMember == $idMembre ){
+                    $memberHaveBox = true;
+                }
+            }
+            //Si il a un ou des coffrets, on les affiches
+            if($memberHaveBox){
+			//récupère id du coffret
+            $coffret = Coffret::where('idMembre','=',$idMember)->get()->toArray();
+            $infoCoffret = array();
+            foreach($coffret as $values) {
+                $nomCoffret = $values['nomCoffret'];
+                $idCoffret = $values['idCoffret'];
+                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
+                $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+                $imgPrestation = $prestation['img'];
+                
+    
+               array_push($infoCoffret,[$nomCoffret,$imgPrestation]);
+            }
+            return $infoCoffret;
+
+        }
+			
     }
     
 }

@@ -121,4 +121,17 @@ $app->get('/Prestation/{id}', function($request, $response, $args){
 
 $app->get('/MyAccount', 'ConnectionController:displayAccount')->setName("MyAccount");
 
+$app->post('/MyAccount', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['ConnectionController'];
+		$modifMember = $controller->modifMember($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('MyAccount', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ModifAccount");
+
 $app->run();
