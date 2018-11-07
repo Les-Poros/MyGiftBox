@@ -352,6 +352,20 @@ a {
   background-color: cyan;
 }
 
+.tri {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+#tri {
+  width: 150px;
+}
+
+.select {
+  margin-left: 10px;
+
 .flex_prestation {
   display: flex;
   flex-direction: row;
