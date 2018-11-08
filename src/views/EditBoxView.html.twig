@@ -5,14 +5,19 @@
 <body>
 {% include 'HeaderViewEdit.html.twig' %} 
 
- 
-		 <div class ="detailsPrestations">
-            <p> {{nomCoffret}} </p>
+    <div class="main_container">
+         <div class="nomCoffret">
+         <h2> {{nomCoffret}} <h2>
+         </div>
+        <div class="grid_container_prestations">
             {% for values in img %}
+            <div class ="detailsPrestations">
 			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]["img"]}}"/></div>
-            {% endfor %}
             </div>
-
+            {% endfor %}
+            
+    </div>
+    </div>
 </body>
 
 </html>
