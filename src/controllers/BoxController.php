@@ -59,6 +59,7 @@ class BoxController {
 
     public static function displayBox($request, $response, $args){
             $mail = $_SESSION['mailMembre'];
+            var_dump($args);
 			//récupère id du membre connecté
 			$member= Membre::where('mailMembre', '=', $mail);
 			$memberFirst = $member->first();
@@ -90,7 +91,7 @@ class BoxController {
                         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
                         $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
                         $imgPrestation = $prestation['img'];
-                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation,$idCoffret]);
                    }
                 }
                
@@ -100,8 +101,14 @@ class BoxController {
     }
 
     public function displayEditMod($request, $response, $args){
-        return $this->view->render($response, 'EditBoxView.html.twig', []
-		);
+        $idBox = $args['id'];
+        $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
+        $prestation = Prestation::select('img')->where('idPrestation','=',$contenuCoffret)->first()->toArray();
+        
+   
+        return $this->view->render($response, 'EditBoxView.html.twig', [
+            'img' => $prestation['img'],
+        ]);
     }
     
 }
