@@ -146,8 +146,8 @@ class BoxController {
 
         $token = self::generateToken();
 
-        //$box->tokenCoffret = $token;
-        //$box->save();
+        $box->tokenCoffret = $token;
+        $box->save();
 
         $url = "http://" . $_SERVER["SERVER_NAME"];
 
