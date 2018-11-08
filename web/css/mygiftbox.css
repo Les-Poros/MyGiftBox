@@ -331,7 +331,8 @@ header .container_header .list_grid_menu li a {
   gap: 25px;
 }
 .grid_container_prestations .detailsPrestations,
-.grid_container_prestations .detailsPrestationsCateg {
+.grid_container_prestations .detailsPrestationsCateg,
+.grid_container_prestations .detailsPrestationsPrix {
   text-align: center;
 }
 

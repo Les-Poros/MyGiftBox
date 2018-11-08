@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `coffret` (
   `estPaye` boolean NOT NULL,
   `hasContenuCoffret` boolean NOT NULL,
   `msgRemerciement` text NOT NULL,
+  `tokenCoffret` text NOT NULL,
   PRIMARY KEY(`idCoffret`),
   FOREIGN KEY(`idMembre`) REFERENCES `membre`(`idMembre`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

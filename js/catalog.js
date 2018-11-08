@@ -1,58 +1,16 @@
-let btnAttention = $("#btnAttention");
-let btnActivite = $("#btnActivite");
-let btnRestauration = $("#btnRestauration");
-let btnHebergement = $("#btnHebergement");
-let selectTri = $("#tri");
+let selectTri = $("#triSelect");
+let selectTriCateg = $('#triSelectCat');
+
+function triCategories(value) {
+    if (value === "Défaut") {
+        tabPrestVariable = tabPrestations;
+        tri(selectTri.val());
+    } else {
+        equalCategory(value);
+    }
+}
 
 let tabPrestations = [];
-
-btnAttention.click(function() {
-    if ($(':first', this).hasClass("actif")) {
-        $(':first', this).removeClass("actif");
-        tabPrestVariable = tabPrestations;
-    } else {
-        $(".actif").removeClass("actif");
-        equalCategory('Attention')
-        $(':first', this).addClass("actif");
-    }
-    tri(selectTri.val());
-});
-
-btnActivite.click(function() {
-    if ($(':first', this).hasClass("actif")) {
-        $(':first', this).removeClass("actif");
-        tabPrestVariable = tabPrestations;
-    } else {
-        $(".actif").removeClass("actif");
-        equalCategory('Activité')
-        $(':first', this).addClass("actif");
-    }
-    tri(selectTri.val());
-});
-
-btnRestauration.click(function() {
-    if ($(':first', this).hasClass("actif")) {
-        $(':first', this).removeClass("actif");
-        tabPrestVariable = tabPrestations;
-    } else {
-        $(".actif").removeClass("actif");
-        equalCategory('Restauration')
-        $(':first', this).addClass("actif");
-    }
-    tri(selectTri.val());
-});
-
-btnHebergement.click(function() {
-    if ($(':first', this).hasClass("actif")) {
-        $(':first', this).removeClass("actif");
-        tabPrestVariable = tabPrestations;
-    } else {
-        $(".actif").removeClass("actif");
-        equalCategory('Hébergement')
-        $(':first', this).addClass("actif");
-    }
-    tri(selectTri.val());
-});
 
 $('.tabPrestations').each(function() {
     tabPrestations.push($(this));
@@ -64,6 +22,7 @@ function equalCategory(element) {
     tabPrestVariable = tabPrestations.filter(function(prest) {
         return prest.find(".detailsPrestationsCateg").html() === element;
     });
+    tri(selectTri.val());
 }
 
 let select = '.grid_container_prestations';
@@ -94,11 +53,15 @@ function tri(value) {
 }
 
 function increasing(x, y) {
-    return x.find(".detailsPrestationsPrix").html() - y.find(".detailsPrestationsPrix").html();
+    let xSplit = x.find(".detailsPrestationsPrix").html().split(" ");
+    let ySplit = y.find(".detailsPrestationsPrix").html().split(" ");
+    return xSplit[0] - ySplit[0];
 }
 
 function decrease(x, y) {
-    return y.find(".detailsPrestationsPrix").html() - x.find(".detailsPrestationsPrix").html();
+    let xSplit = x.find(".detailsPrestationsPrix").html().split(" ");
+    let ySplit = y.find(".detailsPrestationsPrix").html().split(" ");
+    return ySplit[0] - xSplit[0];
 }
 
 if (select == '.grid_container_prestations_buy') {
@@ -164,5 +127,4 @@ if (select == '.grid_container_prestations_buy') {
     }
     clickPresta();
     clickCross();
-
 }
