@@ -44,13 +44,13 @@
             <div class="buyBar"></div>
             <div class="grid_container_buy">
                 <div>
-                    <p class="buy">-<span class="presta">Champagne</span> x<span class="nbPresta">2</span> : <span class="prixPresta">40</span></p>
-                    <p class="buy">-<span class="presta">Hotel</span> x<span class="nbPresta">2</span> : <span class="prixPresta">60</span></p>
-                    <p class="buy">-<span class="presta">Musique</span> x<span class="nbPresta">1</span> : <span class="prixPresta">40</span></p>
-                </div>
+                {% for cont in contenu %}
+                    <p class="buy">-<span class="presta">{{listPrestations[cont["idPrestation"]-1]['nomPrestation']}}</span> x<span class="nbPresta">{{cont["quantite"]}}</span> : <span class="prixPresta">{{(listPrestations[cont["idPrestation"]-1]['prix'] * cont["quantite"])}}</span>€ <i class="cross fas fa-times"></i></p>
+                 {% endfor %}
+                 </div>
                  <form class="formActuBox" action="" method="post">
                     <button type="submit" class="boutton">Sauvegarder</button>
-                <form>
+                </form>
             </div>
         </div>
         <hr/>

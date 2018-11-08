@@ -56,6 +56,7 @@ class BoxController {
         $box->tokenCoffret = "";
 
         $box->save();
+        return $box->idCoffret;
     }
 
     public static function displayBox($request, $response, $args){

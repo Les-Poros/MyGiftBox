@@ -79,9 +79,9 @@ $app->get('/CreateBox', function($request, $response, $args){
 $app->post('/CreateBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
-		$CreationBox = $controller->creationBox($request, $response, $args);
+		$id = $controller->creationBox($request, $response, $args);
 		$router = $this->router;
-		return $response->withRedirect($router->pathFor('ConsultCatalogPurchase', []));
+		return $response->withRedirect($router->pathFor('ConsultCatalogPurchase', ["box"=>$id]));
 	}
 	else {
 		$router = $this->router;
@@ -155,6 +155,20 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 	}
 })->setName('ConsultCatalogPurchase');
 
+
+$app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['CatalogController'];
+		$displayCatalog = $controller->modifCatalogPurchase($request, $response, $args);
+		$router = $this->router;
+		//return $response->withRedirect($router->pathFor('MyAccount', []));
+  }
+    	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ModifCatalogPurchase');
+  
 $app->get('/{idCoffret}/Pay', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['PayController'];
@@ -172,12 +186,12 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 		$displayPay = $controller->checkPay($request, $response, $args);
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('HomeConnect', []));
-	}
-	else {
+	}else {
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("Pay");
+
 
 $app->get('/EditBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
