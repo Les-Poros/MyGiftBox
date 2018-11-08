@@ -15,8 +15,34 @@
         padding-left: 5px;
         justify-content: space-evenly;
         align-items: stretch;
+        & .nomPrestation {
+            font-size: 18pt;
+            font-weight: bold;
+        }
         & div {
             font-size: 13pt;
+        }
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .flex_prestation {
+        & .imgPrestation {
+            & img {
+                width: 275px;
+                height: auto;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .flex_prestation {
+        & .imgPrestation {
+            & img {
+                width: 175px;
+                height: auto;
+            }
         }
     }
 }
