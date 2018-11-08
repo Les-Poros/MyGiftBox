@@ -2,6 +2,8 @@
 
 namespace MyGiftBox\controllers;
 
+use MyGiftBox\models\Coffret;
+use MyGiftBox\models\ContenuCoffret;
 use MyGiftBox\models\Categorie;
 use MyGiftBox\models\Prestation;
 use \Slim\Views\Twig as twig;
@@ -68,8 +70,12 @@ class CatalogController {
             $prest[$i]['categorie'] = $category['nomCategorie'];
             $prest[$i]['prix'] = $prestations[$i]['prix'];
         }
+        $box = Coffret::find($args["box"])->select("nomCoffret")->first()->toArray();
+        $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
 		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
+            "contenu"=>$contenu,
+            'box'=>$box["nomCoffret"],
             'nomMembre' => $nomMembre,
             'categAttention' => $listCategories[0]['nomCategorie'],
             'categActivite' => $listCategories[1]['nomCategorie'],
@@ -78,5 +84,23 @@ class CatalogController {
             'listPrestations' => $prest,
         ]);
     }
-
+    public function modifCatalogPurchase($request, $response, $args){
+        $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->delete();
+        $coffret=Coffret::find($args["box"]);
+        if($_POST["nbAct"]==0){
+            $coffret->hasContenuCoffret=0;
+            $coffret->save();
+        }
+        else{
+            $coffret->hasContenuCoffret=1;
+            $coffret->save();
+        for($i=0;$i<$_POST["nbAct"];$i++){
+            $addPresta = new ContenuCoffret;
+            $addPresta->idCoffret = $args["box"];
+            $addPresta->idPrestation = $_POST['presta'.$i];
+            $addPresta->quantite = $_POST['nbpresta'.$i];
+            $addPresta->save();
+        }
+     }
+    }
 }

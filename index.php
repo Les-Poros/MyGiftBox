@@ -78,9 +78,9 @@ $app->get('/CreateBox', function($request, $response, $args){
 $app->post('/CreateBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
-		$CreationBox = $controller->creationBox($request, $response, $args);
+		$id = $controller->creationBox($request, $response, $args);
 		$router = $this->router;
-		return $response->withRedirect($router->pathFor('ConsultCatalogPurchase', []));
+		return $response->withRedirect($router->pathFor('ConsultCatalogPurchase', ["box"=>$id]));
 	}
 	else {
 		$router = $this->router;
@@ -140,7 +140,24 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
 	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
 })->setName('ConsultCatalogPurchase');
+
+$app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['CatalogController'];
+		$displayCatalog = $controller->modifCatalogPurchase($request, $response, $args);
+		$router = $this->router;
+		//return $response->withRedirect($router->pathFor('MyAccount', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ModifCatalogPurchase');
 
 
 $app->run();
