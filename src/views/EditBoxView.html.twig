@@ -12,7 +12,7 @@
         <div class="grid_container_prestations">
             {% for values in img %}
             <div class ="detailsPrestations">
-			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]["img"]}}"/></div>
+			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]}}"/> x{{values[1]}}</div>
             </div>
             {% endfor %}
             

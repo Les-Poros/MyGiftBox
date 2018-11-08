@@ -105,10 +105,11 @@ class BoxController {
         $infoList = array();
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($contenuCoffret as $values){
+            $quantite = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->get()->toArray();
             $img = Prestation::select('img')->where('idPrestation','=',$values)->get()->toArray();
-           array_push($infoList,$img);
+           array_push($infoList,[$img[0]['img'],$quantite[0]['quantite']]);
         }
-   
+        
         return $this->view->render($response, 'EditBoxView.html.twig', [
             'img' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
