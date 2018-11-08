@@ -53,6 +53,7 @@ class BoxController {
         $box->estPaye = 0;
         $box->hasContenuCoffret = 0;
         $box->msgRemerciement = "";
+        $box->tokenCoffret = "";
 
         $box->save();
         return $box->idCoffret;
