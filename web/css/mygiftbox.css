@@ -391,9 +391,9 @@ header .container_header .list_grid_menu li a {
   margin-left: 10px;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 1100px) {
   .grid_container_prestations {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .grid_item_pres {
@@ -405,23 +405,15 @@ header .container_header .list_grid_menu li a {
     width: 100%;
   }
 
-  .select {
-    width: 75%;
-  }
-
-  #triSelect {
-    width: 75%;
-  }
-
   .triCat p {
     padding-left: 10px;
     font-size: 19pt;
     font-weight: bold;
   }
 }
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 500px) {
   .grid_container_prestations {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .grid_item_pres {
