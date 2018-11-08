@@ -321,6 +321,9 @@ header .container_header .list_grid_menu li a {
 
 .share_container {
   border: solid grey;
+  padding: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .grid_container_categories {
