@@ -102,12 +102,15 @@ class BoxController {
 
     public function displayEditMod($request, $response, $args){
         $idBox = $args['id'];
+        $infoList = array();
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
-        $prestation = Prestation::select('img')->where('idPrestation','=',$contenuCoffret)->first()->toArray();
-        
+        foreach($contenuCoffret as $values){
+            $img = Prestation::select('img')->where('idPrestation','=',$values)->get()->toArray();
+           array_push($infoList,$img);
+        }
    
         return $this->view->render($response, 'EditBoxView.html.twig', [
-            'img' => $prestation['img'],
+            'img' => $infoList,
         ]);
     }
     

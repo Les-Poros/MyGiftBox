@@ -8,8 +8,9 @@
  
 		 <div class ="detailsPrestations">
 		 
-
-			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{img}}"/></div>
+            {% for values in img %}
+			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]["img"]}}"/></div>
+            {% endfor %}
             </div>
 
 </body>
