@@ -96,25 +96,6 @@ class BoxController {
                
                 return($nomCoffretListe);
         }
-
-            //Si il a un ou des coffrets, on les affiches
-            // if($memberHaveBox){
-			// //récupère id du coffret
-            // $coffret = Coffret::where('idMembre','=',$idMember)->get()->toArray();
-            // $infoCoffret = array();
-            // foreach($coffret as $values) {
-            //     $nomCoffret = $values['nomCoffret'];
-            //     $idCoffret = $values['idCoffret'];
-            //     $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
-            //     $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
-            //     $imgPrestation = $prestation['img'];
-                
-    
-            //    array_push($infoCoffret,[$nomCoffret,$imgPrestation]);
-            // }
-            // return $infoCoffret;
-
-        // }
 			
     }
     
