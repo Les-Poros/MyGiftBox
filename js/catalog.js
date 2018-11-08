@@ -6,7 +6,7 @@ let selectTri = document.getElementById("triSelect");
 
 let tabPrestations = [];
 
-btnAttention.onclick = function() {
+/*btnAttention.onclick = function() {
     if ($(':first', this).hasClass("actif")) {
         $(':first', this).removeClass("actif");
         tabPrestVariable = tabPrestations;
@@ -52,15 +52,15 @@ btnHebergement.onclick = function() {
         $(':first', this).addClass("actif");
     }
     tri(selectTri.value);
-};
+};*/
 
-console.log($('.tabPrestations'));
 
 $('.tabPrestations').each(function() {
     tabPrestations.push($(this));
 });
+console.log($('.tabPrestations'));
 
-let tabPrestVariable = tabPrestations;
+/*let tabPrestVariable = tabPrestations;
 
 function equalCategory(element) {
     tabPrestVariable = tabPrestations.filter(function(prest) {
@@ -96,4 +96,4 @@ function increasing(x, y) {
 
 function decrease(x, y) {
     return y.children().children()[3]['innerHTML'] - x.children().children()[3]['innerHTML'];
-}
+}*/
