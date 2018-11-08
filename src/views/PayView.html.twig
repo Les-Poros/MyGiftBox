@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+	{% include 'HeaderView.html.twig' %}
+
+    <div class="main_container">
+        <div class="mainPay">
+            <div class="coffret">
+                <h2>Contenu du coffret {{box}}</h2>
+                <hr/>
+                <div class="containBox">
+                    {% for p in presta %}
+                        <div class="itemPay">
+                            <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{p[0]}}"/></div>
+                            <p>x{{p[1]}}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr/>
+                <p>Total : {{total}}€</p>
+            </div>
+
+            <div class="pay">
+                <h2>C'est le moment de payer...</h2>
+                <div class="infoPay">
+                    <form action="" method="post" id="formPay">
+                    <div class="formPay">
+                        <label>Numéro de carte</label>
+                        <input type="text" minlength="16" maxlength="16" placeholder="**** **** ***** ****"/>
+                    </div>
+                    <div class="formPay">
+                        <label>Date d'expiration</label>
+                        <input type="text" min="" placeholder="{{month}} - {{year}}"/>
+                    </div>
+                    <div class="formPay">
+                        <label>Cryptogramme</label>
+                        <input type="text" maxlength="3" placeholder="CCV***"/>
+                    </div>
+                    <input type="hidden" id="idCoffret" value="{{idBox}}"/>
+                    </form>
+                    <button type="submit" form="formPay" class="bouttonBlack buttonPay">Payer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
