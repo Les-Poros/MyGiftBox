@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% include 'HeadView.html.twig' %} 
+
+<body>
+{% include 'HeaderViewEdit.html.twig' %} 
+
+    <div class="main_container">
+         <div class="screen">
+         <h2> {{nomCoffret}} <h2>
+         <h4> Date d'ouverture prévu au : {{date}} </h4>
+          <form class="form" action="" method="post">
+    <input type="text" name="message" placeholder="Entrez un Message">
+         <button type="submit" class="boutton"><a href="{{base_url()}}/EditBox/{{idBox}}">Modifier Infos Coffret</a></button>
+    </form>
+         </div>
+			 <button class="boutton"><a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">Modifier</a></button>  
+        <div class="grid_container_prestations">
+            {% for values in img %}
+            <div class ="detailsPrestations">
+			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]}}"/> 
+            x{{values[1]}}
+           
+            </div>
+            </div>
+            {% endfor %}   
+                
+    </div>
+      
+    </div>
+</body>
+
+</html>

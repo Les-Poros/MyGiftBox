@@ -37,6 +37,13 @@ class BoxController {
 		]);
 
     }
+    public function displayEditBox($request, $response, $args) {
+		$nomMembre = $_SESSION['prenomMembre'];
+		return $this->view->render($response, 'EditBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+		]);
+
+    }
 
     public function creationBox(){
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
@@ -111,7 +118,7 @@ class BoxController {
            array_push($infoList,[$img[0]['img'],$quantite[0]['quantite']]);
         }
         
-        return $this->view->render($response, 'EditBoxView.html.twig', [
+        return $this->view->render($response, 'BoxView.html.twig', [
             'img' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
             'idBox' => $idBox,
@@ -126,6 +133,23 @@ class BoxController {
          self::addMessage($message,$idBox);
     }
 
+    public function checkEditBox($request, $response, $args){
+        $idBox = $args['id'];
+        $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
+        $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
+        $dateBox = $_POST['dateBox'];
+        
+        self::editBox($nameBox,$messageBox,$dateBox,$idBox);
+    }
+
+    public static function editBox($nameBox,$messageBox,$dateBox,$idBox){
+       
+        $coffret = Coffret::where('idCoffret','=',$idBox)->first();
+        $coffret->nomCoffret = $nameBox;
+        $coffret->messageCoffret = $messageBox;
+        $coffret->dateOuvertureCoffret = $dateBox;
+        $coffret->save();
+    }
     public static function addMessage($message,$idBox){
         $coffret = Coffret::where('idCoffret','=',$idBox)->first();
         $coffret->messageCoffret = $message;
