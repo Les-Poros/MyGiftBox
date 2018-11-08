@@ -54,6 +54,8 @@ btnHebergement.onclick = function() {
     tri(selectTri.value);
 };
 
+console.log($('.tabPrestations'));
+
 $('.tabPrestations').each(function() {
     tabPrestations.push($(this));
 });
