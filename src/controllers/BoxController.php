@@ -113,6 +113,7 @@ class BoxController {
         return $this->view->render($response, 'EditBoxView.html.twig', [
             'img' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
+            'idBox' => $idBox,
         ]);
     }
    
