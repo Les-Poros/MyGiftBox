@@ -10,6 +10,7 @@ use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
 use MyGiftBox\controllers\PrestationController;
+use MyGiftBox\controllers\PayController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -140,7 +141,34 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->displayCatalogPurchase($request, $response, $args);
 	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
 })->setName('ConsultCatalogPurchase');
 
+$app->get('/{idCoffret}/Pay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPay = $controller->displayPay($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("Pay");
+
+$app->post('/{idCoffret}/Pay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPay = $controller->checkPay($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("Pay");
 
 $app->run();
