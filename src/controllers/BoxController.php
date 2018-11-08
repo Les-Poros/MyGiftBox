@@ -165,5 +165,31 @@ class BoxController {
 		]);
     }
 
+    public function displayLink($request, $response, $args){
+        $nomMembre = $_SESSION['prenomMembre'];
+        $token = $args['token'];
+
+        $box = Coffret::where('tokenCoffret','=',$token)->first();
+
+        $infoList = array();
+        $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get();
+        foreach($contenuCoffret as $values){
+            $prestation = Prestation::select('img')->where('idPrestation','=',$values)->first();
+            $imgPrestation = $prestation['img'];
+            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->first();
+            $quantitePrestation = $quantitePresta['quantite'];
+            array_push($infoList,[$imgPrestation,$quantitePrestation]);
+        }
+
+        return $this->view->render($response, 'LinkBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+            'token' => $token,
+            'nomCoffret' => $box['nomCoffret'],
+            'messageCoffret' => $box['messageCoffret'],
+            'date' => $box['dateOuvertureCoffret'],
+            'listBox' => $infoList,
+		]);
+    }
+
     
 }

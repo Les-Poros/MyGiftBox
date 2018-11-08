@@ -195,13 +195,15 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
-		$displayPay = $controller->shareBox($request, $response, $args);
+		$shareBox = $controller->shareBox($request, $response, $args);
 	}
 	else {
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("ShareBox");
+
+$app->get('/LinkBox/{token}','BoxController:displayLink')->setName("LinkBox");
 
 
 $app->get('/EditBox/{id}', function($request, $response, $args){
