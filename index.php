@@ -10,6 +10,7 @@ use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
 use MyGiftBox\controllers\PrestationController;
+use MyGiftBox\controllers\PayController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -146,18 +147,59 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 	}
 })->setName('ConsultCatalogPurchase');
 
+
 $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->modifCatalogPurchase($request, $response, $args);
 		$router = $this->router;
 		//return $response->withRedirect($router->pathFor('MyAccount', []));
+  }
+    	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ModifCatalogPurchase');
+  
+$app->get('/{idCoffret}/Pay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPay = $controller->displayPay($request, $response, $args);
 	}
 	else {
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
-})->setName('ModifCatalogPurchase');
+})->setName("Pay");
+
+$app->post('/{idCoffret}/Pay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPay = $controller->checkPay($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("Pay");
+
+
+$app->get('/EditBox/{id}', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$displayEditMod = $controller->displayEditMod($request, $response, $args);
+	}
+})->setName('EditBox');
+
+$app->post('/EditBox/{id}', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$addMessage = $controller->checkAddMessage($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+})->setName('EditBox');
 
 
 $app->run();

@@ -7,6 +7,7 @@ use MyGiftBox\controllers\CatalogController;
 use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
 use MyGiftBox\controllers\PrestationController;
+use MyGiftBox\controllers\PayController;
 
 $configuration = [
     'settings' => [
@@ -47,6 +48,11 @@ $container['BoxController'] = function ($c){
 $container['PrestationController'] = function ($c){
     $view = $c->get('view');
     return new PrestationController($view);
+};
+
+$container['PayController'] = function ($c){
+    $view = $c->get('view');
+    return new PayController($view);
 };
 
 ?>
