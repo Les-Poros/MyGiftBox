@@ -126,16 +126,10 @@ class BoxController {
         ]);
     }
    
-    public function checkAddMessage($request, $response, $args){
-        $idBox = $args['id'];
-        $message = filter_var($_POST['message'],FILTER_SANITIZE_STRING);
-        
-         self::addMessage($message,$idBox);
-    }
 
     public function checkEditBox($request, $response, $args){
         $idBox = $args['id'];
-        $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
+        $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_SPECIAL_CHARS);
         $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
         $dateBox = $_POST['dateBox'];
         
@@ -143,16 +137,19 @@ class BoxController {
     }
 
     public static function editBox($nameBox,$messageBox,$dateBox,$idBox){
-       
         $coffret = Coffret::where('idCoffret','=',$idBox)->first();
-        $coffret->nomCoffret = $nameBox;
-        $coffret->messageCoffret = $messageBox;
-        $coffret->dateOuvertureCoffret = $dateBox;
-        $coffret->save();
-    }
-    public static function addMessage($message,$idBox){
-        $coffret = Coffret::where('idCoffret','=',$idBox)->first();
-        $coffret->messageCoffret = $message;
+        //si les champs sont vides ont laisse ceux qui sont dans la base
+        if($nameBox){
+            $coffret->nomCoffret = $nameBox;
+        }
+        if($messageBox){
+            $coffret->messageCoffret = $messageBox;
+        }
+
+        if($dateBox){
+            $coffret->dateOuvertureCoffret = $dateBox;
+        }
+        
         $coffret->save();
     }
 

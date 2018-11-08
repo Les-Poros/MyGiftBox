@@ -178,15 +178,6 @@ $app->get('/ViewBox/{id}', function($request, $response, $args){
 	}
 })->setName('ViewBox');
 
-$app->post('/ViewBox/{id}', function($request, $response, $args){
-	if (Authentication::checkConnection()) {
-		$controller = $this['BoxController'];
-		$addMessage = $controller->checkAddMessage($request, $response, $args);
-		$router = $this->router;
-		return $response->withRedirect($router->pathFor('HomeConnect', []));
-	}
-})->setName('ViewBox');
-
 $app->get('/EditBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
@@ -198,6 +189,8 @@ $app->post('/EditBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
 		$displayEditBox = $controller->checkEditBox($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
 	}
 })->setName('EditBox');
 
