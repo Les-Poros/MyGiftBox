@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `membre` (
   `prenomMembre` text NOT NULL,
   `role` int(1) NOT NULL,
   PRIMARY KEY(`idMembre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 CREATE TABLE IF NOT EXISTS `categorie` (
   `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `coffret` (
   `estPaye` boolean NOT NULL,
   `hasContenuCoffret` boolean NOT NULL,
   `msgRemerciement` text NOT NULL,
+  `tokenCoffret` text NOT NULL,
   PRIMARY KEY(`idCoffret`),
   FOREIGN KEY(`idMembre`) REFERENCES `membre`(`idMembre`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -62,6 +63,13 @@ CREATE TABLE IF NOT EXISTS `contenuCoffret` (
   FOREIGN KEY(`idCoffret`) REFERENCES `coffret`(`idCoffret`),
   FOREIGN KEY(`idPrestation`) REFERENCES `prestation`(`idPrestation`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `membre` (`idMembre`, `mailMembre`, `passwordMembre`, `nomMembre`, `prenomMembre`, `role`) VALUES
+(1, 'visiteur@visiteur.fr', '$2y$10$DYcbBMwkrenrO.kzVtDbPewt7NPCF00MiYerOq8kTKglo5BdEkn1G', 'Visiteur', 'Visiteur', 0),
+(2, 'leo@leo.fr', '$2y$10$Ij67Jjn8QqL0oLa2hhgaW..hwa17.3dGnrAkNEskGZ7kBPY89PuSK', 'Galassi', 'Léo', 1),
+(3, 'svz@svz.fr', '$2y$10$Kj/pz.UrzATTWZZAOCoyXeHvWVeI4Fq8Ho52SJn/N3xmvZt1Xje2C', 'Rimet', 'Quentin', 1),
+(4, 'maeva@maeva.fr', '$2y$10$NV98dGIssJQeUp4HX9AZ0e0B/bmY.KdPJQxQo7GjpnmeL91bki/Ye', 'Butaye', 'Maeva', 1),
+(5, 'camille@camille.fr', '$2y$10$whsnOjvjLwr31I6TlxakzOJ/iHC4Tntp/DokW8y4PxolE75/dvKmm', 'Schwarz', 'Camille', 1);
 
 INSERT INTO `categorie` (`idCategorie`, `nomCategorie`) VALUES
 (1, 'Attention'),

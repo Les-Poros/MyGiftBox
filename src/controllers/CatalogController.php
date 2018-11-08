@@ -44,10 +44,7 @@ class CatalogController {
 		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'CatalogView.html.twig', [
             'nomMembre' => $nomMembre,
-            'categAttention' => $listCategories[0]['nomCategorie'],
-            'categActivite' => $listCategories[1]['nomCategorie'],
-            'categRestauration' => $listCategories[2]['nomCategorie'],
-            'categHebergement' => $listCategories[3]['nomCategorie'],
+            'listCateg' => $listCategories,
             'listPrestations' => $prest,
         ]);
     }
@@ -79,10 +76,7 @@ class CatalogController {
             "contenu"=>$contenu,
             'box'=>$box["nomCoffret"],
             'nomMembre' => $nomMembre,
-            'categAttention' => $listCategories[0]['nomCategorie'],
-            'categActivite' => $listCategories[1]['nomCategorie'],
-            'categRestauration' => $listCategories[2]['nomCategorie'],
-            'categHebergement' => $listCategories[3]['nomCategorie'],
+            'listCateg' => $listCategories,
             'listPrestations' => $prest,
         ]);
         else
