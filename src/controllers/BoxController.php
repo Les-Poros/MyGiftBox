@@ -168,8 +168,15 @@ class BoxController {
     public function displayLink($request, $response, $args){
         $nomMembre = $_SESSION['prenomMembre'];
         $token = $args['token'];
+        
+        $date = date("Y-m-d");
 
         $box = Coffret::where('tokenCoffret','=',$token)->first();
+
+        $estOuvrable = date_diff($date, $box['dateOuvertureCoffret']);
+        var_dump($date);
+        var_dump($box['dateOuvertureCoffret']);
+        var_dump(date_diff($date, $box['dateOuvertureCoffret']));
 
         $infoList = array();
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get();
@@ -188,6 +195,7 @@ class BoxController {
             'messageCoffret' => $box['messageCoffret'],
             'date' => $box['dateOuvertureCoffret'],
             'listBox' => $infoList,
+            'estOuvrable' => $estOuvrable,
 		]);
     }
 

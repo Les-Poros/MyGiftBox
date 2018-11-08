@@ -6,8 +6,20 @@
 	{% include 'HeaderView.html.twig' %}
 
     <div class="main_container">
-        {{nomCoffret}}
-        {{messageCoffret}}
+        <h2>Vous avez reçu un coffre cadeau !</h2>
+        {% if estOuvrable < 0 %}
+            <p>Un ami vous a offert un coffret secret vous découvrirez son contenu après le {{date}}</p>
+        {% else %}
+            <p>{{messageCoffret}}</p>
+            <p>Contenu du coffret {{nomCoffret}}</p>
+
+            <p>Remerciez votre ami</p>
+            <form>
+                <input type="text"/>
+                <button class="boutton">Envoyer</button>
+            </form>
+        {% endif %}
+        
         {{date}}
     </div>
 
