@@ -79,21 +79,22 @@ class BoxController {
 
             // On vérifie si il y a du contenu dans le coffret
             if($coffretHaveBox){
-                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idMembre','=',$idcoffret)->get()->toArray();
+                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idcoffret)->get()->toArray();
                 $nomCoffretListe = array();
                 foreach($isContenuList as $values){
                     $isContenu = $values['hasContenuCoffret'];
                     $nomCoffret = $values['nomCoffret'];
                     $idCoffret = $values['idCoffret'];
+                    $estPaye = $values['estPaye'];
                     if($isContenu == 0 ){
                         $imgDefault = "defaultBox.png";
-                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault,$idCoffret]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault,$idCoffret,$estPaye]);
                     }
                    else{
                         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
                         $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
                         $imgPrestation = $prestation['img'];
-                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation,$idCoffret]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation,$idCoffret,$estPaye]);
                    }
                 }
                
@@ -142,12 +143,17 @@ class BoxController {
     public function shareBox($request, $response, $args){
         $nomMembre = $_SESSION['prenomMembre'];
 
-        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','tokenCoffret')->where('idCoffret','=',$args['idCoffret'])->first();
 
-        $token = self::generateToken();
-
-        $box->tokenCoffret = $token;
-        $box->save();
+        if( $box['tokenCoffret']=="" ){
+            $token = self::generateToken();
+    
+            $box->tokenCoffret = $token;
+            $box->save();
+        }
+        else{
+            $token = $box['tokenCoffret'];
+        }
 
         $url = "http://" . $_SERVER["SERVER_NAME"];
 
