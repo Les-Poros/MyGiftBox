@@ -42,6 +42,7 @@ class CatalogController {
 		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'CatalogView.html.twig', [
             'nomMembre' => $nomMembre,
+            'listCateg' => $listCategories,
             'categAttention' => $listCategories[0]['nomCategorie'],
             'categActivite' => $listCategories[1]['nomCategorie'],
             'categRestauration' => $listCategories[2]['nomCategorie'],

@@ -2,14 +2,14 @@ let btnAttention = document.getElementById("btnAttention");
 let btnActivite = document.getElementById("btnActivite");
 let btnRestauration = document.getElementById("btnRestauration");
 let btnHebergement = document.getElementById("btnHebergement");
-let selectTri = document.getElementById("tri");
+let selectTri = document.getElementById("triSelect");
 
 let tabPrestations = [];
 
 btnAttention.onclick = function() {
     if ($(':first', this).hasClass("actif")) {
         $(':first', this).removeClass("actif");
-        tabPrestVariable =tabPrestations;
+        tabPrestVariable = tabPrestations;
     } else {
         $(".actif").removeClass("actif");
         equalCategory('Attention')
@@ -21,7 +21,7 @@ btnAttention.onclick = function() {
 btnActivite.onclick = function() {
     if ($(':first', this).hasClass("actif")) {
         $(':first', this).removeClass("actif");
-        tabPrestVariable =tabPrestations;
+        tabPrestVariable = tabPrestations;
     } else {
         $(".actif").removeClass("actif");
         equalCategory('Activité')
@@ -33,7 +33,7 @@ btnActivite.onclick = function() {
 btnRestauration.onclick = function() {
     if ($(':first', this).hasClass("actif")) {
         $(':first', this).removeClass("actif");
-        tabPrestVariable =tabPrestations;
+        tabPrestVariable = tabPrestations;
     } else {
         $(".actif").removeClass("actif");
         equalCategory('Restauration')
@@ -45,7 +45,7 @@ btnRestauration.onclick = function() {
 btnHebergement.onclick = function() {
     if ($(':first', this).hasClass("actif")) {
         $(':first', this).removeClass("actif");
-        tabPrestVariable =tabPrestations;
+        tabPrestVariable = tabPrestations;
     } else {
         $(".actif").removeClass("actif");
         equalCategory('Hébergement')
@@ -63,7 +63,7 @@ let tabPrestVariable = tabPrestations;
 function equalCategory(element) {
     tabPrestVariable = tabPrestations.filter(function(prest) {
         return prest.children().children()[2]['innerHTML'] === element;
-        
+
     });
 }
 
@@ -74,18 +74,16 @@ function renderPrestaCateg(tableau) {
     }
 }
 
-function tri(value){
+function tri(value) {
     let tab = new Array();
-    tabPrestVariable.forEach(function (t){
+    tabPrestVariable.forEach(function(t) {
         tab.push(t);
     });
-    if (value === "0"){
+    if (value === "0") {
         renderPrestaCateg(tabPrestVariable);
-    }
-    else if (value === "1"){
+    } else if (value === "1") {
         renderPrestaCateg(tab.sort(increasing));
-    }
-    else{
+    } else {
         renderPrestaCateg(tab.sort(decrease));
     }
 }

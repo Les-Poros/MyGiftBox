@@ -4,7 +4,17 @@
 <body>
 	{% include 'HeaderView.html.twig' %}
     <div class="main_container">
-        <div class="grid_container_categories">
+        <div class="triCat">
+            <p>Sélectionner une catégorie :</p>
+            <div class="selectCat">
+				<select id="triSelectCat" name="triCat">
+                    {% for cat in listCateg %}
+                        <option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
+                    {% endfor %}
+				</select>
+			</div>
+        </div>
+        <!--<div class="grid_container_categories">
             <h2>Sélectionner une catégorie :</h2>
             <div id="btnAttention">
                 <div class="grid_item_cat">
@@ -30,12 +40,12 @@
                 </div>
                 <p class="nomCategory">{{categHebergement}}</p>
             </div>
-        </div>
+        </div>-->
         <hr/>
         <div class="tri">
             <p>Trier par : </p>
             <div class="select">
-				<select id="tri" name="tri" onchange="tri(this.value)">
+				<select id="triSelect" name="tri" onchange="tri(this.value)">
 				<option value="0">défaut</option>
 				<option value="1" name="tri">prix croissant</option>
 				<option value="2" name="tri">prix décroissant</option>
