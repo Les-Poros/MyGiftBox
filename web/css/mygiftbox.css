@@ -319,36 +319,6 @@ header .container_header .list_grid_menu li a {
   align-items: center;
 }
 
-.grid_container_categories {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 15px;
-}
-.grid_container_categories .nomCategory {
-  text-align: center;
-}
-.grid_container_categories #btnAttention:hover,
-.grid_container_categories #btnActivite:hover,
-.grid_container_categories #btnRestauration:hover,
-.grid_container_categories #btnHebergement:hover {
-  cursor: pointer;
-}
-
-.grid_item_cat {
-  border: solid black;
-  font-size: 60px;
-  text-align: center;
-  display: flex;
-}
-.grid_item_cat i {
-  margin: auto;
-}
-
 .grid_container_prestations {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -457,6 +427,12 @@ header .container_header .list_grid_menu li a {
 
   #triSelect {
     width: 75%;
+  }
+
+  .triCat p {
+    padding-left: 10px;
+    font-size: 19pt;
+    font-weight: bold;
   }
 }
 .grid_container_prestations_buy {
