@@ -70,9 +70,11 @@ class CatalogController {
             $prest[$i]['categorie'] = $category['nomCategorie'];
             $prest[$i]['prix'] = $prestations[$i]['prix'];
         }
-        $box = Coffret::find($args["box"])->select("nomCoffret")->first()->toArray();
+        $box = Coffret::find($args["box"])->select("nomCoffret","idMembre")->first()->toArray();
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
-		$nomMembre = $_SESSION['prenomMembre'];
+        $nomMembre = $_SESSION['prenomMembre'];
+        
+        if($_SESSION["idMembre"]==$box["idMembre"])
         return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
             "contenu"=>$contenu,
             'box'=>$box["nomCoffret"],
@@ -82,6 +84,10 @@ class CatalogController {
             'categRestauration' => $listCategories[2]['nomCategorie'],
             'categHebergement' => $listCategories[3]['nomCategorie'],
             'listPrestations' => $prest,
+        ]);
+        else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $nomMembre,
         ]);
     }
     public function modifCatalogPurchase($request, $response, $args){

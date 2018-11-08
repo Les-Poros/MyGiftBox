@@ -119,6 +119,17 @@ footer {
   margin-top: 15px;
 }
 
+.boxDivError {
+  text-align: center;
+  padding: 25px;
+  margin: auto;
+  border: solid 2px black;
+}
+.boxDivError h2 {
+  text-align: center;
+  color: red;
+}
+
 header {
   width: 100%;
   margin: 0;
