@@ -143,4 +143,12 @@ $app->get('/{box}/ConsultCatalogPurchase', function($request, $response, $args){
 })->setName('ConsultCatalogPurchase');
 
 
+$app->get('/EditBox', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$displayEditMod = $controller->displayEditMod($request, $response, $args);
+	}
+})->setName('EditBox');
+
+
 $app->run();

@@ -98,5 +98,10 @@ class BoxController {
         }
 			
     }
+
+    public function displayEditMod($request, $response, $args){
+        return $this->view->render($response, 'EditBoxView.html.twig', []
+		);
+    }
     
 }
