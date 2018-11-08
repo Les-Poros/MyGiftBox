@@ -326,37 +326,6 @@ header .container_header .list_grid_menu li a {
   margin-bottom: 10px;
 }
 
-.grid_container_categories {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 100px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 15px;
-}
-.grid_container_categories .nomCategory {
-  text-align: center;
-}
-.grid_container_categories #btnAttention:hover,
-.grid_container_categories #btnActivite:hover,
-.grid_container_categories #btnRestauration:hover,
-.grid_container_categories #btnHebergement:hover {
-  cursor: pointer;
-}
-
-.grid_item_cat {
-  border: solid black;
-  font-size: 60px;
-  text-align: center;
-  display: flex;
-}
-.grid_item_cat i {
-  margin: auto;
-}
-
 .grid_container_prestations {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -369,7 +338,8 @@ header .container_header .list_grid_menu li a {
   gap: 25px;
 }
 .grid_container_prestations .detailsPrestations,
-.grid_container_prestations .detailsPrestationsCateg {
+.grid_container_prestations .detailsPrestationsCateg,
+.grid_container_prestations .detailsPrestationsPrix {
   text-align: center;
 }
 
@@ -394,15 +364,116 @@ header .container_header .list_grid_menu li a {
   padding: 5px;
 }
 
-#tri {
-  width: 150px;
+.triCat {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+.triCat p {
+  padding-left: 10px;
+  font-size: 22pt;
+  font-weight: bold;
+}
+.triCat #triSelectCat {
+  height: 100%;
 }
 
-.select {
+#triSelect,
+#triSelectCat {
+  width: 150px;
+  color: #555;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  background: #f5f5f5;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+}
+
+.select,
+.selectCat {
   margin-left: 10px;
 }
 
-.grid_container_prestations_buy {
+@media only screen and (max-width: 1100px) {
+  .grid_container_prestations {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .grid_item_pres {
+    width: 100%;
+    height: 200px;
+  }
+
+  .tri {
+    width: 100%;
+  }
+
+  .triCat p {
+    padding-left: 10px;
+    font-size: 19pt;
+    font-weight: bold;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .grid_container_prestations {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid_item_pres {
+    width: 100%;
+    height: 200px;
+  }
+
+  .tri {
+    width: 100%;
+  }
+
+  .select {
+    width: 75%;
+  }
+
+  #triSelect {
+    width: 75%;
+  }
+
+  .triCat p {
+    padding-left: 10px;
+    font-size: 19pt;
+    font-weight: bold;
+  }
+}
+.container_buy {
+  display: flex;
+}
+.container_buy .formActuBox {
+  margin: auto;
+  width: fit-content;
+}
+.container_buy .buyBar {
+  border-left: solid 1px black;
+  border-top: solid 1px black;
+}
+.container_buy .grid_container_buy {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 30%;
+}
+.container_buy .grid_container_buy p {
+  width: 100%;
+}
+.container_buy .grid_container_buy .cross {
+  color: red;
+  float: right;
+  cursor: pointer;
+}
+.container_buy .grid_container_prestations_buy {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 60%;
@@ -412,10 +483,14 @@ header .container_header .list_grid_menu li a {
   margin-bottom: 30px;
   gap: 10px;
 }
-.grid_container_prestations_buy .tabPrestations {
+.container_buy .grid_container_prestations_buy .tabPrestations {
   position: relative;
+  cursor: pointer;
 }
-.grid_container_prestations_buy .tabPrestations .addButton_buy {
+.container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestationsId {
+  display: none;
+}
+.container_buy .grid_container_prestations_buy .tabPrestations .addButton_buy {
   color: white;
   visibility: hidden;
   font-size: 2em;
@@ -423,7 +498,7 @@ header .container_header .list_grid_menu li a {
   top: calc( 50% - 0.5em );
   left: calc( 50% - 0.5em );
 }
-.grid_container_prestations_buy .tabPrestations a {
+.container_buy .grid_container_prestations_buy .tabPrestations a {
   visibility: hidden;
   color: white;
   font-size: 1em;
@@ -432,10 +507,10 @@ header .container_header .list_grid_menu li a {
   width: 100%;
   text-align: center;
 }
-.grid_container_prestations_buy .tabPrestations:hover .detailsPrestations,
-.grid_container_prestations_buy .tabPrestations:hover .detailsPrestationsCateg,
-.grid_container_prestations_buy .tabPrestations:hover .grid_item_pres,
-.grid_container_prestations_buy .tabPrestations:hover .detailsPrestationsPrix {
+.container_buy .grid_container_prestations_buy .tabPrestations:hover .detailsPrestations,
+.container_buy .grid_container_prestations_buy .tabPrestations:hover .detailsPrestationsCateg,
+.container_buy .grid_container_prestations_buy .tabPrestations:hover .grid_item_pres,
+.container_buy .grid_container_prestations_buy .tabPrestations:hover .detailsPrestationsPrix {
   text-align: center;
   filter: brightness(20%);
   -webkit-filter: brightness(20%);
@@ -444,40 +519,56 @@ header .container_header .list_grid_menu li a {
   -ms-filter: brightness(20%);
   background-color: white;
 }
-.grid_container_prestations_buy .tabPrestations:hover .addButton_buy {
+.container_buy .grid_container_prestations_buy .tabPrestations:hover .addButton_buy {
   visibility: visible;
 }
-.grid_container_prestations_buy .tabPrestations:hover a {
+.container_buy .grid_container_prestations_buy .tabPrestations:hover a {
   visibility: visible;
 }
-.grid_container_prestations_buy .tabPrestations:hover a:hover {
+.container_buy .grid_container_prestations_buy .tabPrestations:hover a:hover {
   text-decoration: underline;
 }
-.grid_container_prestations_buy .tabPrestations .detailsPrestations,
-.grid_container_prestations_buy .tabPrestations .detailsPrestationsCateg,
-.grid_container_prestations_buy .tabPrestations .detailsPrestationsPrix {
+.container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestations,
+.container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestationsCateg,
+.container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestationsPrix {
   padding-left: 10px;
   padding-right: 10px;
   text-align: center;
 }
-.grid_container_prestations_buy .tabPrestations .detailsPrestationsPrix {
+.container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestationsPrix {
   padding-bottom: 10px;
 }
-.grid_container_prestations_buy .tabPrestations .grid_item_pres {
+.container_buy .grid_container_prestations_buy .tabPrestations .grid_item_pres {
   box-sizing: border-box;
   padding: 10px;
   width: 100%;
   height: 200px;
 }
-.grid_container_prestations_buy .tabPrestations .grid_item_pres img {
+.container_buy .grid_container_prestations_buy .tabPrestations .grid_item_pres img {
   width: 100%;
   height: 100%;
+}
+@media only screen and (max-width: 850px) {
+  .container_buy {
+    flex-direction: column;
+  }
+  .container_buy .grid_container_prestations_buy {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .container_buy .grid_container_buy {
+    width: 100%;
+  }
 }
 
 .flex_prestation {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+.flex_prestation .imgPrestation img {
+  width: 375px;
+  height: auto;
 }
 .flex_prestation .flex_detailsPrestation {
   display: flex;
@@ -487,11 +578,26 @@ header .container_header .list_grid_menu li a {
   justify-content: space-evenly;
   align-items: stretch;
 }
+.flex_prestation .flex_detailsPrestation .nomPrestation {
+  font-size: 18pt;
+  font-weight: bold;
+}
 .flex_prestation .flex_detailsPrestation div {
-  font-size: 22pt;
-  line-height: 0;
+  font-size: 13pt;
 }
 
+@media only screen and (max-width: 850px) {
+  .flex_prestation .imgPrestation img {
+    width: 275px;
+    height: auto;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .flex_prestation .imgPrestation img {
+    width: 175px;
+    height: auto;
+  }
+}
 .modifMembre {
   display: none;
   width: 30%;

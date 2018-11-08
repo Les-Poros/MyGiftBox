@@ -5,55 +5,53 @@
 
 	{% include 'HeaderView.html.twig' %}
     <div class="main_container">
-        <div class="grid_container_categories">
-            <h2>Sélectionner une catégorie :</h2>
-            <div id="btnAttention">
-                <div class="grid_item_cat">
-                    <i class="fas fa-gift"></i>
-                </div>
-                <p class="nomCategory">{{categAttention}}</p>
-            </div>
-            <div id="btnActivite">
-                <div class="grid_item_cat">
-                    <i class="fas fa-map-marked"></i>
-                </div>
-                <p class="nomCategory">{{categActivite}}</p>
-            </div>
-            <div id="btnRestauration">
-                <div class="grid_item_cat">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <p class="nomCategory">{{categRestauration}}</p>
-            </div>
-            <div id="btnHebergement">
-                <div class="grid_item_cat">
-                    <i class="fas fa-bed"></i>
-                </div>
-                <p class="nomCategory">{{categHebergement}}</p>
-            </div>
+        <div class="triCat">
+            <p>Sélectionner une catégorie :</p>
+            <div class="selectCat">
+				<select id="triSelectCat" name="triCat" onchange="triCategories(this.value)">
+				    <option value="Défaut">Défaut</option>
+                    {% for cat in listCateg %}
+                        <option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
+                    {% endfor %}
+				</select>
+			</div>
         </div>
         <hr/>
         <div class="tri">
             <p>Trier par : </p>
             <div class="select">
-				<select id="tri" name="tri" onchange="tri(this.value)">
+				<select id="triSelect" name="tri" onchange="tri(this.value)">
 				<option value="0">défaut</option>
 				<option value="1" name="tri">prix croissant</option>
 				<option value="2" name="tri">prix décroissant</option>
 				</select>
 			</div>
         </div>
-        <div class="grid_container_prestations_buy">
-			{% for prestations in listPrestations %}
-                <div class="tabPrestations">
-                    <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
-                    <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
-                    <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
-                    <p class='detailsPrestationsPrix'>{{prestations['prix']}}</p>
-                    <i class="addButton_buy fas fa-plus-circle"></i>
-                    <a href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}'>Plus d'info</a>
-                </div>
-            {% endfor %}
+        <div class="container_buy">
+            <div class="grid_container_prestations_buy">
+                {% for prestations in listPrestations %}
+                    <div class="tabPrestations">
+                        <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
+                        <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
+                        <p class='detailsPrestationsId'>{{prestations['idPrestation']}}</p>
+                        <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
+                        <p class='detailsPrestationsPrix'>{{prestations['prix']}}</p>
+                        <i class="addButton_buy fas fa-plus-circle"></i>
+                        <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}' target="_blank">Plus d'info</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="buyBar"></div>
+            <div class="grid_container_buy">
+                <div>
+                {% for cont in contenu %}
+                    <p class="buy">-<span class="presta">{{listPrestations[cont["idPrestation"]-1]['nomPrestation']}}</span> x<span class="nbPresta">{{cont["quantite"]}}</span> : <span class="prixPresta">{{(listPrestations[cont["idPrestation"]-1]['prix'] * cont["quantite"])}}</span>€ <i class="cross fas fa-times"></i></p>
+                 {% endfor %}
+                 </div>
+                 <form class="formActuBox" action="" method="post">
+                    <button type="submit" class="boutton">Sauvegarder</button>
+                </form>
+            </div>
         </div>
         <hr/>
     </div>
