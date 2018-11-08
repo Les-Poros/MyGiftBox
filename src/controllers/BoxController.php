@@ -84,7 +84,7 @@ class BoxController {
                     $idCoffret = $values['idCoffret'];
                     if($isContenu == 0 ){
                         $imgDefault = "defaultBox.png";
-                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault,$idCoffret]);
                     }
                    else{
                         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
@@ -114,5 +114,6 @@ class BoxController {
             'nomCoffret' => $nomCoffret['nomCoffret'],
         ]);
     }
-    
+   
+
 }
