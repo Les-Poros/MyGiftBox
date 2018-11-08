@@ -102,6 +102,7 @@ class BoxController {
     public function displayEditMod($request, $response, $args){
         $idBox = $args['id'];
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
+        $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
         $infoList = array();
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($contenuCoffret as $values){
@@ -114,6 +115,7 @@ class BoxController {
             'img' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
             'idBox' => $idBox,
+            'date' => $dateCoffret['dateOuvertureCoffret'],
         ]);
     }
    

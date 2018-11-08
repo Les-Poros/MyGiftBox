@@ -8,6 +8,7 @@
     <div class="main_container">
          <div class="nomCoffret">
          <h2> {{nomCoffret}} <h2>
+         <h4> Date d'ouverture prévu au : {{date}} </h4>
          <button class="boutton"><a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">Modifier</a></button>
          </div>
 			
@@ -16,7 +17,7 @@
             <div class ="detailsPrestations">
 			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]}}"/> 
             x{{values[1]}}
-            
+           
             </div>
             </div>
             {% endfor %}            
