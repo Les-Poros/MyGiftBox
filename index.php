@@ -169,6 +169,17 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
-})->setName("Pay");
+})->setName("CheckPay");
+
+$app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$displayPay = $controller->shareBox($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ShareBox");
 
 $app->run();

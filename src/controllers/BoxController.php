@@ -4,6 +4,7 @@ namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreationBoxView;
+use MyGiftBox\views\ShareBoxView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Coffret;
@@ -117,5 +118,29 @@ class BoxController {
         // }
 			
     }
+
+    private static function generateToken() {
+        return bin2hex(openssl_random_pseudo_bytes(16));
+    }
+
+    public function shareBox($request, $response, $args){
+        $nomMembre = $_SESSION['prenomMembre'];
+
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+
+        $token = self::generateToken();
+
+        //$box->token = $token;
+
+        $url = "http://" . $_SERVER["SERVER_NAME"];
+
+		return $this->view->render($response, 'ShareBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+            'box' => $box['nomCoffret'],
+            'token' => $token,
+            'url' => $url,
+		]);
+    }
+
     
 }

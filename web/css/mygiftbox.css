@@ -319,6 +319,10 @@ header .container_header .list_grid_menu li a {
   align-items: center;
 }
 
+.share_container {
+  border: solid grey;
+}
+
 .grid_container_categories {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
