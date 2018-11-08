@@ -60,23 +60,23 @@ class BoxController {
     public static function displayBox($request, $response, $args){
             $mail = $_SESSION['mailMembre'];
 			//récupère id du membre connecté
-			$member= Membre::where('mailMembre', '=', $mail);
-			$memberFirst = $member->first();
-			$idMember = $memberFirst->idMembre;
+			$coffret= Membre::where('mailMembre', '=', $mail);
+			$coffretFirst = $coffret->first();
+			$idcoffret = $coffretFirst->idMembre;
             //On vérifie si le membre connecté à déjà un coffret
-            $memberHaveBox = false;
+            $coffretHaveBox = false;
             $listMembre = Coffret::select('idMembre')->get()->toArray();
             foreach($listMembre as $values){
                 $idMembre = $values['idMembre'];
-                if($idMember == $idMembre ){
-                    $memberHaveBox = true;
+                if($idcoffret == $idMembre ){
+                    $coffretHaveBox = true;
                 }
             }
 
 
             // On vérifie si il y a du contenu dans le coffret
-            if($memberHaveBox){
-                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idMembre','=',$idMember)->get()->toArray();
+            if($coffretHaveBox){
+                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idMembre','=',$idcoffret)->get()->toArray();
                 $nomCoffretListe = array();
                 foreach($isContenuList as $values){
                     $isContenu = $values['hasContenuCoffret'];
@@ -117,5 +117,17 @@ class BoxController {
         ]);
     }
    
+    public function checkAddMessage($request, $response, $args){
+        $idBox = $args['id'];
+        $message = filter_var($_POST['message'],FILTER_SANITIZE_STRING);
+        
+         self::addMessage($message,$idBox);
+    }
+
+    public static function addMessage($message,$idBox){
+        $coffret = Coffret::where('idCoffret','=',$idBox)->first();
+        $coffret->messageCoffret = $message;
+        $coffret->save();
+    }
 
 }
