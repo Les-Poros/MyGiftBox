@@ -1,4 +1,30 @@
-.grid_container_prestations_buy {
+.container_buy{
+    display: flex;
+
+    & .formActuBox{
+        margin: auto;
+        width: fit-content;
+    }
+    & .buyBar{
+        border-left: solid 1px black;
+        border-top: solid 1px black;
+    }
+    & .grid_container_buy {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 30%;
+        & p{
+            width: 100%;
+        }
+        & .cross{
+            color: red;
+            float: right;
+            cursor: pointer;
+        }
+    }
+    & .grid_container_prestations_buy {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 60%;
@@ -10,7 +36,11 @@
     
     & .tabPrestations{
         position: relative;
+        cursor:pointer;
         
+        & .detailsPrestationsId{
+            display:none;
+        }
         & .addButton_buy{
             color: white;
             visibility: hidden;
@@ -77,3 +107,14 @@
     
 }
 
+@media only screen and (max-width: 850px) {
+    flex-direction: column;
+    .grid_container_prestations_buy {
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+    .grid_container_buy {
+        width: 100%;
+    }
+    }
+}
