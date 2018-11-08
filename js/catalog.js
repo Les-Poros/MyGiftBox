@@ -106,7 +106,6 @@ function decrease(x, y) {
 if(select=='.grid_container_prestations_buy'){
     let tabAchat = [];
 
-    
     $(".buy").each(function(){
         tabAchat.push([$(this).find(".presta").html(),$(this).find(".nbPresta").html(),$(this).find(".prixPresta").html()])
     });
@@ -164,6 +163,6 @@ $('.cross').click(function() {
 });
 }
     clickPresta();
-    clickCross();
+    renderBuy();
 
 }
