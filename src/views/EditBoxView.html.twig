@@ -6,9 +6,13 @@
 {% include 'HeaderViewEdit.html.twig' %} 
 
     <div class="main_container">
-         <div class="nomCoffret">
+         <div class="momCoffret">
          <h2> {{nomCoffret}} <h2>
          <h4> Date d'ouverture prévu au : {{date}} </h4>
+          <form class="form" action="" method="post">
+    <input type="text" name="message">
+    <button type="submit" class="bouttonBlack">Envoyez Message</button>
+    </form>
          <button class="boutton"><a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">Modifier</a></button>
          </div>
 			
@@ -22,10 +26,7 @@
             </div>
             {% endfor %}            
     </div>
-    <form class="formMenu" action="" method="post">
-    <input type="text" name="message">
-    <button type="submit" class="bouttonBlack">Envoyez Message</button>
-    </form>
+   
     </div>
 </body>
 
