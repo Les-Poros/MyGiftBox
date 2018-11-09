@@ -34,6 +34,7 @@ class BoxController {
 		$nomMembre = $_SESSION['prenomMembre'];
 		return $this->view->render($response, 'CreationBoxView.html.twig', [
             'nomMembre' => $nomMembre,
+			'role' => $_SESSION['roleMembre'],
 		]);
 
     }

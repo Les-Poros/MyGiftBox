@@ -11,6 +11,7 @@ use MyGiftBox\controllers\ConnectionController;
 use MyGiftBox\controllers\BoxController;
 use MyGiftBox\controllers\PrestationController;
 use MyGiftBox\controllers\PayController;
+use MyGiftBox\controllers\AdminPrestationsController;
 
 Connection::setConfig('src/conf/conf.ini');
 $db = Connection::makeConnection();
@@ -209,5 +210,39 @@ $app->post('/EditBox/{id}', function($request, $response, $args){
 	}
 })->setName('EditBox');
 
+$app->get('/AdminPrestations', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$displayAdminPrestations = $controller->displayAdminPrestations($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("AdminPrestations");
+
+$app->get('/AddPrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$displayAddPrestation = $controller->displayAddPrestation($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("AddPrestation");
+
+$app->post('/AddPrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$checkAddPrestation = $controller->checkAddPrestation($request, $response, $args);
+		$router = $this->router;
+		//return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkAddPrestation");
 
 $app->run();

@@ -46,7 +46,7 @@ class ConnectionController{
 		else {	
 			if (password_verify($mdp, $membre->first()->passwordMembre)) {
 				$membre = $membre->first();
-				Authentication::instantiateSession($membre->nomMembre, $membre->prenomMembre,$membre->mailMembre,$membre->idMembre);
+				Authentication::instantiateSession($membre->nomMembre, $membre->prenomMembre,$membre->mailMembre,$membre->idMembre, $membre->role);
 			}
 			else {
 				echo "Mot de passe invalide";

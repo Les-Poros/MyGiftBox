@@ -46,6 +46,7 @@ class CatalogController {
             'nomMembre' => $nomMembre,
             'listCateg' => $listCategories,
             'listPrestations' => $prest,
+			'role' => $_SESSION['roleMembre'],
         ]);
     }
 
@@ -78,6 +79,7 @@ class CatalogController {
             'nomMembre' => $nomMembre,
             'listCateg' => $listCategories,
             'listPrestations' => $prest,
+			'role' => $_SESSION['roleMembre'],
         ]);
         else
         return $this->view->render($response, 'BoxMemberFail.html.twig', [
