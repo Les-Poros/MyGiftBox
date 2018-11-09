@@ -176,9 +176,11 @@ class BoxController {
 
     public function shareBox($request, $response, $args){
         $nomMembre = $_SESSION['prenomMembre'];
-
+        $idBox = $args['idCoffret'];
         $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','tokenCoffret')->where('idCoffret','=',$args['idCoffret'])->first();
-
+        $coffret = Coffret::where('idCoffret','=',$idBox)->first();
+        $coffret->estTransmis = 1;
+        $coffret->save();
         if( $box['tokenCoffret']=="" ){
             $token = self::generateToken();
     
@@ -199,6 +201,7 @@ class BoxController {
 		]);
     }
 
+    
     public function displayLink($request, $response, $args){
         $nomMembre = $_SESSION['prenomMembre'];
         $token = $args['token'];

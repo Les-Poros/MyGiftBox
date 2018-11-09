@@ -19,7 +19,9 @@
 			{% if values[3] == 0 %}
 				<button class="boutton"><a href="{{base_url()}}/{{values[2]}}/Pay">Payer</a></button>
 			{% else %}
-				<button class="boutton"><a href="{{base_url()}}/{{values[2]}}/ShareBox">URL de partage</a></button>
+				
+				<button type="submit" class="boutton"><a href="{{base_url()}}/{{values[2]}}/ShareBox">URL de partage</a></button>
+		
 			{% endif %}
 		</div>
          {% endfor %} 

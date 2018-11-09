@@ -44,6 +44,7 @@ $app->get('/','HomeController:displayHome')->setName('Home');
 
 $app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
 
+
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
 $app->post('/CreateAccount', function($request, $response, $args){
@@ -203,6 +204,7 @@ $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("ShareBox");
+	
 
 $app->get('/LinkBox/{token}','BoxController:displayLink')->setName("LinkBox");
 
