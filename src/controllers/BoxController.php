@@ -99,8 +99,8 @@ class BoxController {
                         array_push($listBoxesName,[$boxName,$imgDefault,$idBox,$isPay]);
                     }
                    else{
-                        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->first()->toArray();
-                        $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+                        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->inRandomOrder()->first()->toArray();
+                        $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->inRandomOrder()->first()->toArray();
                         $imgPrestation = $prestation['img'];
                         array_push($listBoxesName,[$boxName,$imgPrestation,$idBox,$isPay]);
                    }

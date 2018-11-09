@@ -15,12 +15,12 @@
 			<div class="grid_box_pres"><img src="{{base_url()}}/web/img/{{values[1]}}"/></div>
 			
 			
-			<a href="{{base_url()}}/ViewBox/{{values[2]}}"><button class="boutton">Voir</button></a>
+			<button class="boutton"><a href="{{base_url()}}/ViewBox/{{values[2]}}">Voir</a></button>
 			{% if values[3] == 0 %}
-				<a href="{{base_url()}}/{{values[2]}}/Pay"><button class="boutton">Payer</button></a>
+				<button class="boutton"><a href="{{base_url()}}/{{values[2]}}/Pay">Payer</a></button>
 			{% else %}
 				
-				<a href="{{base_url()}}/{{values[2]}}/ShareBox"><button type="submit" class="boutton">URL de partage</button></a>
+				<button type="submit" class="boutton"><a href="{{base_url()}}/{{values[2]}}/ShareBox">URL de partage</a></button>
 		
 			{% endif %}
 		</div>

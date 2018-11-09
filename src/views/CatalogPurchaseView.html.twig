@@ -43,6 +43,8 @@
             </div>
             <div class="buyBar"></div>
             <div class="grid_container_buy">
+            <h2>{{box}}</h2>
+            </br>
                 <div>
                 {% for cont in contenu %}
                     <p class="buy">-<span class="presta">{{listPrestations[cont["idPrestation"]-1]['nomPrestation']}}</span> x<span class="nbPresta">{{cont["quantite"]}}</span> : <span class="prixPresta">{{(listPrestations[cont["idPrestation"]-1]['prix'] * cont["quantite"])}}</span>€ <i class="cross fas fa-times"></i></p>
