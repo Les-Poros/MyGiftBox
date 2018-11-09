@@ -50,7 +50,10 @@
             {% endfor %}   
     </div>
              {% if paye == false %}
-            <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a> 
+            <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a>
+            <a href="{{base_url()}}/{{idBox}}/Pay"><button class="boutton">Payer</button></a>
+            {% else %}
+            <a href="{{base_url()}}/{{idBox}}/ShareBox"><button class="boutton">URL de partage</button></a>
             {% endif %}
     </div>
 </body>

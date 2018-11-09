@@ -113,18 +113,13 @@ class BoxController {
         $infoList = array();
         $priceList = array();
         $totalPrice = 0;
-        $ContenuBox = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
+        $ContenuBox = ContenuCoffret::select('idPrestation','quantite')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($ContenuBox as $values){
-            $quantite = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->get()->toArray();
-            $priceBox= Prestation::select('prix')->where('idPrestation','=',$values)->get()->toArray();
-            $img = Prestation::select('img')->where('idPrestation','=',$values)->get()->toArray();
-           array_push($infoList,[$img[0]['img'],$quantite[0]['quantite']]);
-           array_push($priceList,$priceBox[0]['prix']);
+            $presta= Prestation::select('prix','img')->where('idPrestation','=',$values["idPrestation"])->first()->toArray();
+           array_push($infoList,[$presta['img'],$values['quantite']]);
+              $totalPrice += $presta['prix']*$values['quantite'];
         }
-
-        foreach($priceList as $values){
-            $totalPrice += $values;
-        }
+        
         if($_SESSION["idMembre"]==$box["idMembre"]){
         return $this->view->render($response, 'BoxView.html.twig', [
             'nomMembre' => $memberName,
