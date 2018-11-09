@@ -249,6 +249,9 @@ class BoxController {
             'msgRemerciement' => $box['msgRemerciement'],
             'listBox' => $presta,
             'estOuvrable' => $estOuvrable,
+            'nom' => $_SESSION['nomMembre'],
+            'prenom' => $_SESSION['prenomMembre'],
+            'mail' => $_SESSION['mailMembre'],
 		]);
     }
 
