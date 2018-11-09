@@ -29,30 +29,30 @@ class PrestationController {
 	 */
     public function displayPrestation($request, $response, $args) {
         $idPrestation = $args['id'];
-        $prestation = Prestation::where('idPrestation','=',$idPrestation)->first()->toArray();
-        $imgPrestation = $prestation['img'];
-        $nomPrestation = $prestation['nomPrestation'];
+        $prestation = Prestation::where('idPrestation', '=', $idPrestation)->first()->toArray();
+        $picturePrestation = $prestation['img'];
+        $namePrestation = $prestation['nomPrestation'];
         $idCategory = $prestation['idCategorie'];
-        $category = Categorie::where("idCategorie","=",$idCategory)->first()->toArray();
-        $categoriePrestation = $category['nomCategorie'];
-        $descrPrestation = $prestation['descr'];
-        $prixPrestation = $prestation['prix'];
+        $category = Categorie::where("idCategorie", "=", $idCategory)->first()->toArray();
+        $categoryPrestation = $category['nomCategorie'];
+        $descriptionPrestation = $prestation['descr'];
+        $pricePrestation = $prestation['prix'];
         if (Authentication::checkConnection()){
-            $nomMembre = $_SESSION['prenomMembre'];
-            $role=$_SESSION['roleMembre'];
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
         }
         else{
-            $nomMembre = "";
-            $role=0;
+            $nameMember = "";
+            $roleMember = 0;
         }
         return $this->view->render($response, 'PrestationView.html.twig', [
-            'nomMembre' => $nomMembre,
-            'imgPrestation' => $imgPrestation,
-            'nomPrestation' => $nomPrestation,
-            'categoriePrestation' => $categoriePrestation,
-            'descrPrestation' => $descrPrestation,
-            'prixPrestation' => $prixPrestation,
-            'role'=>$role,
+            'nameMember' => $nameMember,
+            'picturePrestation' => $picturePrestation,
+            'namePrestation' => $namePrestation,
+            'categoryPrestation' => $categoryPrestation,
+            'descriptionPrestation' => $descriptionPrestation,
+            'pricePrestation' => $pricePrestation,
+            'roleMember' => $roleMember,
         ]);
     }
 

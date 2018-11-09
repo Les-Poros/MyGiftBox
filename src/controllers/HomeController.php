@@ -2,12 +2,12 @@
 
 namespace MyGiftBox\controllers;
 
-use \Slim\Views\Twig as twig;
-use MyGiftBox\controllers\Authentication;
-use MyGiftBox\controllers\BoxController;
-use MyGiftBox\views\HomeView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
+use MyGiftBox\controllers\Authentication;
+use MyGiftBox\controllers\BoxController;
+use \Slim\Views\Twig as twig;
+use MyGiftBox\views\HomeView;
 
 /**
  * Class HomeController
@@ -33,38 +33,41 @@ class HomeController {
 	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {		
 			$variables = BoxController::displayBoxMember($request, $response, $args);
-			$nomMembre = $_SESSION['prenomMembre'];
+			$nomMembre = $_SESSION['forenameMember'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
 				  'nomMembre' => $nomMembre,
-				  'role' => $_SESSION['roleMembre'],
+				  'role' => $_SESSION['roleMember'],
 				  'variables' => $variables,
 			]);
-	
 		}
-		
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayHome($request, $response, $args) {
 		if (Authentication::checkConnection()) {
-			$nomMembre = $_SESSION['prenomMembre'];
-		}else
-		$nomMembre = "";
+			$nomMembre = $_SESSION['forenameMember'];
+		} else {
+			$nomMembre = "";
+		}
 		$prestations = array();
 		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
-		if (Authentication::checkConnection()){
-            $nomMembre = $_SESSION['prenomMembre'];
-            $role=$_SESSION['roleMembre'];
-        }
-        else{
+		if (Authentication::checkConnection()) {
+            $nomMembre = $_SESSION['forenameMember'];
+            $role=$_SESSION['roleMember'];
+        } else {
             $nomMembre = "";
             $role=0;
         }
-			return $this->view->render($response, 'HomeView.html.twig', [
-				'prestations' => $prestations,
-		        'nomMembre' => $nomMembre,
-				'role' => $role,
-			]);
+		return $this->view->render($response, 'HomeView.html.twig', [
+			'prestations' => $prestations,
+			'nomMembre' => $nomMembre,
+			'role' => $role,
+		]);
 	}
 
-	
 }

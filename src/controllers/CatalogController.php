@@ -8,6 +8,7 @@ use MyGiftBox\models\Categorie;
 use MyGiftBox\models\Prestation;
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CatalogView;
+
 /**
  * Class CatalogController
  */
@@ -32,14 +33,13 @@ class CatalogController {
     public function displayCatalog($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
         $prestations = Prestation::where('activation', '=', 1)->get();
-        for($i=0; $i<sizeof($prestations); $i++) {
+        for ($i=0; $i<sizeof($prestations); $i++) {
             $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
-        if (Authentication::checkConnection()){
-            $nomMembre = $_SESSION['prenomMembre'];
-            $role=$_SESSION['roleMembre'];
-        }
-        else{
+        if (Authentication::checkConnection()) {
+            $nomMembre = $_SESSION['forenameMember'];
+            $role=$_SESSION['roleMember'];
+        } else {
             $nomMembre = "";
             $role=0;
         }
@@ -60,53 +60,61 @@ class CatalogController {
     public function displayCatalogPurchase($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
         $prestations = Prestation::where('activation', '=', 1)->get();
-        for($i=0; $i<sizeof($prestations); $i++) {
+        for ($i=0; $i<sizeof($prestations); $i++) {
             $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
         $box = Coffret::select("nomCoffret","idMembre","estPaye")->where('idCoffret', '=', $args["box"])->first()->toArray();
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
-        if($_SESSION["idMembre"]==$box["idMembre"]){
-        if($box["estPaye"]==1)
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, mais il est impossible de modifié une box payé",
-            'role' => $_SESSION['roleMembre'],
-        ]);
-        else
-        return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
-            "contenu"=>$contenu,
-            'box'=>$box["nomCoffret"],
-            'nomMembre' => $_SESSION['prenomMembre'],
-            'listCateg' => $listCategories,
-            'listPrestations' => $prestations,
-			'role' => $_SESSION['roleMembre'],
-        ]);
+        if ($_SESSION["idMembre"]==$box["idMembre"]) {
+            if ($box["estPaye"] == 1) {
+                return $this->view->render($response, 'Fail.html.twig', [
+                    'nomMembre' => $_SESSION['forenameMember'],
+                    "message" => "Désolé, mais il est impossible de modifié une box payé",
+                    'role' => $_SESSION['roleMember'],
+                ]);
+            } else {
+                return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
+                    "contenu"=>$contenu,
+                    'box'=>$box["nomCoffret"],
+                    'nomMembre' => $_SESSION['forenameMember'],
+                    'listCateg' => $listCategories,
+                    'listPrestations' => $prestations,
+                    'role' => $_SESSION['roleMember'],
+                ]);
+            }
+        } else {
+            return $this->view->render($response, 'Fail.html.twig', [
+                'nomMembre' => $_SESSION['forenameMember'],
+                "message" => "Désolé, seul le membre possédant cette boite y à accès",
+                'role' => $_SESSION['roleMember'],
+            ]);
         }
-        else
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
-            'role' => $_SESSION['roleMembre'],
-        ]);
     }
+
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function modifCatalogPurchase($request, $response, $args){
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->delete();
         $coffret=Coffret::where("idCoffret","=",$args["box"])->first();
-        if($_POST["nbAct"]==0){
+        if ($_POST["nbAct"] == 0) {
             $coffret->hasContenuCoffret=0;
             $coffret->save();
-        }
-        else{
+        } else {
             $coffret->hasContenuCoffret=1;
             $coffret->save();
-        for($i=0;$i<$_POST["nbAct"];$i++){
-            $addPresta = new ContenuCoffret;
-            $addPresta->idCoffret = $args["box"];
-            $addPresta->idPrestation = $_POST['presta'.$i];
-            $addPresta->quantite = $_POST['nbpresta'.$i];
-            $addPresta->save();
+            for ($i=0;$i<$_POST["nbAct"];$i++) {
+                $addPresta = new ContenuCoffret;
+                $addPresta->idCoffret = $args["box"];
+                $addPresta->idPrestation = $_POST['presta'.$i];
+                $addPresta->quantite = $_POST['nbpresta'.$i];
+                $addPresta->save();
+            }
         }
-     }
-     return $coffret['idCoffret'];
+        return $coffret['idCoffret'];
     }
+
 }

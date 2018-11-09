@@ -2,14 +2,14 @@
 
 namespace MyGiftBox\controllers;
 
-use \Slim\Views\Twig as twig;
-use MyGiftBox\controllers\Authentication;
-use MyGiftBox\controllers\BoxController;
-use MyGiftBox\views\AdminPrestationsView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Categorie;
 use MyGiftBox\models\ContenuCoffret;
+use MyGiftBox\controllers\Authentication;
+use MyGiftBox\controllers\BoxController;
+use \Slim\Views\Twig as twig;
+use MyGiftBox\views\AdminPrestationsView;
 
 /**
  * Class AdminPrestationsController
@@ -33,40 +33,54 @@ class AdminPrestationsController {
 	 * @param args
 	 */
 	public function displayAdminPrestations($request, $response, $args) {
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'AdminPrestationsView.html.twig', [
-			'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-		]);
-		else
-		return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			"message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
-			'role' => $_SESSION['roleMembre'],
-        ]);
+		if ($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'AdminPrestationsView.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				'role' => $_SESSION['roleMember'],
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'role' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayAddPrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'AddPrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listCateg' => $listCategories,
-		]);
-		else
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			"message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
-			'role' => $_SESSION['roleMembre'],
-        ]);
+		if ($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'AddPrestationView.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				'role' => $_SESSION['roleMember'],
+				'listCateg' => $listCategories,
+			]);
+		} else{
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'role' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkAddPrestation($request, $response, $args) {
 		$prestation = new Prestation();
 		$maxsize = 15728640;
 		$erreur = "";
-		$prestation->nomPrestation = filter_var($_POST['namePrestation'],FILTER_SANITIZE_STRING);
+		$prestation->nomPrestation = filter_var($_POST['namePrestation'], FILTER_SANITIZE_STRING);
 		$prestation->descr = $_POST['descrPrestation'];
 		if ($_FILES['imgPrestation']['error'] > 0) {
 			$erreur = "Erreur lors du transfert";
@@ -74,8 +88,8 @@ class AdminPrestationsController {
 		if ($_FILES['imgPrestation']['size'] > $maxsize) {
 			$erreur = "Le fichier est trop gros";
 		}
-		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
-		$extension_upload = strtolower(substr(strrchr($_FILES['imgPrestation']['name'], '.')  ,1)  );
+		$extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+		$extension_upload = strtolower(substr(strrchr($_FILES['imgPrestation']['name'], '.'), 1));
 		if (!in_array($extension_upload,$extensions_valides)) {
 			$erreur = "Extension incorrecte";
 		}
@@ -98,6 +112,12 @@ class AdminPrestationsController {
 		return $lastPrestation['idPrestation'];
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayDeactivateReactivatePrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
 		$prestations = Prestation::all();
@@ -111,20 +131,27 @@ class AdminPrestationsController {
 			$prest[$i]['prix'] = $prestations[$i]['prix'];
 			$prest[$i]['activation'] = $prestations[$i]['activation'];
 		}
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listPrestations' => $prest,
-			'listCateg' => $listCategories,
-		]);
-		else
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
-        ]);
+		if($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				'role' => $_SESSION['roleMember'],
+				'listPrestations' => $prest,
+				'listCateg' => $listCategories,
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+			]);
+		}
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkDeactivateReactivatePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
 		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();
@@ -141,6 +168,12 @@ class AdminPrestationsController {
 		$prestation->save();
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayDeletePrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
 		$prestations = Prestation::all();
@@ -153,21 +186,28 @@ class AdminPrestationsController {
             $prest[$i]['categorie'] = $category['nomCategorie'];
 			$prest[$i]['prix'] = $prestations[$i]['prix'];
 		}
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'DeletePrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listPrestations' => $prest,
-			'listCateg' => $listCategories,
-		]);
-		else
-		return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
-			'role' => $_SESSION['roleMembre'],
-        ]);
+		if($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'DeletePrestationView.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				'role' => $_SESSION['roleMember'],
+				'listPrestations' => $prest,
+				'listCateg' => $listCategories,
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nomMembre' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'role' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkDeletePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
 		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();

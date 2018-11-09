@@ -2,13 +2,13 @@
 
 namespace MyGiftBox\controllers;
 
-use \Slim\Views\Twig as twig;
-use MyGiftBox\views\CreationBoxView;
-use MyGiftBox\views\ShareBoxView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Coffret;
 use MyGiftBox\models\ContenuCoffret;
+use \Slim\Views\Twig as twig;
+use MyGiftBox\views\CreationBoxView;
+use MyGiftBox\views\ShareBoxView;
 
 /**
  * Class BoxController
@@ -32,36 +32,48 @@ class BoxController {
 	 * @param args
 	 */
 	public function displayCreationBox($request, $response, $args) {
-		$memberName = $_SESSION['prenomMembre'];
+		$memberName = $_SESSION['forenameMember'];
 		return $this->view->render($response, 'CreationBoxView.html.twig', [
             'nomMembre' => $memberName,
-			'role' => $_SESSION['roleMembre'],
+			'role' => $_SESSION['roleMember'],
 		]);
 
     }
+
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function displayEditBox($request, $response, $args) {
         $box = Coffret::select('idMembre')->where('idCoffret','=',$args["id"])->first()->toArray();
-        if($_SESSION["idMembre"]==$box["idMembre"]){
+        if ($_SESSION["idMembre"] == $box["idMembre"]) {
             return $this->view->render($response, 'EditBoxView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-                'role' => $_SESSION['roleMembre'],
+                'nomMembre' => $_SESSION['forenameMember'],
+                'role' => $_SESSION['roleMember'],
             ]);
-            }else
+        } else {
             return $this->view->render($response, 'Fail.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-                "message"=>"Désolé, seul le membre possédant cette boite y à accès",
-                'role' => $_SESSION['roleMembre'],
+                'nomMembre' => $_SESSION['forenameMember'],
+                "message" => "Désolé, seul le membre possédant cette boite y à accès",
+                'role' => $_SESSION['roleMember'],
             ]);
-		
-
+        }
     }
 
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function creationBox(){
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
         $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
         $dateBox = $_POST['dateBox'];
         
-        $membre= Membre::where('mailMembre','=',$_SESSION['mailMembre'])->first();
+        $membre= Membre::where('mailMembre','=',$_SESSION['mailMember'])->first();
         $box = new Coffret();
         $box->nomCoffret = $nameBox;
         $box->messageCoffret = $messageBox;
@@ -81,37 +93,48 @@ class BoxController {
         return $box->idCoffret;
     }
 
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public static function displayBoxMember($request, $response, $args){
-            $mail = $_SESSION['mailMembre'];
-			//récupère id du membre connecté
-			$membre= Membre::where('mailMembre', '=', $mail)->first();
-			$idMembre = $membre->idMembre;
-            //On vérifie si le membre connecté à déjà un coffret
-            $boxHaveContenu = false;
-            $memberBox = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idMembre)->get()->toArray();
-            // On vérifie si il y a du contenu dans le coffret
-                $listBoxesName = array();
-                foreach($memberBox as $values){
-                    $isContenu = $values['hasContenuCoffret'];
-                    $boxName = $values['nomCoffret'];
-                    $idBox = $values['idCoffret'];
-                    $isPay = $values['estPaye'];
-                    if($isContenu == 0 ){
-                        $imgDefault = "defaultBox.png";
-                        array_push($listBoxesName,[$boxName,$imgDefault,$idBox,$isPay]);
-                    }
-                   else{
-                        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->first()->toArray();
-                        $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
-                        $imgPrestation = $prestation['img'];
-                        array_push($listBoxesName,[$boxName,$imgPrestation,$idBox,$isPay]);
-                   }
-                }
-            return($listBoxesName);	
+        $mail = $_SESSION['mailMember'];
+        // We get the id of the connected member
+        $membre= Membre::where('mailMembre', '=', $mail)->first();
+        $idMembre = $membre->idMembre;
+        // We check if the connected member already has a box
+        $boxHaveContenu = false;
+        $memberBox = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idMembre)->get()->toArray();
+        // We check if there is content in the box
+        $listBoxesName = array();
+        foreach($memberBox as $values){
+            $isContenu = $values['hasContenuCoffret'];
+            $boxName = $values['nomCoffret'];
+            $idBox = $values['idCoffret'];
+            $isPay = $values['estPaye'];
+            if ($isContenu == 0 ) {
+                $imgDefault = "defaultBox.png";
+                array_push($listBoxesName,[$boxName,$imgDefault,$idBox,$isPay]);
+            } else {
+                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->first()->toArray();
+                $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
+                $imgPrestation = $prestation['img'];
+                array_push($listBoxesName,[$boxName,$imgPrestation,$idBox,$isPay]);
+            }
+        }
+        return($listBoxesName);	
     }
 
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function displayBox($request, $response, $args){
-        $memberName = $_SESSION['prenomMembre'];
+        $memberName = $_SESSION['forenameMember'];
         $idBox = $args['id'];
         $box = Coffret::where('idCoffret','=',$idBox)->first()->toArray();
 
@@ -127,99 +150,121 @@ class BoxController {
             array_push($prestations,$prestaTab);
             $totalPrice += $presta['prix']*$values['quantite'];
         }
-        if($_SESSION["idMembre"]==$box["idMembre"]){
-        return $this->view->render($response, 'BoxView.html.twig', [
-            'nomMembre' => $memberName,
-            'listPrestations' => $prestations,
-            'nomCoffret' => $box['nomCoffret'],
-            'idBox' => $idBox,
-            'date' => $box['dateOuvertureCoffret'],
-            'prix' => $totalPrice,
-            'paye' => $box['estPaye'],
-            'message' => $box['messageCoffret'],
-            'messageRemer'=> $box['msgRemerciement'],
-            'ouvert' => $box['estOuvert'],
-            'transmis' => $box['estTransmis'],
-			'role' => $_SESSION['roleMembre'],
-        ]);
-        }else
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
-			'role' => $_SESSION['roleMembre'],
-        ]);
+        if ($_SESSION["idMembre"]==$box["idMembre"]) {
+            return $this->view->render($response, 'BoxView.html.twig', [
+                'nomMembre' => $memberName,
+                'listPrestations' => $prestations,
+                'nomCoffret' => $box['nomCoffret'],
+                'idBox' => $idBox,
+                'date' => $box['dateOuvertureCoffret'],
+                'prix' => $totalPrice,
+                'paye' => $box['estPaye'],
+                'message' => $box['messageCoffret'],
+                'messageRemer'=> $box['msgRemerciement'],
+                'ouvert' => $box['estOuvert'],
+                'transmis' => $box['estTransmis'],
+                'role' => $_SESSION['roleMember'],
+            ]);
+        } else {
+            return $this->view->render($response, 'Fail.html.twig', [
+                'nomMembre' => $_SESSION['forenameMember'],
+                "message" => "Désolé, seul le membre possédant cette boite y à accès",
+                'role' => $_SESSION['roleMember'],
+            ]);
+        }
     }
    
-
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function checkEditBox($request, $response, $args){
         $idBox = $args['id'];
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_SPECIAL_CHARS);
         $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
         $dateBox = $_POST['dateBox'];
-        
         self::editBox($nameBox,$messageBox,$dateBox,$idBox);
     }
 
+    /**
+	 * 
+	 * @param nameBox
+	 * @param messageBox
+	 * @param dateBox
+     * @param idBox
+	 */
     public static function editBox($nameBox,$messageBox,$dateBox,$idBox){
         $box = Coffret::where('idCoffret','=',$idBox)->first();
-        //si les champs sont vides ont laisse ceux qui sont dans la base
-        if($nameBox){
+        // If the fields are empty, leave the ones in the database
+        if ($nameBox) {
             $box->nomCoffret = $nameBox;
         }
-        if($messageBox){
+        if ($messageBox) {
             $box->messageCoffret = $messageBox;
         }
 
-        if($dateBox){
+        if ($dateBox) {
             $box->dateOuvertureCoffret = $dateBox;
         }
-        
         $box->save();
     }
 
+    /**
+	 * 
+	 */
     private static function generateToken() {
         return bin2hex(openssl_random_pseudo_bytes(16));
     }
 
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function shareBox($request, $response, $args){
-        $memberName = $_SESSION['prenomMembre'];
+        $memberName = $_SESSION['forenameMember'];
         $idBox = $args['idCoffret'];
         $box = Coffret::where('idCoffret','=',$args['idCoffret'])->first();
         $box->estTransmis = 1;
         $box->save();
-        if( $box['tokenCoffret']=="" ){
+        if ($box['tokenCoffret'] == "") {
             $token = self::generateToken();
-    
             $box->tokenCoffret = $token;
             $box->save();
-        }
-        else{
+        } else {
             $token = $box['tokenCoffret'];
         }
 
         $url = "http://" . $_SERVER["SERVER_NAME"];
-        if($_SESSION["idMembre"]==$box["idMembre"]){
-		return $this->view->render($response, 'ShareBoxView.html.twig', [
-            'nomMembre' => $memberName,
-            'box' => $box['nomCoffret'],
-            'token' => $token,
-            'url' => $url,
-			'role' => $_SESSION['roleMembre'],
-        ]);
-        }else
-        return $this->view->render($response, 'Fail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
-			'role' => $_SESSION['roleMembre'],
-        ]);
+        if($_SESSION["idMembre"]==$box["idMembre"]) {
+            return $this->view->render($response, 'ShareBoxView.html.twig', [
+                'nomMembre' => $memberName,
+                'box' => $box['nomCoffret'],
+                'token' => $token,
+                'url' => $url,
+                'role' => $_SESSION['roleMember'],
+            ]);
+        } else {
+            return $this->view->render($response, 'Fail.html.twig', [
+                'nomMembre' => $_SESSION['forenameMember'],
+                "message" => "Désolé, seul le membre possédant cette boite y à accès",
+                'role' => $_SESSION['roleMember'],
+            ]);
+        }
     }
 
-    
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function displayLink($request, $response, $args){
         $token = $args['token'];
-        
         $date = new \DateTime();
-
         $box = Coffret::where('tokenCoffret','=',$token)->first();
         $dateOuvertureCoffret = new \DateTime($box['dateOuvertureCoffret']);
         $box->estOuvert = 1;
@@ -252,13 +297,19 @@ class BoxController {
             'msgRemerciement' => $box['msgRemerciement'],
             'listBox' => $presta,
             'estOuvrable' => $estOuvrable,
-            'nom' => $_SESSION['nomMembre'],
-            'prenom' => $_SESSION['prenomMembre'],
-            'mail' => $_SESSION['mailMembre'],
-			'role' => $_SESSION['roleMembre'],
+            'nom' => $_SESSION['nameMember'],
+            'prenom' => $_SESSION['forenameMember'],
+            'mail' => $_SESSION['mailMember'],
+			'role' => $_SESSION['roleMember'],
 		]);
     }
 
+    /**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
     public function sendThanks($request, $response, $args){
         $box = Coffret::where('tokenCoffret','=',$args['token'])->first();
         $box->msgRemerciement = $_POST['msgRemerciement'];
