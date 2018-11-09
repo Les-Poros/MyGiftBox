@@ -9,6 +9,7 @@ use MyGiftBox\views\AdminPrestationsView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Categorie;
+use MyGiftBox\models\ContenuCoffret;
 
 /**
  * Class AdminPrestationsController
@@ -118,6 +119,37 @@ class AdminPrestationsController {
 			}
 		}
 		$prestation->save();
-    }
-    
+	}
+	
+	public function displayDeletePrestation($request, $response, $args) {
+		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
+		$prestations = Prestation::all();
+        $prest = array();
+        for($i=0; $i<sizeof($prestations); $i++) {
+            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
+            $prest[$i]['img'] = $prestations[$i]['img'];
+            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
+            $category = $prestations[$i]->categorie()->first()->toArray();
+            $prest[$i]['categorie'] = $category['nomCategorie'];
+			$prest[$i]['prix'] = $prestations[$i]['prix'];
+        }
+        return $this->view->render($response, 'DeletePrestationView.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+			'role' => $_SESSION['roleMembre'],
+            'listPrestations' => $prest,
+			'listCateg' => $listCategories,
+        ]);
+	}
+	
+	public function checkDeletePrestation($request, $response, $args) {
+		$idPrestation = $_POST['idPrestation'];
+		$prestation = Prestation::find($idPrestation);
+		if (isset($_POST['deletePrestation'])) {
+			if ($_POST['deletePrestation'] == 't') {
+				$contenuCoffret = ContenuCoffret::where('idPrestation', '=', $idPrestation)->delete();
+			}
+		}
+		$prestation->delete();
+	}
+
 }

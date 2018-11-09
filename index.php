@@ -269,7 +269,7 @@ $app->post('/AddPrestation', function($request, $response, $args){
 $app->get('/DeactivateReactivatePrestation', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['AdminPrestationsController'];
-		$displayDeactivatePrestation = $controller->displayDeactivateReactivatePrestation($request, $response, $args);
+		$displayDeactivateReactivatePrestation = $controller->displayDeactivateReactivatePrestation($request, $response, $args);
 	}
 	else {
 		$router = $this->router;
@@ -280,7 +280,7 @@ $app->get('/DeactivateReactivatePrestation', function($request, $response, $args
 $app->post('/DeactivateReactivatePrestation', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['AdminPrestationsController'];
-		$checkDeactivatePrestation = $controller->checkDeactivateReactivatePrestation($request, $response, $args);
+		$checkDeactivateReactivatePrestation = $controller->checkDeactivateReactivatePrestation($request, $response, $args);
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('DeactivateReactivatePrestation', []));
 	}
@@ -289,5 +289,29 @@ $app->post('/DeactivateReactivatePrestation', function($request, $response, $arg
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("checkDeactivateReactivatePrestation");
+
+$app->get('/DeletePrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$displayDeletePrestation = $controller->displayDeletePrestation($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("DeletePrestation");
+
+$app->post('/DeletePrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$checkDeletePrestation = $controller->checkDeletePrestation($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('DeletePrestation', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkDeletePrestation");
 
 $app->run();

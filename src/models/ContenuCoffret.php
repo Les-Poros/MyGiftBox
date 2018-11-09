@@ -8,7 +8,7 @@ namespace MyGiftBox\models;
 class ContenuCoffret extends \Illuminate\Database\Eloquent\Model {
 
     protected $table = 'contenuCoffret';
-    protected $primaryKey = 'idContenuCoffret';
+    protected $primaryKey = ['idCoffret', 'idPrestation'];
     public $timestamps = false;
 
     public function coffret() {
