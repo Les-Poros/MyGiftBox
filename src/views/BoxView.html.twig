@@ -20,7 +20,8 @@
               {% else %}
                  <div class="screen">
                   <p>{{nomCoffret}}</p> 
-                  {{message}} </p>
+                  <p>Prix : {{prix}} €</p>
+                  <p>{{message}} </p>
                    {% if transmis %}
                    <p>Le coffret a été envoyé à son destinataire</p>
                    {% else %}
@@ -48,8 +49,9 @@
             </div>
             {% endfor %}   
     </div>
+             {% if paye == false %}
             <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a> 
-      
+            {% endif %}
     </div>
 </body>
 
