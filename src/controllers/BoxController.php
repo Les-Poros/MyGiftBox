@@ -40,10 +40,16 @@ class BoxController {
 
     }
     public function displayEditBox($request, $response, $args) {
-		$memberName = $_SESSION['prenomMembre'];
-		return $this->view->render($response, 'EditBoxView.html.twig', [
-            'nomMembre' => $memberName,
-		]);
+        $box = Coffret::select('idMembre')->where('idCoffret','=',$args["id"])->first()->toArray();
+        if($_SESSION["idMembre"]==$box["idMembre"]){
+            return $this->view->render($response, 'EditBoxView.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
+            }else
+            return $this->view->render($response, 'BoxMemberFail.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
+		
 
     }
 
@@ -70,28 +76,17 @@ class BoxController {
         return $box->idCoffret;
     }
 
-    public static function displayBox($request, $response, $args){
+    public static function displayBoxMember($request, $response, $args){
             $mail = $_SESSION['mailMembre'];
 			//récupère id du membre connecté
-			$box= Membre::where('mailMembre', '=', $mail);
-			$coffretFirst = $box->first();
-			$idBox = $coffretFirst->idMembre;
+			$membre= Membre::where('mailMembre', '=', $mail)->first();
+			$idMembre = $membre->idMembre;
             //On vérifie si le membre connecté à déjà un coffret
             $boxHaveContenu = false;
-            $memberList = Coffret::select('idMembre')->get()->toArray();
-            foreach($memberList as $values){
-                $memberId = $values['idMembre'];
-                if($idBox == $memberId ){
-                    $boxHaveContenu = true;
-                }
-            }
-
-
+            $memberBox = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idMembre)->get()->toArray();
             // On vérifie si il y a du contenu dans le coffret
-            if($boxHaveContenu){
-                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idBox)->get()->toArray();
                 $listBoxesName = array();
-                foreach($isContenuList as $values){
+                foreach($memberBox as $values){
                     $isContenu = $values['hasContenuCoffret'];
                     $boxName = $values['nomCoffret'];
                     $idBox = $values['idCoffret'];
@@ -107,21 +102,13 @@ class BoxController {
                         array_push($listBoxesName,[$boxName,$imgPrestation,$idBox,$isPay]);
                    }
                 }
-               
-                return($listBoxesName);
-        }
-			
+            return($listBoxesName);	
     }
 
-    public function displayEditMod($request, $response, $args){
+    public function displayBox($request, $response, $args){
         $memberName = $_SESSION['prenomMembre'];
         $idBox = $args['id'];
-        $boxName = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
-        $boxDate = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
-        $isPay = Coffret::select('estPaye')->where('idCoffret','=',$idBox)->first()->toArray();
-        $isSend = Coffret::select('estTransmis')->where('idCoffret','=',$idBox)->first()->toArray();
-        $isOpen = Coffret::select('estOuvert')->where('idCoffret','=',$idBox)->first()->toArray();
-        $messageMember = Coffret::select('messageCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
+        $box = Coffret::select('nomCoffret','dateOuvertureCoffret','estPaye','estTransmis','estOuvert','messageCoffret','idMembre')->where('idCoffret','=',$idBox)->first()->toArray();
 
         $infoList = array();
         $priceList = array();
@@ -138,18 +125,22 @@ class BoxController {
         foreach($priceList as $values){
             $totalPrice += $values;
         }
-        
+        if($_SESSION["idMembre"]==$box["idMembre"]){
         return $this->view->render($response, 'BoxView.html.twig', [
             'nomMembre' => $memberName,
             'info' => $infoList,
-            'nomCoffret' => $boxName['nomCoffret'],
+            'nomCoffret' => $box['nomCoffret'],
             'idBox' => $idBox,
-            'date' => $boxDate['dateOuvertureCoffret'],
+            'date' => $box['dateOuvertureCoffret'],
             'prix' => $totalPrice,
-            'paye' => $isPay['estPaye'],
-            'message' => $messageMember['messageCoffret'],
-            'ouvert' => $isOpen['estOuvert'],
-            'transmis' => $isSend['estTransmis'],
+            'paye' => $box['estPaye'],
+            'message' => $box['messageCoffret'],
+            'ouvert' => $box['estOuvert'],
+            'transmis' => $box['estTransmis'],
+        ]);
+        }else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
         ]);
     }
    
@@ -187,8 +178,7 @@ class BoxController {
     public function shareBox($request, $response, $args){
         $memberName = $_SESSION['prenomMembre'];
         $idBox = $args['idCoffret'];
-        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','tokenCoffret')->where('idCoffret','=',$args['idCoffret'])->first();
-        $box = Coffret::where('idCoffret','=',$idBox)->first();
+        $box = Coffret::select('nomCoffret','tokenCoffret','idMembre')->where('idCoffret','=',$args['idCoffret'])->first();
         $box->estTransmis = 1;
         $box->save();
         if( $box['tokenCoffret']=="" ){
@@ -202,13 +192,17 @@ class BoxController {
         }
 
         $url = "http://" . $_SERVER["SERVER_NAME"];
-
+        if($_SESSION["idMembre"]==$box["idMembre"]){
 		return $this->view->render($response, 'ShareBoxView.html.twig', [
             'nomMembre' => $memberName,
             'box' => $box['nomCoffret'],
             'token' => $token,
             'url' => $url,
-		]);
+        ]);
+        }else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+        ]);
     }
 
     

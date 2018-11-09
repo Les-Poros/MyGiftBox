@@ -16,7 +16,7 @@ class PayController{
         $month = date("m");
         $year = date("Y");
 
-        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         
         $tabCateg = array();
@@ -41,6 +41,7 @@ class PayController{
         foreach($tabCateg as $categ){
             $nbCateg.=1;
         }
+    if($_SESSION["idMembre"]==$box["idMembre"]){
 		return $this->view->render($response, 'PayView.html.twig', [
             'month' => $month,
             'year' => $year,
@@ -51,6 +52,11 @@ class PayController{
             'total' => $somme,
             'role' => $_SESSION['roleMembre'],
             'nbCateg' => $nbCateg,
+        ]);
+    }
+    else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
         ]);
     }
 

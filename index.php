@@ -57,14 +57,8 @@ $app->post('/CreateAccount', function($request, $response, $args){
 $app->get('/Connection', 'ConnectionController:displayConnection')->setName("Connection");
 
 $app->get('/ConsultCatalog', function($request, $response, $args){
-	if (Authentication::checkConnection()) {
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->displayCatalog($request, $response, $args);
-	}
-	else {
-		$router = $this->router;
-		return $response->withRedirect($router->pathFor('Home', []));
-	}
 })->setName('ConsultCatalog');
 
 $app->get('/CreateBox', function($request, $response, $args){
@@ -112,14 +106,8 @@ $app->get('/Exit', function($request, $response, $args){
 })->setName('Disconnection');
 
 $app->get('/Prestation/{id}', function($request, $response, $args){
-	if (Authentication::checkConnection()) {
-		$controller = $this['PrestationController'];
-		$displayPrestation = $controller->displayPrestation($request, $response, $args);
-	}
-	else {
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
-	}
 })->setName("Prestation");
 
 
@@ -230,7 +218,7 @@ $app->post('/LinkBox/{token}', function($request, $response, $args){
 $app->get('/ViewBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
-		$displayEditMod = $controller->displayEditMod($request, $response, $args);
+		$displayEditMod = $controller->displayBox($request, $response, $args);
 	}
 	else {
 		$router = $this->router;

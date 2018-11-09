@@ -33,19 +33,29 @@ class AdminPrestationsController {
 	 * @param args
 	 */
 	public function displayAdminPrestations($request, $response, $args) {
+		if($_SESSION['roleMembre']==1)
         return $this->view->render($response, 'AdminPrestationsView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
+			'nomMembre' => $_SESSION['prenomMembre'],
 			'role' => $_SESSION['roleMembre'],
-        ]);
+		]);
+		else
+            return $this->view->render($response, 'RightFailView.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
 	}
 	
 	public function displayAddPrestation($request, $response, $args) {
-        $listCategories = Categorie::select('nomCategorie')->get()->toArray();
+		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
+		if($_SESSION['roleMembre']==1)
         return $this->view->render($response, 'AddPrestationView.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
 			'role' => $_SESSION['roleMembre'],
             'listCateg' => $listCategories,
-        ]);
+		]);
+		else
+            return $this->view->render($response, 'RightFailView.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
 	}
 	
 	public function checkAddPrestation($request, $response, $args) {
@@ -96,13 +106,18 @@ class AdminPrestationsController {
             $prest[$i]['categorie'] = $category['nomCategorie'];
 			$prest[$i]['prix'] = $prestations[$i]['prix'];
 			$prest[$i]['activation'] = $prestations[$i]['activation'];
-        }
+		}
+		if($_SESSION['roleMembre']==1)
         return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
 			'role' => $_SESSION['roleMembre'],
             'listPrestations' => $prest,
 			'listCateg' => $listCategories,
-        ]);
+		]);
+		else
+            return $this->view->render($response, 'RightFailView.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
 	}
 	
 	public function checkDeactivateReactivatePrestation($request, $response, $args) {
@@ -132,13 +147,18 @@ class AdminPrestationsController {
             $category = $prestations[$i]->categorie()->first()->toArray();
             $prest[$i]['categorie'] = $category['nomCategorie'];
 			$prest[$i]['prix'] = $prestations[$i]['prix'];
-        }
+		}
+		if($_SESSION['roleMembre']==1)
         return $this->view->render($response, 'DeletePrestationView.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
 			'role' => $_SESSION['roleMembre'],
             'listPrestations' => $prest,
 			'listCateg' => $listCategories,
-        ]);
+		]);
+		else
+            return $this->view->render($response, 'RightFailView.html.twig', [
+                'nomMembre' => $_SESSION['prenomMembre'],
+            ]);
 	}
 	
 	public function checkDeletePrestation($request, $response, $args) {
