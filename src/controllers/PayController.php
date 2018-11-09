@@ -19,17 +19,27 @@ class PayController{
         $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         
+        $tabCateg = array();
+
         $presta = array();
         $somme = 0;
         foreach($idPrestation as $p){
-            $prestation = Prestation::select('img','prix')->where('idPrestation','=',$p)->first()->toArray();
+            $prestation = Prestation::select('img','prix','idCategorie')->where('idPrestation','=',$p)->first()->toArray();
             $imgPrestation = $prestation['img'];
             $prixPrestation = $prestation['prix'];
             $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
             $quantitePrestation = $quantitePresta['quantite'];
             $prix = $prixPrestation * $quantitePrestation;
             $somme += $prix;
+            $idCateg= $prestation['idCategorie'];
+            if( array_search($idCateg, $tabCateg)==false){
+                array_push($tabCateg,$idCateg);
+            }
             array_push($presta,[$imgPrestation,$quantitePrestation]);
+        }
+        $nbCateg=0;
+        foreach($tabCateg as $categ){
+            $nbCateg.=1;
         }
 		return $this->view->render($response, 'PayView.html.twig', [
             'month' => $month,
@@ -39,7 +49,8 @@ class PayController{
             'idBox' => $box['idCoffret'],
             'presta' => $presta,
             'total' => $somme,
-			'role' => $_SESSION['roleMembre'],
+            'role' => $_SESSION['roleMembre'],
+            'nbCateg' => $nbCateg,
         ]);
     }
 
