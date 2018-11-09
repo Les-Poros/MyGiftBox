@@ -58,8 +58,11 @@ class BoxController {
         $box->messageCoffret = $messageBox;
         $box->dateOuvertureCoffret = $dateBox;
         $box->idMembre = $membre['idMembre'];
+        $box->estCree = 1;
+        $box->estValide = 0;
         $box->estOuvert = 0;
         $box->estPaye = 0;
+        $box->estTransmis = 0;
         $box->hasContenuCoffret = 0;
         $box->msgRemerciement = "";
         $box->tokenCoffret = "";
@@ -115,6 +118,11 @@ class BoxController {
         $idBox = $args['id'];
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
         $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
+        $isPay = Coffret::select('estPaye')->where('idCoffret','=',$idBox)->first()->toArray();
+        $isSend = Coffret::select('estTransmis')->where('idCoffret','=',$idBox)->first()->toArray();
+        $isOpen = Coffret::select('estOuvert')->where('idCoffret','=',$idBox)->first()->toArray();
+        $messageMembre = Coffret::select('messageCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
+
         $infoList = array();
         $prixList = array();
         $totalPrice = 0;
@@ -137,6 +145,10 @@ class BoxController {
             'idBox' => $idBox,
             'date' => $dateCoffret['dateOuvertureCoffret'],
             'prix' => $totalPrice,
+            'paye' => $isPay['estPaye'],
+            'message' => $messageMembre['messageCoffret'],
+            'ouvert' => $isOpen['estOuvert'],
+            'transmis' => $isSend['estTransmis'],
         ]);
     }
    
@@ -173,9 +185,11 @@ class BoxController {
 
     public function shareBox($request, $response, $args){
         $nomMembre = $_SESSION['prenomMembre'];
-
+        $idBox = $args['idCoffret'];
         $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','tokenCoffret')->where('idCoffret','=',$args['idCoffret'])->first();
-
+        $coffret = Coffret::where('idCoffret','=',$idBox)->first();
+        $coffret->estTransmis = 1;
+        $coffret->save();
         if( $box['tokenCoffret']=="" ){
             $token = self::generateToken();
     
@@ -196,6 +210,7 @@ class BoxController {
 		]);
     }
 
+    
     public function displayLink($request, $response, $args){
         $token = $args['token'];
         
