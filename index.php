@@ -200,7 +200,7 @@ $app->post('/LinkBox/{token}', function($request, $response, $args){
 	$controller = $this['BoxController'];
 	$shareBox = $controller->sendThanks($request, $response, $args);
 	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	return $response->withRedirect($router->pathFor('LinkBox', ["token"=>$args['token']]));
 	})->setName("SendThanks");
 
 

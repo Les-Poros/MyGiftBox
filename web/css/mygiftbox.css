@@ -372,6 +372,14 @@ header .container_header .list_grid_menu li a {
   width: 50%;
   height: 200px;
 }
+@media screen and (max-width: 500px) {
+  .main_containLinkBox .grid_item_link {
+    width: 80%;
+  }
+  .main_containLinkBox .formLinkBox .msgRemerciement {
+    width: initial;
+  }
+}
 
 #nomPrestation {
   font-weight: bold;
