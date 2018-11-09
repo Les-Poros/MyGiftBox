@@ -291,7 +291,7 @@ header .container_header .list_grid_menu li a {
   }
 
   .screen {
-    border: inherit;
+    text-align: center;
   }
 
   input {

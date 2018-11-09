@@ -16,7 +16,7 @@ class PayController{
         $month = date("m");
         $year = date("Y");
 
-        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         
         $presta = array();
@@ -31,6 +31,8 @@ class PayController{
             $somme += $prix;
             array_push($presta,[$imgPrestation,$quantitePrestation]);
         }
+        
+        if($_SESSION["idMembre"]==$box["idMembre"]){
 		return $this->view->render($response, 'PayView.html.twig', [
             'month' => $month,
             'year' => $year,
@@ -40,6 +42,11 @@ class PayController{
             'presta' => $presta,
             'total' => $somme,
 			'role' => $_SESSION['roleMembre'],
+        ]);
+    }
+    else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
         ]);
     }
 
