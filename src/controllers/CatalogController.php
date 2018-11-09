@@ -103,5 +103,6 @@ class CatalogController {
             $addPresta->save();
         }
      }
+     return $coffret['idCoffret'];
     }
 }

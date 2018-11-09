@@ -163,7 +163,7 @@ $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args)
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->modifCatalogPurchase($request, $response, $args);
 		$router = $this->router;
-		return $response->withRedirect($router->pathFor('HomeConnect', []));
+		return $response->withRedirect($router->pathFor('ViewBox', ['id' => $displayCatalog]));
   }
     	else {
 		$router = $this->router;
