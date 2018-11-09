@@ -256,7 +256,9 @@ $app->post('/AddPrestation', function($request, $response, $args){
 		$controller = $this['AdminPrestationsController'];
 		$checkAddPrestation = $controller->checkAddPrestation($request, $response, $args);
 		$router = $this->router;
-		//return $response->withRedirect($router->pathFor('HomeConnect', []));
+		return $response->withRedirect($router->pathFor('Prestation', [
+			'id' => $checkAddPrestation,
+		]));
 	}
 	else {
 		$router = $this->router;
