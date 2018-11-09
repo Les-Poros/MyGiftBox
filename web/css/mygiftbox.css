@@ -410,10 +410,11 @@ header .container_header .list_grid_menu li a {
 }
 .grid_container_prestations .tabPrestations .detailsPrestations,
 .grid_container_prestations .tabPrestations .detailsPrestationsCateg,
-.grid_container_prestations .tabPrestations .detailsPrestationsPrix {
+.grid_container_prestations .tabPrestations .detailsPrestationsPrix,
+.grid_container_prestations .tabPrestations .detailsPrestationsQuantite {
+  text-align: center;
   padding-left: 10px;
   padding-right: 10px;
-  text-align: center;
 }
 .grid_container_prestations .tabPrestations .detailsPrestationsPrix {
   padding-bottom: 10px;
@@ -463,8 +464,8 @@ header .container_header .list_grid_menu li a {
 .grid_container_prestations .tabPrestations:hover .detailsPrestations,
 .grid_container_prestations .tabPrestations:hover .detailsPrestationsCateg,
 .grid_container_prestations .tabPrestations:hover .grid_item_pres_tab,
-.grid_container_prestations .tabPrestations:hover .detailsPrestationsPrix {
-  text-align: center;
+.grid_container_prestations .tabPrestations:hover .detailsPrestationsPrix,
+.grid_container_prestations .tabPrestations:hover .detailsPrestationsQuantite {
   filter: brightness(20%);
   -webkit-filter: brightness(20%);
   -moz-filter: brightness(20%);

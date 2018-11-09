@@ -113,19 +113,22 @@ class BoxController {
         $idBox = $args['id'];
         $box = Coffret::where('idCoffret','=',$idBox)->first()->toArray();
 
-        $infoList = array();
+        $prestations = array();
         $priceList = array();
         $totalPrice = 0;
         $ContenuBox = ContenuCoffret::select('idPrestation','quantite')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($ContenuBox as $values){
-            $presta= Prestation::select('prix','img')->where('idPrestation','=',$values["idPrestation"])->first()->toArray();
-           array_push($infoList,[$presta['img'],$values['quantite']]);
-              $totalPrice += $presta['prix']*$values['quantite'];
+            $presta= Prestation::where('idPrestation','=',$values["idPrestation"])->first();
+            $prestaTab=$presta->toArray();
+            $prestaTab['categorie'] = $presta->categorie()->first()->toArray()['nomCategorie'];
+            $prestaTab['quantite']=$values["quantite"];
+            array_push($prestations,$prestaTab);
+            $totalPrice += $presta['prix']*$values['quantite'];
         }
         if($_SESSION["idMembre"]==$box["idMembre"]){
         return $this->view->render($response, 'BoxView.html.twig', [
             'nomMembre' => $memberName,
-            'info' => $infoList,
+            'listPrestations' => $prestations,
             'nomCoffret' => $box['nomCoffret'],
             'idBox' => $idBox,
             'date' => $box['dateOuvertureCoffret'],
