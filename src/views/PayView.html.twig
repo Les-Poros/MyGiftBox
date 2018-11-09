@@ -6,7 +6,7 @@
 	{% include 'HeaderView.html.twig' %}
 
     <div class="main_container">
-        {% if nbCateg >= 2 %}
+        
             <div class="mainPay">
                 <div class="coffret">
                     <h2>Contenu du coffret {{box}}</h2>
@@ -45,9 +45,7 @@
                     </div>
                 </div>
             </div>
-        {% else %}
-            <h2> Vous devez avoir des prestations d'au moins deux catégories différentes</h2>
-        {% endif %}
+        
     </div>
 
 </body>
