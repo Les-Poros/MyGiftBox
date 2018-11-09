@@ -4,12 +4,12 @@
 <body>
 
 	{% include 'HeaderView.html.twig' %}
-
 	<div class="main_container">
-        <h2>Partager le lien de votre cagnotte pour le coffret {{box}}</h2>
+        <h2>Partager le lien de votre cagnotte pour le coffret {{nameBox}}</h2>
 		<div class="share_container">
-			<p>Votre url cagnotte à partager : {{url}}{{base_url()}}/{{token}}/ParticipatePot</p>
+			<p>Votre url cagnotte à partager : {{urlBox}}{{base_url()}}/{{tokenBox}}/ParticipatePot</p>
 		</div>
     </div>
+
 </body>
 </html>

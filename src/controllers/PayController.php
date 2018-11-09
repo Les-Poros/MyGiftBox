@@ -23,7 +23,7 @@ class PayController{
     }
 
     /**
-	 * 
+	 * Method that display the form pay
 	 * @param request
 	 * @param response
 	 * @param args
@@ -31,33 +31,31 @@ class PayController{
     public function displayPay($request, $response, $args) {
         $month = date("m");
         $year = date("Y");
-
         $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
-
-        $presta = array();
-        $somme = 0;
+        $tabPrestations = array();
+        $sum = 0;
         foreach ($idPrestation as $p) {
             $prestation = Prestation::select('img','prix')->where('idPrestation','=',$p)->first()->toArray();
-            $imgPrestation = $prestation['img'];
-            $prixPrestation = $prestation['prix'];
-            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
-            $quantitePrestation = $quantitePresta['quantite'];
-            $prix = $prixPrestation * $quantitePrestation;
-            $somme += $prix;
-            array_push($presta,[$imgPrestation,$quantitePrestation]);
+            $picturePrestation = $prestation['img'];
+            $pricePrestation = $prestation['prix'];
+            $quantityPresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
+            $quantityPrestation = $quantityPresta['quantite'];
+            $price = $pricePrestation * $quantityPrestation;
+            $sum += $price;
+            array_push($tabPrestations,[$picturePrestation, $quantityPrestation]);
         }
         
-        if($_SESSION["idMembre"]==$box["idMembre"]) {
+        if($_SESSION["idMember"] == $box["idMembre"]) {
             return $this->view->render($response, 'PayView.html.twig', [
                 'month' => $month,
                 'year' => $year,
-                'nomMembre' => $_SESSION['forenameMember'],
-                'box' => $box['nomCoffret'],
+                'nameMember' => $_SESSION['forenameMember'],
+                'nameBox' => $box['nomCoffret'],
                 'idBox' => $box['idCoffret'],
-                'presta' => $presta,
-                'total' => $somme,
-                'role' => $_SESSION['roleMember'],
+                'tabPrestations' => $tabPrestations,
+                'sum' => $sum,
+                'roleMember' => $_SESSION['roleMember'],
             ]);
         } else {
             return $this->view->render($response, 'BoxMemberFail.html.twig', [
@@ -67,7 +65,7 @@ class PayController{
     }
 
     /**
-	 * 
+	 * Method that displays the form for the choice for the payment
 	 * @param request
 	 * @param response
 	 * @param args
@@ -75,31 +73,28 @@ class PayController{
     public function displayChoicePay($request, $response, $args) {
         $box = Coffret::select('idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
-        
-        $tabCateg = array();
-        $presta = array();
-        foreach ($idPrestation as $p) {
-            $prestation = Prestation::select('idCategorie')->where('idPrestation','=',$p)->first()->toArray();
-            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
-            $idCateg= $prestation['idCategorie'];
-            if( in_array($idCateg, $tabCateg)==false){
-                array_push($tabCateg,$idCateg);
+        $tabCategories = array();
+        foreach ($idPrestation as $idPresta) {
+            $prestation = Prestation::select('idCategorie')->where('idPrestation','=',$idPresta)->first()->toArray();
+            $idCategory = $prestation['idCategorie'];
+            if(in_array($idCategory, $tabCategories) == false) {
+                array_push($tabCategories, $idCategory);
             }
         }
-        $nbCateg=0;
-        foreach ($tabCateg as $categ) {
-            $nbCateg.=1;
+        $numberCategories = 0;
+        foreach ($tabCategories as $category) {
+            $numberCategories .= 1;
         }
 		return $this->view->render($response, 'ChoicePayView.html.twig', [
-            'nomMembre' => $_SESSION['forenameMember'],
-            'role' => $_SESSION['roleMember'],
+            'nameMember' => $_SESSION['forenameMember'],
+            'roleMember' => $_SESSION['roleMember'],
             'idBox' => $box['idCoffret'],
-            'nbCateg' => $nbCateg,
+            'numberCategories' => $numberCategories,
         ]);
     }
 
     /**
-	 * 
+	 * Method that checks the payement of a box and modifies the box in the database
 	 * @param request
 	 * @param response
 	 * @param args
@@ -110,15 +105,13 @@ class PayController{
         $box->save();
     }
 
-    /**
-	 * 
-	 */
+    // Method which generates a token for a pot
     private static function generateTokenPot() {
         return bin2hex(openssl_random_pseudo_bytes(16));
     }
 
     /**
-	 * 
+	 * Method that displays the generation of a link for a pot
 	 * @param request
 	 * @param response
 	 * @param args
@@ -127,29 +120,30 @@ class PayController{
         $idBox = $args['idCoffret'];
         $box = Coffret::find($idBox);
         if ($box['tokenCagnotte'] == "") {
-            $token = self::generateTokenPot();
-            $box->tokenCagnotte = $token;
+            $tokenBox = self::generateTokenPot();
+            $box->tokenCagnotte = $tokenBox;
             $box->save();
         } else {
-            $token = $box['tokenCagnotte'];
+            $tokenBox = $box['tokenCagnotte'];
         }
-        $url = "http://" . $_SERVER["SERVER_NAME"];
-        if($_SESSION["idMembre"]==$box["idMembre"]){
+        $urlBox = "http://" . $_SERVER["SERVER_NAME"];
+        if($_SESSION["idMember"]==$box["idMembre"]){
             return $this->view->render($response, 'GeneratePotView.html.twig', [
-                'nomMembre' => $_SESSION['forenameMember'],
-                'box' => $box['nomCoffret'],
-                'token' => $token,
-                'url' => $url,
+                'nameMember' => $_SESSION['forenameMember'],
+                'roleMember' => $_SESSION['roleMember'],
+                'nameBox' => $box['nomCoffret'],
+                'tokenBox' => $tokenBox,
+                'urlBox' => $urlBox,
             ]);
         } else {
             return $this->view->render($response, 'BoxMemberFail.html.twig', [
-                'nomMembre' => $_SESSION['forenameMember'],
+                'nameMember' => $_SESSION['forenameMember'],
             ]);
         }
     }
 
     /**
-	 * 
+	 * Method that displays the page where they can participate to a pot
 	 * @param request
 	 * @param response
 	 * @param args
@@ -157,49 +151,49 @@ class PayController{
     public function displayParticipatePot($request, $response, $args){
         $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre','totalPaye')->where('tokenCagnotte','=',$args['tokenPot'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
-        $tabCateg = array();
-        $presta = array();
-        $somme = 0;
+        $tabCategories = array();
+        $tabPrestations = array();
+        $sum = 0;
         foreach ($idPrestation as $p) {
             $prestation = Prestation::select('img','prix','idCategorie')->where('idPrestation','=',$p)->first()->toArray();
-            $imgPrestation = $prestation['img'];
-            $prixPrestation = $prestation['prix'];
-            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
-            $quantitePrestation = $quantitePresta['quantite'];
-            $prix = $prixPrestation * $quantitePrestation;
-            $somme += $prix;
-            $idCateg= $prestation['idCategorie'];
-            if (in_array($idCateg, $tabCateg) == false) {
-                array_push($tabCateg, $idCateg);
+            $picturePrestation = $prestation['img'];
+            $pricePrestation = $prestation['prix'];
+            $quantityPresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
+            $quantityPrestation = $quantityPresta['quantite'];
+            $price = $pricePrestation * $quantityPrestation;
+            $somme += $price;
+            $idCategory = $prestation['idCategorie'];
+            if (in_array($idCategory, $tabCategories) == false) {
+                array_push($tabCategories, $idCategory);
             }
-            array_push($presta, [$imgPrestation, $quantitePrestation]);
+            array_push($tabPrestations, [$picturePrestation, $quantityPrestation]);
         }
-        $nbCateg=0;
-        foreach ($tabCateg as $categ) {
-            $nbCateg .= 1;
+        $numberCategories = 0;
+        foreach ($tabCategories as $category) {
+            $numberCategories .= 1;
         }
-        if ($_SESSION["idMembre"] == $box["idMembre"]) {
+        if ($_SESSION["idMember"] == $box["idMembre"]) {
             return $this->view->render($response, 'ParticipatePotView.html.twig', [
-                'nomMembre' => $_SESSION['forenameMember'],
-                'box' => $box['nomCoffret'],
+                'nameMember' => $_SESSION['forenameMember'],
+                'nameBox' => $box['nomCoffret'],
                 'idBox' => $box['idCoffret'],
-                'presta' => $presta,
-                'total' => $somme,
-                'role' => $_SESSION['roleMember'],
-                'nbCateg' => $nbCateg,
-                'totalPaye' => $box['totalPaye'],
+                'tabPrestations' => $tabPrestations,
+                'sum' => $sum,
+                'roleMember' => $_SESSION['roleMember'],
+                'numberCategories' => $numberCategories,
+                'totalPayeBox' => $box['totalPaye'],
             ]);
         } else {
             return $this->view->render($response, 'Fail.html.twig', [
-                'nomMembre' => $_SESSION['forenameMember'],
+                'nameMember' => $_SESSION['forenameMember'],
                 "message" => "Désolé, seul le membre possédant cette boite y à accès",
-                'role' => $_SESSION['roleMember'],
+                'roleMember' => $_SESSION['roleMember'],
             ]);
         }
     }
 
     /**
-	 * 
+	 * Method that checks the participation to a pot and modifies the coffret in the database
 	 * @param request
 	 * @param response
 	 * @param args

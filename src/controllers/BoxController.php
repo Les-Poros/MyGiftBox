@@ -48,7 +48,7 @@ class BoxController {
 	 */
     public function displayEditBox($request, $response, $args) {
         $box = Coffret::select('idMembre')->where('idCoffret','=',$args["id"])->first()->toArray();
-        if ($_SESSION["idMembre"] == $box["idMembre"]) {
+        if ($_SESSION["idMember"] == $box["idMembre"]) {
             return $this->view->render($response, 'EditBoxView.html.twig', [
                 'nomMembre' => $_SESSION['forenameMember'],
                 'role' => $_SESSION['roleMember'],
@@ -150,7 +150,7 @@ class BoxController {
             array_push($prestations,$prestaTab);
             $totalPrice += $presta['prix']*$values['quantite'];
         }
-        if ($_SESSION["idMembre"]==$box["idMembre"]) {
+        if ($_SESSION["idMember"]==$box["idMembre"]) {
             return $this->view->render($response, 'BoxView.html.twig', [
                 'nomMembre' => $memberName,
                 'listPrestations' => $prestations,
@@ -239,7 +239,7 @@ class BoxController {
         }
 
         $url = "http://" . $_SERVER["SERVER_NAME"];
-        if($_SESSION["idMembre"]==$box["idMembre"]) {
+        if($_SESSION["idMember"]==$box["idMembre"]) {
             return $this->view->render($response, 'ShareBoxView.html.twig', [
                 'nomMembre' => $memberName,
                 'box' => $box['nomCoffret'],

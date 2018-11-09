@@ -6,23 +6,23 @@
 	{% include 'HeaderView.html.twig' %}
 
 	<div class="main_container">
-        <h2>Cagnotte pour le coffret {{box}}</h2>
+        <h2>Cagnotte pour le coffret {{nameBox}}</h2>
             <div class="containBox">
-                {% for p in presta %}
+                {% for prestation in tabPrestations %}
                     <div class="itemPay">
-                        <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{p[0]}}"/></div>
-                        <p>x{{p[1]}}</p>
+                        <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{prestation[0]}}"/></div>
+                        <p>x{{prestation[1]}}</p>
                     </div>
                 {% endfor %}
             </div>
-        <p>Total : {{total}}€</p>
-        <p>Total déjà payé : {{totalPaye}}€</p>
+        <p>Total : {{sum}}€</p>
+        <p>Total déjà payé : {{totalPayeBox}}€</p>
         <form action="" method="post">
             <label>Votre participation</label>
             <input type="number" name="participation" placeholder="10" required/>
             <label>Laissez un message</label>
             <input name="msg" type="texte"/>
-            <button type="submit" class="bouttonBlack buttonPay">Participer</button>
+            <button type="submit" class="boutton buttonPay">Participer</button>
         </form>
     </div>
 </body>

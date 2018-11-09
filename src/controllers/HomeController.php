@@ -25,48 +25,43 @@ class HomeController {
     }
 
 	/**
-	 * Method that displays the home
+	 * Method that displays the home connect if we are in the database
 	 * @param request
 	 * @param response
 	 * @param args
 	 */
 	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {		
-			$variables = BoxController::displayBoxMember($request, $response, $args);
-			$nomMembre = $_SESSION['forenameMember'];
+			$resDisplayBoxMember = BoxController::displayBoxMember($request, $response, $args);
+			$nameMembre = $_SESSION['forenameMember'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
-				  'nomMembre' => $nomMembre,
-				  'role' => $_SESSION['roleMember'],
-				  'variables' => $variables,
+				'nameMember' => $nameMember,
+				'roleMember' => $_SESSION['roleMember'],
+				'resDisplayBoxMember' => $resDisplayBoxMember,
 			]);
 		}
 	}
 
 	/**
-	 * 
+	 * Method that displays the home when we are not in the database
 	 * @param request
 	 * @param response
 	 * @param args
 	 */
 	public function displayHome($request, $response, $args) {
-		if (Authentication::checkConnection()) {
-			$nomMembre = $_SESSION['forenameMember'];
-		} else {
-			$nomMembre = "";
-		}
 		$prestations = array();
-		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
+		$randomPrestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
 		if (Authentication::checkConnection()) {
-            $nomMembre = $_SESSION['forenameMember'];
-            $role=$_SESSION['roleMember'];
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
         } else {
-            $nomMembre = "";
-            $role=0;
+            $nameMember = "";
+            $roleMember = 0;
         }
 		return $this->view->render($response, 'HomeView.html.twig', [
-			'prestations' => $prestations,
-			'nomMembre' => $nomMembre,
-			'role' => $role,
+			'randomPrestations' => $randomPrestations,
+			'nameMember' => $nameMember,
+			'roleMember' => $roleMember,
 		]);
 	}
 

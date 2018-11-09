@@ -65,7 +65,7 @@ class CatalogController {
         }
         $box = Coffret::select("nomCoffret","idMembre","estPaye")->where('idCoffret', '=', $args["box"])->first()->toArray();
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
-        if ($_SESSION["idMembre"]==$box["idMembre"]) {
+        if ($_SESSION["idMember"]==$box["idMembre"]) {
             if ($box["estPaye"] == 1) {
                 return $this->view->render($response, 'Fail.html.twig', [
                     'nomMembre' => $_SESSION['forenameMember'],
