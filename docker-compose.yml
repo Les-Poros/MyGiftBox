@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+
+  mygiftbox-server:
+    container_name: mygiftbox-server
+    build:
+            context: .
+            dockerfile: ./apache/Dockerfile
+    ports:
+        - 8080:80
+    links:
+         - mygiftbox-mysql
+
+  mygiftbox-mysql:
+    container_name: mygiftbox-mysql
+    build:
+            context: .
+            dockerfile: ./mysql/Dockerfile
+    ports:
+        - 3306
+    environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  mygiftbox-phpmyadmin:
+    container_name: mygiftbox-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+       - mygiftbox-mysql:db
+    ports:
+        - 8081:80
