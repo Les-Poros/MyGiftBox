@@ -31,7 +31,7 @@ class CatalogController {
 	 */
     public function displayCatalog($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
-        $prestations = Prestation::all();
+        $prestations = Prestation::where('activation', '=', 1)->get();
         $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
             $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
@@ -58,7 +58,7 @@ class CatalogController {
 	 */
     public function displayCatalogPurchase($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
-        $prestations = Prestation::all();
+        $prestations = Prestation::where('activation', '=', 1)->get();
         $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
             $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
