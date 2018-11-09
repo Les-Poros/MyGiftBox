@@ -7,9 +7,7 @@ use MyGiftBox\controllers\Authentication;
 use MyGiftBox\controllers\BoxController;
 use MyGiftBox\views\HomeView;
 use MyGiftBox\models\Prestation;
-
-
-
+use MyGiftBox\models\Membre;
 
 /**
  * Class HomeController
@@ -34,11 +32,11 @@ class HomeController {
 	 */
 	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {		
-			
 			$variables = BoxController::displayBox($request, $response, $args);
 			$nomMembre = $_SESSION['prenomMembre'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
 				  'nomMembre' => $nomMembre,
+				  'role' => $_SESSION['roleMembre'],
 				  'variables' => $variables,
 			]);
 	
@@ -49,7 +47,7 @@ class HomeController {
 			$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
 			return $this->view->render($response, 'HomeView.html.twig', [
 				'prestations' => $prestations,
-		  'nomMembre' => $nomMembre,
+		  		'nomMembre' => $nomMembre,
 			]);
 		}	
 

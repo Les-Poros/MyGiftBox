@@ -39,6 +39,7 @@ class PayController{
             'idBox' => $box['idCoffret'],
             'presta' => $presta,
             'total' => $somme,
+			'role' => $_SESSION['roleMembre'],
         ]);
     }
 
