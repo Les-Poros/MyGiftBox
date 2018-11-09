@@ -32,21 +32,22 @@ class CatalogController {
     public function displayCatalog($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
         $prestations = Prestation::where('activation', '=', 1)->get();
-        $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
-            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
-            $prest[$i]['img'] = $prestations[$i]['img'];
-            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
-            $category = $prestations[$i]->categorie()->first()->toArray();
-            $prest[$i]['categorie'] = $category['nomCategorie'];
-            $prest[$i]['prix'] = $prestations[$i]['prix'];
+            $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
-		$nomMembre = $_SESSION['prenomMembre'];
+        if (Authentication::checkConnection()){
+            $nomMembre = $_SESSION['prenomMembre'];
+            $role=$_SESSION['roleMembre'];
+        }
+        else{
+            $nomMembre = "";
+            $role=0;
+        }
         return $this->view->render($response, 'CatalogView.html.twig', [
             'nomMembre' => $nomMembre,
             'listCateg' => $listCategories,
-            'listPrestations' => $prest,
-			'role' => $_SESSION['roleMembre'],
+            'listPrestations' => $prestations,
+			'role' => $role,
         ]);
     }
 
@@ -59,30 +60,33 @@ class CatalogController {
     public function displayCatalogPurchase($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
         $prestations = Prestation::where('activation', '=', 1)->get();
-        $prest = array();
         for($i=0; $i<sizeof($prestations); $i++) {
-            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
-            $prest[$i]['img'] = $prestations[$i]['img'];
-            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
-            $category = $prestations[$i]->categorie()->first()->toArray();
-            $prest[$i]['categorie'] = $category['nomCategorie'];
-            $prest[$i]['prix'] = $prestations[$i]['prix'];
+            $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
-        $box = Coffret::select("nomCoffret","idMembre")->where('idCoffret', '=', $args["box"])->first()->toArray();
+        $box = Coffret::select("nomCoffret","idMembre","estPaye")->where('idCoffret', '=', $args["box"])->first()->toArray();
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
-        $nomMembre = $_SESSION['prenomMembre'];
-        if($_SESSION["idMembre"]==$box["idMembre"])
+        if($_SESSION["idMembre"]==$box["idMembre"]){
+        if($box["estPaye"]==1)
+        return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, mais il est impossible de modifié une box payé",
+            'role' => $_SESSION['roleMembre'],
+        ]);
+        else
         return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
             "contenu"=>$contenu,
             'box'=>$box["nomCoffret"],
-            'nomMembre' => $nomMembre,
+            'nomMembre' => $_SESSION['prenomMembre'],
             'listCateg' => $listCategories,
-            'listPrestations' => $prest,
+            'listPrestations' => $prestations,
 			'role' => $_SESSION['roleMembre'],
         ]);
+        }
         else
-        return $this->view->render($response, 'BoxMemberFail.html.twig', [
-            'nomMembre' => $nomMembre,
+        return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
+            'role' => $_SESSION['roleMembre'],
         ]);
     }
     public function modifCatalogPurchase($request, $response, $args){

@@ -39,9 +39,11 @@ class AdminPrestationsController {
 			'role' => $_SESSION['roleMembre'],
 		]);
 		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+			"message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
+			'role' => $_SESSION['roleMembre'],
+        ]);
 	}
 	
 	public function displayAddPrestation($request, $response, $args) {
@@ -53,9 +55,11 @@ class AdminPrestationsController {
             'listCateg' => $listCategories,
 		]);
 		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+        return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+			"message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
+			'role' => $_SESSION['roleMembre'],
+        ]);
 	}
 	
 	public function checkAddPrestation($request, $response, $args) {
@@ -115,9 +119,10 @@ class AdminPrestationsController {
 			'listCateg' => $listCategories,
 		]);
 		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+        return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
+        ]);
 	}
 	
 	public function checkDeactivateReactivatePrestation($request, $response, $args) {
@@ -156,9 +161,11 @@ class AdminPrestationsController {
 			'listCateg' => $listCategories,
 		]);
 		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		return $this->view->render($response, 'Fail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, vous n'avez pas les droits pour venir ici :p",
+			'role' => $_SESSION['roleMembre'],
+        ]);
 	}
 	
 	public function checkDeletePrestation($request, $response, $args) {

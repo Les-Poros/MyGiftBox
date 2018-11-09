@@ -29,7 +29,12 @@
                    {% endif %}
                    
                    {% if ouvert %}
-                   <p>Le coffret a été ouvert par le destinataire</p>
+                   {% if messageRemer == "" %}
+                     <p>Le coffret a été ouvert par le destinataire</p>
+                      {% else %}
+                     <p>Le coffret a été ouvert par le destinataire et à laisser le message suivant :</p>
+                    <p>{{messageRemer}}</p>
+                    {% endif %}
                    {% else %}
                   <p> Le coffret n'a pas été ouvert par le destinataire</p>
                    {% endif %}

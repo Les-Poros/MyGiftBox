@@ -42,7 +42,16 @@ $app = new \Slim\App($container);
 
 $app->get('/','HomeController:displayHome')->setName('Home');
 
-$app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
+$app->get('/HomeConnect', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['HomeController'];
+		$displayCreationBox = $controller->displayHomeConnect($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('HomeConnect');
 
 
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
@@ -246,7 +255,7 @@ $app->post('/LinkBox/{token}', function($request, $response, $args){
 	$controller = $this['BoxController'];
 	$shareBox = $controller->sendThanks($request, $response, $args);
 	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	return $response->withRedirect($router->pathFor('LinkBox', ["token"=>$args['token']]));
 	})->setName("SendThanks");
 
 

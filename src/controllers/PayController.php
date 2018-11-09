@@ -151,9 +151,11 @@ class PayController{
         ]);
     }
     else
-        return $this->view->render($response, 'BoxMemberFail.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-        ]);
+    return $this->view->render($response, 'Fail.html.twig', [
+        'nomMembre' => $_SESSION['prenomMembre'],
+        "message"=>"Désolé, seul le membre possédant cette boite y à accès",
+        'role' => $_SESSION['roleMembre'],
+    ]);
     }
 
     public function checkParticipatePot($request, $response, $args){
