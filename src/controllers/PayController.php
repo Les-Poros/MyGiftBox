@@ -74,4 +74,11 @@ class PayController{
         $box->estPaye = 1;
         $box->save();
     }
+
+    public function displayGeneratePot($request, $response, $args){
+    }
+
+    public function displayParticipatePot($request, $response, $args){
+    }
+
 }

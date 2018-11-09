@@ -193,6 +193,28 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 	}
 })->setName("CheckPay");
 
+$app->get('/{idCoffret}/GeneratePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayGeneratePot = $controller->displayGeneratePot($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("GeneratePot");
+
+$app->get('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayParticipatePot = $controller->displayParticipatePot($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("GeneratePot");
+
 $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
