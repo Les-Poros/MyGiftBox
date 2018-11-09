@@ -34,6 +34,14 @@
                     <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
                     <p class='detailsPrestationsPrix'>{{prestations['prix']}} €</p>
                     <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}' target="_blank">Plus d'info</a>
+                    <form class="formEtatPrestation" action="" method="post">
+                        <input type="hidden" id="idPrestation" name="idPrestation" value="{{prestations['idPrestation']}}"/>
+                        {% if prestations['activation'] == 0 %}
+                            <button type="submit" id="activatePrestation" name="activatePrestation" value="v"><i class="fas fa-check"></i></button>
+                        {% else %}
+                            <button type="submit" id="deactivatePrestation" name="deactivatePrestation" value="x"><i class="fas fa-times"></i></button>
+                        {% endif %}
+                    </form>
                 </div>
             {% endfor %}
         </div>

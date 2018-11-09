@@ -1,11 +1,10 @@
-.container_buy{
+.container_buy {
     display: flex;
-
-    & .formActuBox{
+    & .formActuBox {
         margin: auto;
         width: fit-content;
     }
-    & .buyBar{
+    & .buyBar {
         border-left: solid 1px black;
         border-top: solid 1px black;
     }
@@ -15,106 +14,101 @@
         margin-top: 30px;
         margin-bottom: 30px;
         width: 30%;
-        & p{
+        & p {
             width: 100%;
         }
-        & .cross{
+        & .cross {
             color: red;
             float: right;
             cursor: pointer;
         }
     }
     & .grid_container_prestations_buy {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    gap: 10px;
-    
-    & .tabPrestations{
-        position: relative;
-        cursor:pointer;
-        
-        & .detailsPrestationsId{
-            display:none;
-        }
-        & .addButton_buy{
-            color: white;
-            visibility: hidden;
-            font-size: 2em;
-            position: absolute;
-            top:calc( 50% - 0.5em );
-            left:calc( 50% - 0.5em );
-        }
-        & a{
-            visibility: hidden;
-            color: white;
-            font-size: 1em;
-            position: absolute;
-            top:calc( 10% - 0.5em );
-            width: 100%;
-            text-align: center;
-        }
-        &:hover{
-            
-        & .detailsPrestations,
-        .detailsPrestationsCateg,
-        .grid_item_pres,
-        .detailsPrestationsPrix {
-            text-align: center;
-            filter: brightness(20%);
-            -webkit-filter: brightness(20%);
-            -moz-filter: brightness(20%);
-            -o-filter: brightness(20%);
-            -ms-filter: brightness(20%);
-            background-color: white;
-        }
-            & .addButton_buy{
-                visibility: visible;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        gap: 10px;
+        & .tabPrestations {
+            position: relative;
+            cursor: pointer;
+            & .detailsPrestationsId {
+                display: none;
             }
-            & a{
-                visibility: visible;
-                &:hover{
-                text-decoration: underline;
+            & .addButton_buy {
+                color: white;
+                visibility: hidden;
+                font-size: 2em;
+                position: absolute;
+                top: calc( 50% - 0.5em);
+                left: calc( 50% - 0.5em);
+            }
+            & a {
+                visibility: hidden;
+                color: white;
+                font-size: 1em;
+                position: absolute;
+                top: calc( 10% - 0.5em);
+                width: 100%;
+                text-align: center;
+            }
+            &:hover {
+                & .detailsPrestations,
+                .detailsPrestationsCateg,
+                .grid_item_pres,
+                .detailsPrestationsPrix {
+                    text-align: center;
+                    filter: brightness(20%);
+                    -webkit-filter: brightness(20%);
+                    -moz-filter: brightness(20%);
+                    -o-filter: brightness(20%);
+                    -ms-filter: brightness(20%);
+                    background-color: white;
+                }
+                & .addButton_buy {
+                    visibility: visible;
+                }
+                & a {
+                    visibility: visible;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            & .detailsPrestations,
+            .detailsPrestationsCateg,
+            .detailsPrestationsPrix,
+            {
+                padding-left: 10px;
+                padding-right: 10px;
+                text-align: center;
+            }
+            & .detailsPrestationsPrix {
+                padding-bottom: 10px;
+            }
+            & .grid_item_pres {
+                box-sizing: border-box;
+                padding: 10px;
+                width: 100%;
+                height: 200px;
+                & img {
+                    width: 100%;
+                    height: 100%;
                 }
             }
         }
-
-        & .detailsPrestations,
-        .detailsPrestationsCateg,
-        .detailsPrestationsPrix, {
-            padding-left:10px;
-            padding-right:10px;
-            text-align: center;
-        }
-        & .detailsPrestationsPrix{
-            padding-bottom:10px; 
-        }
-        & .grid_item_pres {
-            box-sizing: border-box;
-            padding:10px;
+    }
+    @media only screen and (max-width: 850px) {
+        flex-direction: column;
+        .grid_container_prestations_buy {
+            grid-template-columns: 1fr 1fr;
             width: 100%;
-            height: 200px;
-            & img {
-                width: 100%;
-                height: 100%;
-            }
         }
-    }
-    
-}
-
-@media only screen and (max-width: 850px) {
-    flex-direction: column;
-    .grid_container_prestations_buy {
-        grid-template-columns: 1fr 1fr;
-        width: 100%;
-    }
-    .grid_container_buy {
-        width: 100%;
-    }
+        .grid_container_buy {
+            width: 100%;
+        }
     }
 }

@@ -1,7 +1,7 @@
 .grid_container_prestations {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 270px;
+    grid-template-rows: 300px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -13,6 +13,70 @@
     .detailsPrestationsPrix {
         text-align: center;
     }
+    & .tabPrestations {
+        position: relative;
+        cursor: pointer;
+        .grid_item_pres_tab {
+            width: 100%;
+            height: 200px;
+            padding-bottom: 10px;
+            & img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        & a {
+            visibility: hidden;
+            color: white;
+            font-size: 1em;
+            position: absolute;
+            top: calc( 10% - 0.5em);
+            width: 100%;
+            text-align: center;
+        }
+        margin-bottom: 5px;
+        width: 100%;
+        & button {
+            & i {
+                color: white;
+            }
+        }
+        & #activatePrestation {
+            background-color: #0dff15;
+            border-color: #0dff15;
+            width: 100%;
+        }
+        & #deactivatePrestation {
+            background-color: #ff110d;
+            border-color: #ff110d;
+            width: 100%;
+        }
+        & #deletePrestation {
+            background-color: #ff6f00;
+            border-color: #ff6f00;
+            width: 100%;
+        }
+        &:hover {
+            & .detailsPrestations,
+            .detailsPrestationsCateg,
+            .grid_item_pres_tab,
+            .detailsPrestationsPrix {
+                text-align: center;
+                filter: brightness(20%);
+                -webkit-filter: brightness(20%);
+                -moz-filter: brightness(20%);
+                -o-filter: brightness(20%);
+                -ms-filter: brightness(20%);
+                background-color: white;
+            }
+            & a {
+                visibility: visible;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }
 
 .grid_item_pres {
@@ -23,10 +87,6 @@
         width: 100%;
         height: 100%;
     }
-}
-
-.actif {
-    background-color: cyan;
 }
 
 .tri {
