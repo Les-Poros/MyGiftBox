@@ -32,7 +32,7 @@ class PayController{
             $prix = $prixPrestation * $quantitePrestation;
             $somme += $prix;
             $idCateg= $prestation['idCategorie'];
-            if( array_search($idCateg, $tabCateg)==false){
+            if( in_array($idCateg, $tabCateg)==false){
                 array_push($tabCateg,$idCateg);
             }
             array_push($presta,[$imgPrestation,$quantitePrestation]);
