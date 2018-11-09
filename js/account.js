@@ -1,3 +1,3 @@
-$(".buttonAccount").click(function(){
+$(".boutton").click(function(){
     $(".modifMembre").css("display", "block")
 });
