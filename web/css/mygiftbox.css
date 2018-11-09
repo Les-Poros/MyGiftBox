@@ -367,7 +367,6 @@ header .container_header .list_grid_menu li a {
 .grid_container_prestations {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 300px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
