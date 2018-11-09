@@ -71,6 +71,7 @@ class BoxController {
         $box->hasContenuCoffret = 0;
         $box->msgRemerciement = "";
         $box->tokenCoffret = "";
+        $box->tokenCagnotte = "";
 
         $box->save();
         return $box->idCoffret;
