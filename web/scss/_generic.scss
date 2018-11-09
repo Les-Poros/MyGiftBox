@@ -65,3 +65,14 @@ footer{
     margin-bottom: 15px;
     margin-top: 15px;
 }
+
+.boxDivError{
+    text-align: center;
+    padding: 25px;
+    margin: auto;
+    border: solid 2px black;
+    & h2{
+        text-align: center;
+        color: red;   
+    }
+}

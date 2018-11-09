@@ -119,6 +119,17 @@ footer {
   margin-top: 15px;
 }
 
+.boxDivError {
+  text-align: center;
+  padding: 25px;
+  margin: auto;
+  border: solid 2px black;
+}
+.boxDivError h2 {
+  text-align: center;
+  color: red;
+}
+
 header {
   width: 100%;
   margin: 0;
@@ -711,6 +722,38 @@ header .container_header .list_grid_menu li a {
 }
 .itemPay p {
   margin: auto;
+}
+
+.containerCreationPrestation h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.containerCreationPrestation .form {
+  width: 40%;
+  margin: auto;
+  margin-bottom: 20px;
+  border: solid grey;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-align: center;
+}
+.containerCreationPrestation input {
+  width: 150px;
+  height: 25px;
+  padding: 10px;
+  margin: 10px;
+}
+.containerCreationPrestation label {
+  font-size: 14pt;
+  margin-top: 10px;
+}
+
+.formCreationPrestation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=mygiftbox.css.map */
