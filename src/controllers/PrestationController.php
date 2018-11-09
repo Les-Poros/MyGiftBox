@@ -37,15 +37,22 @@ class PrestationController {
         $categoriePrestation = $category['nomCategorie'];
         $descrPrestation = $prestation['descr'];
         $prixPrestation = $prestation['prix'];
-		$nomMembre = $_SESSION['prenomMembre'];
+        if (Authentication::checkConnection()){
+            $nomMembre = $_SESSION['prenomMembre'];
+            $role=$_SESSION['roleMembre'];
+        }
+        else{
+            $nomMembre = "";
+            $role=0;
+        }
         return $this->view->render($response, 'PrestationView.html.twig', [
             'nomMembre' => $nomMembre,
-			'role' => $_SESSION['roleMembre'],
             'imgPrestation' => $imgPrestation,
             'nomPrestation' => $nomPrestation,
             'categoriePrestation' => $categoriePrestation,
             'descrPrestation' => $descrPrestation,
             'prixPrestation' => $prixPrestation,
+            'role'=>$role,
         ]);
     }
 

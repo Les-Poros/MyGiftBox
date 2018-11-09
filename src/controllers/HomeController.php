@@ -41,16 +41,6 @@ class HomeController {
 			]);
 	
 		}
-		else {
-			$nomMembre = "";		
-			$prestations = array();
-			$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
-			return $this->view->render($response, 'HomeView.html.twig', [
-				'prestations' => $prestations,
-		  		'nomMembre' => $nomMembre,
-			]);
-		}	
-
 		
 	}
 
@@ -61,9 +51,18 @@ class HomeController {
 		$nomMembre = "";
 		$prestations = array();
 		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
+		if (Authentication::checkConnection()){
+            $nomMembre = $_SESSION['prenomMembre'];
+            $role=$_SESSION['roleMembre'];
+        }
+        else{
+            $nomMembre = "";
+            $role=0;
+        }
 			return $this->view->render($response, 'HomeView.html.twig', [
 				'prestations' => $prestations,
 		        'nomMembre' => $nomMembre,
+				'role' => $role,
 			]);
 	}
 

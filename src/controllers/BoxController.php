@@ -44,10 +44,13 @@ class BoxController {
         if($_SESSION["idMembre"]==$box["idMembre"]){
             return $this->view->render($response, 'EditBoxView.html.twig', [
                 'nomMembre' => $_SESSION['prenomMembre'],
+                'role' => $_SESSION['roleMembre'],
             ]);
             }else
-            return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            return $this->view->render($response, 'Fail.html.twig', [
                 'nomMembre' => $_SESSION['prenomMembre'],
+                "message"=>"Désolé, seul le membre possédant cette boite y à accès",
+                'role' => $_SESSION['roleMembre'],
             ]);
 		
 
@@ -132,10 +135,13 @@ class BoxController {
             'messageRemer'=> $box['msgRemerciement'],
             'ouvert' => $box['estOuvert'],
             'transmis' => $box['estTransmis'],
+			'role' => $_SESSION['roleMembre'],
         ]);
         }else
-        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+        return $this->view->render($response, 'Fail.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
+			'role' => $_SESSION['roleMembre'],
         ]);
     }
    
@@ -193,10 +199,13 @@ class BoxController {
             'box' => $box['nomCoffret'],
             'token' => $token,
             'url' => $url,
+			'role' => $_SESSION['roleMembre'],
         ]);
         }else
-        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+        return $this->view->render($response, 'Fail.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
+            "message"=>"Désolé, seul le membre possédant cette boite y à accès",
+			'role' => $_SESSION['roleMembre'],
         ]);
     }
 
@@ -241,6 +250,7 @@ class BoxController {
             'nom' => $_SESSION['nomMembre'],
             'prenom' => $_SESSION['prenomMembre'],
             'mail' => $_SESSION['mailMembre'],
+			'role' => $_SESSION['roleMembre'],
 		]);
     }
 
