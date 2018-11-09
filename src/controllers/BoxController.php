@@ -169,23 +169,29 @@ class BoxController {
         $nomMembre = $_SESSION['prenomMembre'];
         $token = $args['token'];
         
-        $date = date("Y-m-d");
+        $date = new \DateTime();
 
         $box = Coffret::where('tokenCoffret','=',$token)->first();
+        $dateOuvertureCoffret = new \DateTime($box['dateOuvertureCoffret']);
 
-        $estOuvrable = date_diff($date, $box['dateOuvertureCoffret']);
-        var_dump($date);
-        var_dump($box['dateOuvertureCoffret']);
-        var_dump(date_diff($date, $box['dateOuvertureCoffret']));
+        if ($date == $dateOuvertureCoffret) {
+            $estOuvrable = true;
+        } else if ($date > $dateOuvertureCoffret) {
+            $estOuvrable = true;
+        } else {
+            $estOuvrable = false;
+        }
 
-        $infoList = array();
-        $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get();
+        $presta = array();
+        $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         foreach($contenuCoffret as $values){
-            $prestation = Prestation::select('img')->where('idPrestation','=',$values)->first();
+            $prestation = Prestation::select('nomPrestation', 'descr', 'img')->where('idPrestation','=',$values)->first();
+            $nomPrestation = $prestation['nomPrestation'];
+            $descrPrestation = $prestation['descr'];
             $imgPrestation = $prestation['img'];
             $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->first();
             $quantitePrestation = $quantitePresta['quantite'];
-            array_push($infoList,[$imgPrestation,$quantitePrestation]);
+            array_push($presta,[$nomPrestation,$descrPrestation,$imgPrestation,$quantitePrestation]);
         }
 
         return $this->view->render($response, 'LinkBoxView.html.twig', [
@@ -194,7 +200,7 @@ class BoxController {
             'nomCoffret' => $box['nomCoffret'],
             'messageCoffret' => $box['messageCoffret'],
             'date' => $box['dateOuvertureCoffret'],
-            'listBox' => $infoList,
+            'listBox' => $presta,
             'estOuvrable' => $estOuvrable,
 		]);
     }

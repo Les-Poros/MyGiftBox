@@ -6,21 +6,36 @@
 	{% include 'HeaderView.html.twig' %}
 
     <div class="main_container">
-        <h2>Vous avez reçu un coffre cadeau !</h2>
-        {% if estOuvrable < 0 %}
-            <p>Un ami vous a offert un coffret secret vous découvrirez son contenu après le {{date}}</p>
-        {% else %}
-            <p>{{messageCoffret}}</p>
-            <p>Contenu du coffret {{nomCoffret}}</p>
+        <h2>Vous avez reçu un coffret cadeau !</h2>
+        {% if estOuvrable %}
+            <div class="main_containLinkBox">
+                <p>"{{messageCoffret}}"</p>
+                <p>Contenu du coffret {{nomCoffret}} : </p>
 
-            <p>Remerciez votre ami</p>
-            <form>
-                <input type="text"/>
-                <button class="boutton">Envoyer</button>
-            </form>
+                <div class="containLinkBox">
+                        {% for p in listBox %}
+                            <div class="itemPay">
+                                <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{p[2]}}"/></div>
+                                <p id="nomPrestation">{{p[0]}}</p>
+                                <p>{{p[1]}}</p>
+                                <p>x{{p[3]}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                <form class="formLinkBox">
+                    <p>Remerciez votre ami</p>
+                    <input type="text" class="msgRemerciement" placeholder="Saisissez votre message"/>
+                    <button class="boutton">Envoyer</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="main_containLinkBox">
+                <p>Un ami vous a offert un coffret secret vous découvrirez son contenu après le {{date|date('d/m/Y')}}</p>
+            </div>
+            
         {% endif %}
         
-        {{date}}
     </div>
 
 </body>
