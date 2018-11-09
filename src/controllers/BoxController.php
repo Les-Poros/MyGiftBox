@@ -229,6 +229,7 @@ class BoxController {
             'nomCoffret' => $box['nomCoffret'],
             'messageCoffret' => $box['messageCoffret'],
             'date' => $box['dateOuvertureCoffret'],
+            'msgRemerciement' => $box['msgRemerciement'],
             'listBox' => $presta,
             'estOuvrable' => $estOuvrable,
 		]);
