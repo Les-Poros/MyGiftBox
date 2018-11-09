@@ -330,6 +330,36 @@ header .container_header .list_grid_menu li a {
   align-items: center;
 }
 
+.share_container {
+  border: solid grey;
+  padding: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.main_containLinkBox {
+  padding: 5%;
+}
+.main_containLinkBox :first-child {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.main_containLinkBox .formLinkBox {
+  border: solid grey;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main_containLinkBox .formLinkBox .msgRemerciement {
+  width: 50%;
+  height: 200px;
+}
+
+#nomPrestation {
+  font-weight: bold;
+}
+
 .grid_container_prestations {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

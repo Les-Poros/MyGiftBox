@@ -4,6 +4,7 @@ namespace MyGiftBox\controllers;
 
 use \Slim\Views\Twig as twig;
 use MyGiftBox\views\CreationBoxView;
+use MyGiftBox\views\ShareBoxView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Coffret;
@@ -86,21 +87,22 @@ class BoxController {
 
             // On vérifie si il y a du contenu dans le coffret
             if($coffretHaveBox){
-                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret')->where('idMembre','=',$idcoffret)->get()->toArray();
+                $isContenuList = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','estPaye')->where('idMembre','=',$idcoffret)->get()->toArray();
                 $nomCoffretListe = array();
                 foreach($isContenuList as $values){
                     $isContenu = $values['hasContenuCoffret'];
                     $nomCoffret = $values['nomCoffret'];
                     $idCoffret = $values['idCoffret'];
+                    $estPaye = $values['estPaye'];
                     if($isContenu == 0 ){
                         $imgDefault = "defaultBox.png";
-                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault,$idCoffret]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgDefault,$idCoffret,$estPaye]);
                     }
                    else{
                         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idCoffret)->first()->toArray();
                         $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
                         $imgPrestation = $prestation['img'];
-                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation,$idCoffret]);
+                        array_push($nomCoffretListe,[$nomCoffret,$imgPrestation,$idCoffret,$estPaye]);
                    }
                 }
                
@@ -165,4 +167,74 @@ class BoxController {
         $coffret->save();
     }
 
+    private static function generateToken() {
+        return bin2hex(openssl_random_pseudo_bytes(16));
+    }
+
+    public function shareBox($request, $response, $args){
+        $nomMembre = $_SESSION['prenomMembre'];
+
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','tokenCoffret')->where('idCoffret','=',$args['idCoffret'])->first();
+
+        if( $box['tokenCoffret']=="" ){
+            $token = self::generateToken();
+    
+            $box->tokenCoffret = $token;
+            $box->save();
+        }
+        else{
+            $token = $box['tokenCoffret'];
+        }
+
+        $url = "http://" . $_SERVER["SERVER_NAME"];
+
+		return $this->view->render($response, 'ShareBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+            'box' => $box['nomCoffret'],
+            'token' => $token,
+            'url' => $url,
+		]);
+    }
+
+    public function displayLink($request, $response, $args){
+        $nomMembre = $_SESSION['prenomMembre'];
+        $token = $args['token'];
+        
+        $date = new \DateTime();
+
+        $box = Coffret::where('tokenCoffret','=',$token)->first();
+        $dateOuvertureCoffret = new \DateTime($box['dateOuvertureCoffret']);
+
+        if ($date == $dateOuvertureCoffret) {
+            $estOuvrable = true;
+        } else if ($date > $dateOuvertureCoffret) {
+            $estOuvrable = true;
+        } else {
+            $estOuvrable = false;
+        }
+
+        $presta = array();
+        $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
+        foreach($contenuCoffret as $values){
+            $prestation = Prestation::select('nomPrestation', 'descr', 'img')->where('idPrestation','=',$values)->first();
+            $nomPrestation = $prestation['nomPrestation'];
+            $descrPrestation = $prestation['descr'];
+            $imgPrestation = $prestation['img'];
+            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->first();
+            $quantitePrestation = $quantitePresta['quantite'];
+            array_push($presta,[$nomPrestation,$descrPrestation,$imgPrestation,$quantitePrestation]);
+        }
+
+        return $this->view->render($response, 'LinkBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+            'token' => $token,
+            'nomCoffret' => $box['nomCoffret'],
+            'messageCoffret' => $box['messageCoffret'],
+            'date' => $box['dateOuvertureCoffret'],
+            'listBox' => $presta,
+            'estOuvrable' => $estOuvrable,
+		]);
+    }
+
+    
 }
