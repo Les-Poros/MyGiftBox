@@ -58,8 +58,11 @@ class BoxController {
         $box->messageCoffret = $messageBox;
         $box->dateOuvertureCoffret = $dateBox;
         $box->idMembre = $membre['idMembre'];
+        $box->estCree = 1;
+        $box->estValide = 0;
         $box->estOuvert = 0;
         $box->estPaye = 0;
+        $box->estTransmis = 0;
         $box->hasContenuCoffret = 0;
         $box->msgRemerciement = "";
         $box->tokenCoffret = "";
