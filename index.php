@@ -44,6 +44,7 @@ $app->get('/','HomeController:displayHome')->setName('Home');
 
 $app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
 
+
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
 
 $app->post('/CreateAccount', function($request, $response, $args){
@@ -162,7 +163,7 @@ $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args)
 		$controller = $this['CatalogController'];
 		$displayCatalog = $controller->modifCatalogPurchase($request, $response, $args);
 		$router = $this->router;
-		//return $response->withRedirect($router->pathFor('MyAccount', []));
+		return $response->withRedirect($router->pathFor('ViewBox', ['id' => $displayCatalog]));
   }
     	else {
 		$router = $this->router;
@@ -191,7 +192,28 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
-})->setName("Pay");
+})->setName("CheckPay");
+
+$app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$shareBox = $controller->shareBox($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ShareBox");
+	
+
+$app->get('/LinkBox/{token}','BoxController:displayLink')->setName("LinkBox");
+
+$app->post('/LinkBox/{token}', function($request, $response, $args){
+	$controller = $this['BoxController'];
+	$shareBox = $controller->sendThanks($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+	})->setName("SendThanks");
 
 
 $app->get('/ViewBox/{id}', function($request, $response, $args){

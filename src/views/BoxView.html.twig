@@ -3,16 +3,42 @@
 {% include 'HeadView.html.twig' %} 
 
 <body>
-{% include 'HeaderViewEdit.html.twig' %} 
+{% include 'HeaderView.html.twig' %} 
 
     <div class="main_container">
+        {% if paye == false %}
          <div class="screen">
          {{nomCoffret}} 
          <h4> Date d'ouverture prévu au : {{date}} </h4>
+           <p> statut : En cours de création</p>
             prix : {{ prix }} €
-    <button type="submit" class="boutton"><a href="{{base_url()}}/EditBox/{{idBox}}">Modifier Infos Coffret</a></button>
+   <a href="{{base_url()}}/EditBox/{{idBox}}"><button type="submit" class="boutton">Modifier Infos Coffret </button></a>
+
+        
          </div>
-			 <button class="boutton"><a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">Modifier</a></button>  
+			  
+              {% else %}
+                 <div class="screen">
+                  <p>{{nomCoffret}}</p> 
+                  <p>Prix : {{prix}} €</p>
+                  <p>{{message}} </p>
+                   {% if transmis %}
+                   <p>Le coffret a été envoyé à son destinataire</p>
+                   {% else %}
+                   <p>Le coffret n'a pas encore été envoyé à son destinataire</p>
+                   {% endif %}
+                   
+                   {% if ouvert %}
+                   <p>Le coffret a été ouvert par le destinataire</p>
+                   {% else %}
+                  <p> Le coffret n'a pas été ouvert par le destinataire</p>
+                   {% endif %}
+                   
+
+                  </div>
+                
+             {% endif %}
+
         <div class="grid_container_prestations">
             {% for values in info %}
             <div class ="detailsPrestations">
@@ -22,9 +48,10 @@
             </div>
             </div>
             {% endfor %}   
-                
     </div>
-      
+             {% if paye == false %}
+            <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a> 
+            {% endif %}
     </div>
 </body>
 

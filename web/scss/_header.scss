@@ -81,12 +81,13 @@ header{
                 & li:first-child{
                 display: none;
                 }
+                
             }
 
         }
     }
 
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 650px) {
         & .container_header{
             & .list_grid_account {
                 justify-content : space-between;
@@ -95,13 +96,16 @@ header{
                     padding-left:0; 
                 }
             }
-            & .list_grid_menu{
-                justify-content: space-between;
-                & li{
-                    width: 4.1em;
-                    margin-left:0px; 
+            & .list_grid_menu {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                & li,a{
+                    padding-top: 20px;
+                    margin-left: 0;
+                    align-self: center;
                 }
-            }  
+            }
         }
     }
 }

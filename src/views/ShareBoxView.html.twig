@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+	{% include 'HeaderView.html.twig' %}
+
+    <div class="main_container">
+		<h2>Partager votre coffret {{box}}</h2>
+		<div class="share_container">
+			<p>Votre url à partager : {{url}}{{base_url()}}/LinkBox/{{token}}</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -206,7 +206,7 @@ header .container_header .list_grid_menu li a {
     display: none;
   }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 650px) {
   header .container_header .list_grid_account {
     justify-content: space-between;
   }
@@ -215,11 +215,14 @@ header .container_header .list_grid_menu li a {
     padding-left: 0;
   }
   header .container_header .list_grid_menu {
-    justify-content: space-between;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
-  header .container_header .list_grid_menu li {
-    width: 4.1em;
-    margin-left: 0px;
+  header .container_header .list_grid_menu li, header .container_header .list_grid_menu a {
+    padding-top: 20px;
+    margin-left: 0;
+    align-self: center;
   }
 }
 
@@ -301,8 +304,8 @@ header .container_header .list_grid_menu li a {
   }
 }
 .containerCreationBox h2 {
-  margin-left: 30%;
-  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 10px;
 }
 .containerCreationBox .form {
   width: 40%;
@@ -329,6 +332,36 @@ header .container_header .list_grid_menu li a {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.share_container {
+  border: solid grey;
+  padding: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.main_containLinkBox {
+  padding: 5%;
+}
+.main_containLinkBox :first-child {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.main_containLinkBox .formLinkBox {
+  border: solid grey;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main_containLinkBox .formLinkBox .msgRemerciement {
+  width: 50%;
+  height: 200px;
+}
+
+#nomPrestation {
+  font-weight: bold;
 }
 
 .grid_container_prestations {
@@ -659,40 +692,62 @@ header .container_header .list_grid_menu li a {
     height: auto;
   }
 }
-.modifMembre {
-  display: none;
-  width: 30%;
-}
-
-.formMembre {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin: 10px;
-}
-.formMembre input {
-  width: 45%;
-  margin-bottom: 5px;
-}
-.formMembre label {
-  width: 45%;
-  margin-bottom: 5px;
-}
-
 .myaccount {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-
-.infoMembre {
-  width: 30%;
+@media only screen and (max-width: 850px) {
+  .myaccount {
+    flex-direction: column;
+    justify-content: initial;
+  }
+  .myaccount .infoMembre {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .myaccount .modifMembre {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
-.infoMembre h2 {
+.myaccount .modifMembre {
+  display: none;
+  width: 40%;
+}
+.myaccount .modifMembre h2 {
+  margin-left: 0;
+}
+.myaccount .modifMembre .formMembre {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.myaccount .modifMembre .formMembre input {
+  width: 49%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 5px;
+  padding: 0;
+}
+.myaccount .modifMembre .formMembre label {
+  width: 49%;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+  margin-bottom: 5px;
+  padding: 0;
+}
+.myaccount .infoMembre {
+  width: max-content;
+}
+.myaccount .infoMembre h2 {
+  margin-left: 0;
   margin-bottom: 10px;
 }
-.infoMembre .buttonAccount {
+.myaccount .infoMembre .buttonAccount {
   margin-top: 10px;
 }
 
@@ -781,6 +836,54 @@ header .container_header .list_grid_menu li a {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.grid_container_homeConnect {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  gap: 25px;
+}
+.grid_container_homeConnect .grid_box_pres {
+  margin: auto;
+  width: 80%;
+  height: 200px;
+}
+.grid_container_homeConnect .grid_box_pres img {
+  height: 200px;
+  width: 100%;
+}
+.grid_container_homeConnect .detailsBox {
+  display: flex;
+  flex-direction: column;
+}
+.grid_container_homeConnect .detailsBox p, .grid_container_homeConnect .detailsBox button {
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media only screen and (max-width: 850px) {
+  .grid_container_homeConnect {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .grid_container_homeConnect {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .grid_container_homeConnect {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=mygiftbox.css.map */
