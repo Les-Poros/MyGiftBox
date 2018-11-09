@@ -106,8 +106,8 @@ $app->get('/Exit', function($request, $response, $args){
 })->setName('Disconnection');
 
 $app->get('/Prestation/{id}', function($request, $response, $args){
-		$router = $this->router;
-		return $response->withRedirect($router->pathFor('Home', []));
+	$controller = $this['PrestationController'];
+	$displayPrestation = $controller->displayPrestation($request, $response, $args);
 })->setName("Prestation");
 
 
