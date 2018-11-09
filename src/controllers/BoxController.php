@@ -218,7 +218,8 @@ class BoxController {
 
         $box = Coffret::where('tokenCoffret','=',$token)->first();
         $dateOuvertureCoffret = new \DateTime($box['dateOuvertureCoffret']);
-
+        $box->estOuvert = 1;
+        $box->save();
         if ($date == $dateOuvertureCoffret) {
             $estOuvrable = true;
         } else if ($date > $dateOuvertureCoffret) {
