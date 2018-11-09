@@ -47,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `coffret` (
   `messageCoffret` text NOT NULL,
   `dateOuvertureCoffret` date NOT NULL,
   `estCree` boolean NOT NULL,
-  `estValide` boolean NOT NULL,
   `estPaye` boolean NOT NULL,
   `estTransmis`boolean NOT NULL,
   `estOuvert` boolean NOT NULL,
