@@ -29,7 +29,11 @@
 		<ul class="list_grid_menu">
 			<a class="homeButton fas fa-home" href="{{base_url()}}/HomeConnect"></a>
 			<li ><a href="{{base_url()}}/ConsultCatalog">Consulter Catalogue</a></li>
-			<li><a href="{{base_url()}}/CreateBox">Créer un Coffret</a></li>
+			<li><a href="{{base_url()}}/CreateBox">Créer Un Coffret</a></li>
+			<li><a href="{{base_url()}}/HomeConnect">Voir Vos Coffrets</a></li>
+			{% if role == 1 %}
+				<li><a href="{{base_url()}}/AdminPrestations">Admin Prestations</a></li>
+			{% endif %}
 		</ul>
 		</nav>
 				{% endif %}

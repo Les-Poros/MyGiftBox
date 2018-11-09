@@ -40,6 +40,7 @@ class PrestationController {
 		$nomMembre = $_SESSION['prenomMembre'];
         return $this->view->render($response, 'PrestationView.html.twig', [
             'nomMembre' => $nomMembre,
+			'role' => $_SESSION['roleMembre'],
             'imgPrestation' => $imgPrestation,
             'nomPrestation' => $nomPrestation,
             'categoriePrestation' => $categoriePrestation,
