@@ -44,16 +44,17 @@
                 
              {% endif %}
 
-        <div class="grid_container_prestations">
-            {% for values in info %}
-            <div class ="detailsPrestations">
-			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]}}"/> 
-            x{{values[1]}}
-            
-            </div>
-            </div>
-            {% endfor %}   
-    </div>
+       <div class="grid_container_prestations">
+			{% for prestations in listPrestations %}
+                <div class="tabPrestations">
+                    <div class="grid_item_pres_tab"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
+                    <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
+                    <p class='detailsPrestationsQuantite'>x{{prestations['quantite']}}</p>
+                    <p class='detailsPrestationsPrix'>{{prestations['prix'] * prestations['quantite']}} €</p>
+                    <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}' target="_blank">Plus d'info</a>
+                </div>
+            {% endfor %}
+        </div>
              {% if paye == false %}
             <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a>
             <a href="{{base_url()}}/{{idBox}}/ChoicePay"><button class="boutton">Choix paiement</button></a>
