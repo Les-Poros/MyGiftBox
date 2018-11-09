@@ -118,6 +118,11 @@ class BoxController {
         $idBox = $args['id'];
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
         $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
+        $isPay = Coffret::select('estPaye')->where('idCoffret','=',$idBox)->first()->toArray();
+        $isSend = Coffret::select('estTransmis')->where('idCoffret','=',$idBox)->first()->toArray();
+        $isOpen = Coffret::select('estOuvert')->where('idCoffret','=',$idBox)->first()->toArray();
+        $messageMembre = Coffret::select('messageCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
+
         $infoList = array();
         $prixList = array();
         $totalPrice = 0;
@@ -140,6 +145,10 @@ class BoxController {
             'idBox' => $idBox,
             'date' => $dateCoffret['dateOuvertureCoffret'],
             'prix' => $totalPrice,
+            'paye' => $isPay['estPaye'],
+            'message' => $messageMembre['messageCoffret'],
+            'ouvert' => $isOpen['estOuvert'],
+            'transmis' => $isSend['estTransmis'],
         ]);
     }
    
