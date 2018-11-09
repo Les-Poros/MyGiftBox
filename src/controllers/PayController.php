@@ -54,6 +54,15 @@ class PayController{
         ]);
     }
 
+    public function displayChoicePay($request, $response, $args) {
+        $box = Coffret::select('idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+		return $this->view->render($response, 'ChoicePayView.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            'role' => $_SESSION['roleMembre'],
+            'idBox' => $box['idCoffret'],
+        ]);
+    }
+
     public function checkPay($request, $response, $args){
         $box = Coffret::where('idCoffret','=',$args['idCoffret'])->first();
         $box->estPaye = 1;

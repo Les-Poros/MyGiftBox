@@ -170,7 +170,18 @@ $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args)
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName('ModifCatalogPurchase');
-  
+
+$app->get('/{idCoffret}/ChoicePay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPayChoice = $controller->displayChoicePay($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ChoicePay");
+
 $app->get('/{idCoffret}/Pay', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['PayController'];
