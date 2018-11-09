@@ -266,4 +266,28 @@ $app->post('/AddPrestation', function($request, $response, $args){
 	}
 })->setName("checkAddPrestation");
 
+$app->get('/DeactivateReactivatePrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$displayDeactivatePrestation = $controller->displayDeactivateReactivatePrestation($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("DeactivateReactivatePrestation");
+
+$app->post('/DeactivateReactivatePrestation', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['AdminPrestationsController'];
+		$checkDeactivatePrestation = $controller->checkDeactivateReactivatePrestation($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('DeactivateReactivatePrestation', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkDeactivateReactivatePrestation");
+
 $app->run();

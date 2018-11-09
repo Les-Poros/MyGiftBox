@@ -334,7 +334,7 @@ header .container_header .list_grid_menu li a {
 .grid_container_prestations {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 270px;
+  grid-template-rows: 300px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -347,6 +347,23 @@ header .container_header .list_grid_menu li a {
 .grid_container_prestations .detailsPrestationsPrix {
   text-align: center;
 }
+.grid_container_prestations .tabPrestations_admin {
+  margin-bottom: 5px;
+  width: 100%;
+}
+.grid_container_prestations .tabPrestations_admin button i {
+  color: white;
+}
+.grid_container_prestations .tabPrestations_admin #activatePrestation {
+  background-color: #0dff15;
+  border-color: #0dff15;
+  width: 100%;
+}
+.grid_container_prestations .tabPrestations_admin #deactivatePrestation {
+  background-color: #ff110d;
+  border-color: #ff110d;
+  width: 100%;
+}
 
 .grid_item_pres {
   width: 200px;
@@ -358,10 +375,10 @@ header .container_header .list_grid_menu li a {
   height: 100%;
 }
 
-.actif {
-  background-color: cyan;
-}
-
+/*.tabPrestations_admin {
+    margin-bottom: 5px;
+    height: 275px;
+}*/
 .tri {
   width: 40%;
   display: flex;

@@ -81,6 +81,43 @@ class AdminPrestationsController {
 		//return $erreur;
 		$lastPrestation = Prestation::select('idPrestation')->where('nomPrestation', '=', $_POST['namePrestation'])->first()->toArray();
 		return $lastPrestation['idPrestation'];
+	}
+	
+	public function displayDeactivateReactivatePrestation($request, $response, $args) {
+		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
+		$prestations = Prestation::all();
+        $prest = array();
+        for($i=0; $i<sizeof($prestations); $i++) {
+            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
+            $prest[$i]['img'] = $prestations[$i]['img'];
+            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
+            $category = $prestations[$i]->categorie()->first()->toArray();
+            $prest[$i]['categorie'] = $category['nomCategorie'];
+			$prest[$i]['prix'] = $prestations[$i]['prix'];
+			$prest[$i]['activation'] = $prestations[$i]['activation'];
+        }
+        return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+			'role' => $_SESSION['roleMembre'],
+            'listPrestations' => $prest,
+			'listCateg' => $listCategories,
+        ]);
+	}
+	
+	public function checkDeactivateReactivatePrestation($request, $response, $args) {
+		$idPrestation = $_POST['idPrestation'];
+		$prestation = Prestation::find($idPrestation);
+		if (isset($_POST['activatePrestation'])) {
+			if ($_POST['activatePrestation'] == 'v') {
+				$prestation->activation = 1;
+			}
+		}
+		if (isset($_POST['deactivatePrestation'])) {
+			if ($_POST['deactivatePrestation'] == 'x') {
+				$prestation->activation = 0;
+			}
+		}
+		$prestation->save();
     }
     
 }
