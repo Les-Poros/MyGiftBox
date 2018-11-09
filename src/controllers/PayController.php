@@ -75,7 +75,34 @@ class PayController{
         $box->save();
     }
 
+    private static function generateTokenPot() {
+        return bin2hex(openssl_random_pseudo_bytes(16));
+    }
+
     public function displayGeneratePot($request, $response, $args){
+        $idBox = $args['idCoffret'];
+        $box = Coffret::select('nomCoffret','tokenCagnotte','idMembre')->where('idCoffret','=',$args['idCoffret'])->first();
+        if($box['tokenCagnotte']=="" ){
+            $token = self::generateTokenPot();
+            $box->tokenCagnotte = $token;
+            $box->save();
+        }
+        else{
+            $token = $box['tokenCagnotte'];
+        }
+
+        $url = "http://" . $_SERVER["SERVER_NAME"];
+        if($_SESSION["idMembre"]==$box["idMembre"]){
+		return $this->view->render($response, 'GeneratePotView.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            'box' => $box['nomCoffret'],
+            'token' => $token,
+            'url' => $url,
+        ]);
+        }else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+        ]);
     }
 
     public function displayParticipatePot($request, $response, $args){
