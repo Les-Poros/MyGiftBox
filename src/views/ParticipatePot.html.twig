@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+	{% include 'HeaderView.html.twig' %}
+
+	<div class="main_container">
+        <h2>Cagnotte pour le coffret {{box}}</h2>
+            <div class="containBox">
+                {% for p in presta %}
+                    <div class="itemPay">
+                        <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{p[0]}}"/></div>
+                        <p>x{{p[1]}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        <p>Total : {{total}}€</p>
+
+        <input type="number" placeholder="10" required/>
+    </div>
+</body>
+</html>

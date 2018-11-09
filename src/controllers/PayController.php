@@ -106,6 +106,47 @@ class PayController{
     }
 
     public function displayParticipatePot($request, $response, $args){
+
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre')->where('tokenCagnotte','=',$args['tokenPot'])->first()->toArray();
+        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
+        
+        $tabCateg = array();
+
+        $presta = array();
+        $somme = 0;
+        foreach($idPrestation as $p){
+            $prestation = Prestation::select('img','prix','idCategorie')->where('idPrestation','=',$p)->first()->toArray();
+            $imgPrestation = $prestation['img'];
+            $prixPrestation = $prestation['prix'];
+            $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
+            $quantitePrestation = $quantitePresta['quantite'];
+            $prix = $prixPrestation * $quantitePrestation;
+            $somme += $prix;
+            $idCateg= $prestation['idCategorie'];
+            if( in_array($idCateg, $tabCateg)==false){
+                array_push($tabCateg,$idCateg);
+            }
+            array_push($presta,[$imgPrestation,$quantitePrestation]);
+        }
+        $nbCateg=0;
+        foreach($tabCateg as $categ){
+            $nbCateg.=1;
+        }
+    if($_SESSION["idMembre"]==$box["idMembre"]){
+		return $this->view->render($response, 'ParticipatePotView.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+            'box' => $box['nomCoffret'],
+            'idBox' => $box['idCoffret'],
+            'presta' => $presta,
+            'total' => $somme,
+            'role' => $_SESSION['roleMembre'],
+            'nbCateg' => $nbCateg,
+        ]);
+    }
+    else
+        return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            'nomMembre' => $_SESSION['prenomMembre'],
+        ]);
     }
 
 }
