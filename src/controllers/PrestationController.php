@@ -29,11 +29,11 @@ class PrestationController {
 	 */
     public function displayPrestation($request, $response, $args) {
         $idPrestation = $args['id'];
-        $prestation = Prestation::find($idPrestation)->toArray();
+        $prestation = Prestation::where('idPrestation','=',$idPrestation)->first()->toArray();
         $imgPrestation = $prestation['img'];
         $nomPrestation = $prestation['nomPrestation'];
         $idCategory = $prestation['idCategorie'];
-        $category = Categorie::find($idCategory)->toArray();
+        $category = Categorie::where("idCategorie","=",$idCategory)->first()->toArray();
         $categoriePrestation = $category['nomCategorie'];
         $descrPrestation = $prestation['descr'];
         $prixPrestation = $prestation['prix'];

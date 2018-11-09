@@ -173,7 +173,7 @@ class BoxController {
     public function shareBox($request, $response, $args){
         $memberName = $_SESSION['prenomMembre'];
         $idBox = $args['idCoffret'];
-        $box = Coffret::select('nomCoffret','tokenCoffret','idMembre')->where('idCoffret','=',$args['idCoffret'])->first();
+        $box = Coffret::where('idCoffret','=',$args['idCoffret'])->first();
         $box->estTransmis = 1;
         $box->save();
         if( $box['tokenCoffret']=="" ){
