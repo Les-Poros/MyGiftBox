@@ -38,6 +38,13 @@ class BoxController {
 		]);
 
     }
+    public function displayEditBox($request, $response, $args) {
+		$nomMembre = $_SESSION['prenomMembre'];
+		return $this->view->render($response, 'EditBoxView.html.twig', [
+            'nomMembre' => $nomMembre,
+		]);
+
+    }
 
     public function creationBox(){
         $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_STRING);
@@ -107,31 +114,54 @@ class BoxController {
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
         $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
         $infoList = array();
+        $prixList = array();
+        $totalPrice = 0;
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($contenuCoffret as $values){
             $quantite = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->get()->toArray();
+            $prixCoffret= Prestation::select('prix')->where('idPrestation','=',$values)->get()->toArray();
             $img = Prestation::select('img')->where('idPrestation','=',$values)->get()->toArray();
            array_push($infoList,[$img[0]['img'],$quantite[0]['quantite']]);
+           array_push($prixList,$prixCoffret[0]['prix']);
+        }
+
+        foreach($prixList as $values){
+            $totalPrice += $values;
         }
         
-        return $this->view->render($response, 'EditBoxView.html.twig', [
-            'img' => $infoList,
+        return $this->view->render($response, 'BoxView.html.twig', [
+            'info' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
             'idBox' => $idBox,
             'date' => $dateCoffret['dateOuvertureCoffret'],
+            'prix' => $totalPrice,
         ]);
     }
    
-    public function checkAddMessage($request, $response, $args){
+
+    public function checkEditBox($request, $response, $args){
         $idBox = $args['id'];
-        $message = filter_var($_POST['message'],FILTER_SANITIZE_STRING);
+        $nameBox = filter_var($_POST['nameBox'],FILTER_SANITIZE_SPECIAL_CHARS);
+        $messageBox = filter_var($_POST['messageBox'],FILTER_SANITIZE_STRING);
+        $dateBox = $_POST['dateBox'];
         
-         self::addMessage($message,$idBox);
+        self::editBox($nameBox,$messageBox,$dateBox,$idBox);
     }
 
-    public static function addMessage($message,$idBox){
+    public static function editBox($nameBox,$messageBox,$dateBox,$idBox){
         $coffret = Coffret::where('idCoffret','=',$idBox)->first();
-        $coffret->messageCoffret = $message;
+        //si les champs sont vides ont laisse ceux qui sont dans la base
+        if($nameBox){
+            $coffret->nomCoffret = $nameBox;
+        }
+        if($messageBox){
+            $coffret->messageCoffret = $messageBox;
+        }
+
+        if($dateBox){
+            $coffret->dateOuvertureCoffret = $dateBox;
+        }
+        
         $coffret->save();
     }
 

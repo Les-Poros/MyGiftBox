@@ -194,19 +194,38 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 })->setName("Pay");
 
 
-$app->get('/EditBox/{id}', function($request, $response, $args){
+$app->get('/ViewBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
 		$displayEditMod = $controller->displayEditMod($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('ViewBox');
+
+$app->get('/EditBox/{id}', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['BoxController'];
+		$displayEditBox = $controller->displayEditBox($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName('EditBox');
 
 $app->post('/EditBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
-		$addMessage = $controller->checkAddMessage($request, $response, $args);
+		$displayEditBox = $controller->checkEditBox($request, $response, $args);
 		$router = $this->router;
 		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName('EditBox');
 

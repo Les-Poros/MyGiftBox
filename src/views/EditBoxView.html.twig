@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html>
 {% include 'HeadView.html.twig' %} 
-
 <body>
-{% include 'HeaderViewEdit.html.twig' %} 
+
+   {% include 'HeaderView.html.twig' %}
 
     <div class="main_container">
-         <div class="momCoffret">
-         <h2> {{nomCoffret}} <h2>
-         <h4> Date d'ouverture prévu au : {{date}} </h4>
-          <form class="form" action="" method="post">
-    <input type="text" name="message">
-    <button type="submit" class="bouttonBlack">Envoyez Message</button>
-    </form>
-         <button class="boutton"><a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">Modifier</a></button>
-         </div>
-			
-        <div class="grid_container_prestations">
-            {% for values in img %}
-            <div class ="detailsPrestations">
-			<div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{values[0]}}"/> 
-            x{{values[1]}}
-           
-            </div>
-            </div>
-            {% endfor %}            
-    </div>
-   
-    </div>
-</body>
+        <div class="containerCreationBox">
+            <h2>Modifiez votre coffret personnalisé</h2>
 
+            <div class="form">
+                <form class="formCreationBox" action="" method="post">
+                    <input type="text" name="nameBox" placeholder="Nom du coffret"/>
+                    <input type="text" name="messageBox" placeholder="Message de présentation"/>
+                    <label>Date d'ouverture du coffret</label>
+                    <input type="date" name="dateBox"/>
+
+                    <button type="submit" class="boutton">Validez</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
