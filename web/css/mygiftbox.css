@@ -821,13 +821,17 @@ header .container_header .list_grid_menu li a {
   text-align: center;
 }
 .containerCreationPrestation input {
-  width: 150px;
+  width: 100%;
   height: 25px;
   padding: 10px;
   margin: 10px;
 }
 .containerCreationPrestation label {
+  width: 100%;
   font-size: 14pt;
+  margin-top: 10px;
+}
+.containerCreationPrestation .triCateg {
   margin-top: 10px;
 }
 

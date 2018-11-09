@@ -15,13 +15,17 @@
         text-align: center;
     }
     & input {
-        width: 150px;
+        width: 100%;
         height: 25px;
         padding: 10px;
         margin: 10px;
     }
     & label {
+        width: 100%;
         font-size: 14pt;
+        margin-top: 10px;
+    }
+    & .triCateg{
         margin-top: 10px;
     }
 }
