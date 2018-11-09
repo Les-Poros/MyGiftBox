@@ -6,7 +6,7 @@
 	{% include 'HeaderView.html.twig' %}
 
     <div class="main_container">
-        <h2>Vous avez reçu un coffret cadeau !</h2>
+        <h2>Vous avez reçu un coffret cadeau de {{prenom}} {{nom}} ! ({{mail}})</h2>
         {% if estOuvrable %}
             <div class="main_containLinkBox">
                 <p>"{{messageCoffret}}"</p>
