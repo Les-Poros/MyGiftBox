@@ -206,6 +206,13 @@ $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 
 $app->get('/LinkBox/{token}','BoxController:displayLink')->setName("LinkBox");
 
+$app->post('/LinkBox/{token}', function($request, $response, $args){
+	$controller = $this['BoxController'];
+	$shareBox = $controller->sendThanks($request, $response, $args);
+	$router = $this->router;
+	return $response->withRedirect($router->pathFor('Home', []));
+	})->setName("SendThanks");
+
 
 $app->get('/ViewBox/{id}', function($request, $response, $args){
 	if (Authentication::checkConnection()) {

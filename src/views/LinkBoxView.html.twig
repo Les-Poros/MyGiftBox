@@ -23,10 +23,15 @@
                         {% endfor %}
                     </div>
 
-                <form class="formLinkBox">
-                    <p>Remerciez votre ami</p>
-                    <input type="text" class="msgRemerciement" placeholder="Saisissez votre message"/>
-                    <button class="boutton">Envoyer</button>
+                <form action="" method="post" class="formLinkBox">
+                    {% if msgRemerciement=="" %}
+                        <p>Remerciez votre ami</p>
+                        <input type="text" class="msgRemerciement" name="msgRemerciement" placeholder="Saisissez votre message" required/>
+                        <button type="submit" class="boutton">Envoyer</button>
+                    {% else %}
+                        <p>Votre message : </p>
+                        <p>"{{msgRemerciement}}"</p>
+                    {% endif %}
                 </form>
             </div>
         {% else %}
