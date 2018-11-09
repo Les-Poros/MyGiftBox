@@ -197,7 +197,6 @@ class BoxController {
     }
 
     public function displayLink($request, $response, $args){
-        $nomMembre = $_SESSION['prenomMembre'];
         $token = $args['token'];
         
         $date = new \DateTime();
@@ -226,7 +225,6 @@ class BoxController {
         }
 
         return $this->view->render($response, 'LinkBoxView.html.twig', [
-            'nomMembre' => $nomMembre,
             'token' => $token,
             'nomCoffret' => $box['nomCoffret'],
             'messageCoffret' => $box['messageCoffret'],
@@ -234,6 +232,12 @@ class BoxController {
             'listBox' => $presta,
             'estOuvrable' => $estOuvrable,
 		]);
+    }
+
+    public function sendThanks($request, $response, $args){
+        $box = Coffret::where('tokenCoffret','=',$args['token'])->first();
+        $box->msgRemerciement = $_POST['msgRemerciement'];
+        $box->save();
     }
 
     

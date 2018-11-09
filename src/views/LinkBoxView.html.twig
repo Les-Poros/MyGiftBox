@@ -23,10 +23,10 @@
                         {% endfor %}
                     </div>
 
-                <form class="formLinkBox">
+                <form action="" method="post" class="formLinkBox">
                     <p>Remerciez votre ami</p>
-                    <input type="text" class="msgRemerciement" placeholder="Saisissez votre message"/>
-                    <button class="boutton">Envoyer</button>
+                    <input type="text" class="msgRemerciement" name="msgRemerciement" placeholder="Saisissez votre message" required/>
+                    <button type="submit" class="boutton">Envoyer</button>
                 </form>
             </div>
         {% else %}
