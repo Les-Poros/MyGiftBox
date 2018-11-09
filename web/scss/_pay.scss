@@ -31,21 +31,21 @@
             margin-top: 5px;
         }
     }
+    & .buttonPay{
+        width: 30%;
+        margin: auto;
+        padding: 5px;
+        margin-top: 10px;
+    }
 }
 
-.buttonPay{
-    width: 30%;
-    margin: auto;
-    padding: 5px;
-    margin-top: 10px;
-}
-
-.containBox{
+.coffret{
+    text-align: center;
+    & .containBox{
     height: 450px;
     width: 250px;
     overflow-y: scroll;
-}
-
+    
 .itemPay{
     display: flex;
     flex-direction: row;
@@ -54,17 +54,22 @@
         margin: auto;
     }
 }
+}
 
-@media only screen and (max-width: 600px) {
+}
+@media only screen and (max-width: 850px) {
     .pay{
         width : 100%;
     }
 
     .mainPay{
         flex-direction: column;
-        
     }
-    .containBox{
+    .coffret{
+        border-bottom:grey solid 2px;
+        padding-bottom:20px;
+    & .containBox{
         margin : auto;
+        }
     }
 }

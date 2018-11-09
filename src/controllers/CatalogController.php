@@ -87,7 +87,7 @@ class CatalogController {
     }
     public function modifCatalogPurchase($request, $response, $args){
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->delete();
-        $coffret=Coffret::find($args["box"]);
+        $coffret=Coffret::where("idCoffret","=",$args["box"])->first();
         if($_POST["nbAct"]==0){
             $coffret->hasContenuCoffret=0;
             $coffret->save();

@@ -122,7 +122,7 @@ class AdminPrestationsController {
 	
 	public function checkDeactivateReactivatePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
-		$prestation = Prestation::find($idPrestation);
+		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();
 		if (isset($_POST['activatePrestation'])) {
 			if ($_POST['activatePrestation'] == 'v') {
 				$prestation->activation = 1;
@@ -163,7 +163,7 @@ class AdminPrestationsController {
 	
 	public function checkDeletePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
-		$prestation = Prestation::find($idPrestation);
+		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();
 		if (isset($_POST['deletePrestation'])) {
 			if ($_POST['deletePrestation'] == 't') {
 				$contenuCoffret = ContenuCoffret::where('idPrestation', '=', $idPrestation)->delete();
