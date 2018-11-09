@@ -89,7 +89,6 @@ class PayController{
     public function displayGeneratePot($request, $response, $args){
         $idBox = $args['idCoffret'];
         $box = Coffret::find($idBox)->first();
-        var_dump($box['tokenCagnotte']);
         if($box['tokenCagnotte']=="" ){
             $token = self::generateTokenPot();
             $box->tokenCagnotte = $token;
@@ -98,7 +97,6 @@ class PayController{
         else{
             $token = $box['tokenCagnotte'];
         }
-        var_dump($box['tokenCagnotte']);
         $url = "http://" . $_SERVER["SERVER_NAME"];
         if($_SESSION["idMembre"]==$box["idMembre"]){
 		return $this->view->render($response, 'GeneratePotView.html.twig', [
