@@ -149,6 +149,7 @@ class PayController{
             'total' => $somme,
             'role' => $_SESSION['roleMembre'],
             'nbCateg' => $nbCateg,
+            'totalPaye' => $box['totalPaye'],
         ]);
     }
     else
