@@ -111,18 +111,27 @@ class BoxController {
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
         $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
         $infoList = array();
+        $prixList = array();
+        $totalPrice = 0;
         $contenuCoffret = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->get()->toArray();
         foreach($contenuCoffret as $values){
             $quantite = ContenuCoffret::select('quantite')->where('idPrestation','=',$values)->get()->toArray();
+            $prixCoffret= Prestation::select('prix')->where('idPrestation','=',$values)->get()->toArray();
             $img = Prestation::select('img')->where('idPrestation','=',$values)->get()->toArray();
            array_push($infoList,[$img[0]['img'],$quantite[0]['quantite']]);
+           array_push($prixList,$prixCoffret[0]['prix']);
+        }
+
+        foreach($prixList as $values){
+            $totalPrice += $values;
         }
         
         return $this->view->render($response, 'BoxView.html.twig', [
-            'img' => $infoList,
+            'info' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
             'idBox' => $idBox,
             'date' => $dateCoffret['dateOuvertureCoffret'],
+            'prix' => $totalPrice,
         ]);
     }
    
