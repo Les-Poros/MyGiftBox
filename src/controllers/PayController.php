@@ -88,7 +88,7 @@ class PayController{
 
     public function displayGeneratePot($request, $response, $args){
         $idBox = $args['idCoffret'];
-        $box = Coffret::find($idBox)->first();
+        $box = Coffret::find($idBox);
         if($box['tokenCagnotte']=="" ){
             $token = self::generateTokenPot();
             $box->tokenCagnotte = $token;
@@ -157,12 +157,10 @@ class PayController{
     }
 
     public function checkParticipatePot($request, $response, $args){
-        $TokenBox = $args['tokenPot'];
-        $box = Coffret::find($TokenBox)->first();
-
+        $tokenCagnotte = $args['tokenPot'];
+        $box = Coffret::where('tokenCagnotte', '=', $tokenCagnotte)->first();
         $box->totalPaye += $_POST['participation'];
-        $box->messageCoffret += $_POST['msg'];
-
+        $box->messageCoffret .= "\n".$_POST['msg'];
         $box->save();
     }
 
