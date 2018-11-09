@@ -114,6 +114,7 @@ class BoxController {
     }
 
     public function displayEditMod($request, $response, $args){
+        $nomMembre = $_SESSION['prenomMembre'];
         $idBox = $args['id'];
         $nomCoffret = Coffret::select('nomCoffret')->where('idCoffret','=',$idBox)->first()->toArray();
         $dateCoffret = Coffret::select('dateOuvertureCoffret')->where('idCoffret','=',$idBox)->first()->toArray(); 
@@ -139,6 +140,7 @@ class BoxController {
         }
         
         return $this->view->render($response, 'BoxView.html.twig', [
+            'nomMembre' => $nomMembre,
             'info' => $infoList,
             'nomCoffret' => $nomCoffret['nomCoffret'],
             'idBox' => $idBox,
