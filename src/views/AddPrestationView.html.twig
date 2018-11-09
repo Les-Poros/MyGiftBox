@@ -10,13 +10,47 @@
             <h2>Créer votre prestation</h2>
 
             <div class="form">
-                <form class="formCreationPrestation" action="" method="post">
-                    <input type="text" name="nameBox" placeholder="om du coffret"/>
-                    <input type="text" name="messageBox" placeholder="Message de présentation"/>
-                    <label>Date d'ouverture du coffret</label>
-                    <input type="date" name="dateBox"/>
-
-                    <button type="submit" class="boutton">Créer et ajouter des cadeaux</button>
+                <form class="formCreationPrestation" action="" method="post" enctype="multipart/form-data">
+					<p>
+						<label for "namePrestation" id="labelNamePrestation">Le nom de la prestation :</label>
+                    	<input type="text" name="namePrestation" id="namePrestation" placeholder="Champagne" required/>
+					</p>
+					<p>
+						<label for "descrPrestation" id="labelDescrPrestation">La description de la prestation :</label>
+                    	<input type="text" name="descrPrestation" id="descrPrestation" placeholder="Bouteille de champagne" required/>
+					</p>
+					<p>
+						<label for="imgPrestation">Image de la prestation (JPG, PNG ou GIF | max. 15 Mo) :</label>
+     					<input type="hidden" name="MAX_FILE_SIZE" value="15728640" />
+     					<input type="file" name="imgPrestation" id="imgPrestation" required/>
+					</p>
+					<p>
+						<label for="prixPrestation" id="labelPrixPrestation">Le prix de la prestation :</label>
+         				<input type="number" name="prixPrestation" placeholder="20.00" required/>
+					</p>
+					<p>
+						<div class="triActivate">
+							<label for="activate" id="labelActivate">Le statut de la prestation :</label>
+								<div class="selectAct">
+								<select id="triSelectAct" name="activationPrestation">
+									<option value="Activée">Activée</option>
+									<option value="Désactivée">Désactivée</option>
+								</select>
+								</div>
+						</div>
+					</p>
+					<p>
+						<div class="triCat">
+							<label for="triSelectCat" id="labelSelectCat">La catégorie de la prestation :</labelhg>
+							<div class="selectCat">
+								<select id="triSelectCat" name="categoriePrestation">
+									{% for cat in listCateg %}
+										<option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+                    <button type="submit" class="boutton">Créer une prestation</button>
                 </form>
             </div>
         </div>
