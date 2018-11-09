@@ -68,10 +68,9 @@ class CatalogController {
             $prest[$i]['categorie'] = $category['nomCategorie'];
             $prest[$i]['prix'] = $prestations[$i]['prix'];
         }
-        $box = Coffret::find($args["box"])->select("nomCoffret","idMembre")->first()->toArray();
+        $box = Coffret::select("nomCoffret","idMembre")->where('idCoffret', '=', $args["box"])->first()->toArray();
         $contenu=ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();
         $nomMembre = $_SESSION['prenomMembre'];
-        
         if($_SESSION["idMembre"]==$box["idMembre"])
         return $this->view->render($response, 'CatalogPurchaseView.html.twig', [
             "contenu"=>$contenu,

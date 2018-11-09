@@ -6,6 +6,20 @@
 	{% include 'HeaderView.html.twig' %}
 
 	<div class="main_container">
+		<div class="containerCreationPrestation">
+            <h2>Créer votre prestation</h2>
+
+            <div class="form">
+                <form class="formCreationPrestation" action="" method="post">
+                    <input type="text" name="nameBox" placeholder="om du coffret"/>
+                    <input type="text" name="messageBox" placeholder="Message de présentation"/>
+                    <label>Date d'ouverture du coffret</label>
+                    <input type="date" name="dateBox"/>
+
+                    <button type="submit" class="boutton">Créer et ajouter des cadeaux</button>
+                </form>
+            </div>
+        </div>
     </div>
 
 </body>
