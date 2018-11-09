@@ -113,7 +113,7 @@ class PayController{
 
     public function displayParticipatePot($request, $response, $args){
 
-        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre')->where('tokenCagnotte','=',$args['tokenPot'])->first()->toArray();
+        $box = Coffret::select('hasContenuCoffret','nomCoffret','idCoffret','idMembre','totalPaye')->where('tokenCagnotte','=',$args['tokenPot'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         
         $tabCateg = array();
@@ -154,6 +154,16 @@ class PayController{
         return $this->view->render($response, 'BoxMemberFail.html.twig', [
             'nomMembre' => $_SESSION['prenomMembre'],
         ]);
+    }
+
+    public function checkParticipatePot($request, $response, $args){
+        $TokenBox = $args['tokenPot'];
+        $box = Coffret::find($TokenBox)->first();
+
+        $box->totalPaye += $_POST['participation'];
+        $box->messageCoffret += $_POST['msg'];
+
+        $box->save();
     }
 
 }

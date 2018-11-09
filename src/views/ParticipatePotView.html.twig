@@ -17,7 +17,13 @@
             </div>
         <p>Total : {{total}}€</p>
         <p>Total déjà payé : {{totalPaye}}€</p>
-        <input type="number" placeholder="10" required/>
+        <form action="" method="post">
+            <label>Votre participation</label>
+            <input type="number" name="participation" placeholder="10" required/>
+            <label>Laissez un message</label>
+            <input name="msg" type="texte"/>
+            <button type="submit" class="bouttonBlack buttonPay">Participer</button>
+        </form>
     </div>
 </body>
 </html>

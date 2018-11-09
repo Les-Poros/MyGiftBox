@@ -215,6 +215,19 @@ $app->get('/{tokenPot}/ParticipatePot', function($request, $response, $args){
 	}
 })->setName("GeneratePot");
 
+$app->post('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$chekParticipatePot = $controller->checkParticipatePot($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkPot");
+
 $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
