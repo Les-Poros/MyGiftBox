@@ -347,7 +347,15 @@ header .container_header .list_grid_menu li a {
 }
 
 .main_containLinkBox {
+  text-align: center;
   padding: 5%;
+}
+.main_containLinkBox .grid_item_link {
+  margin: auto;
+  width: 300px;
+}
+.main_containLinkBox .grid_item_link img {
+  width: 100%;
 }
 .main_containLinkBox :first-child {
   text-align: center;

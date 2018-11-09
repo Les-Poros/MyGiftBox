@@ -9,13 +9,13 @@
         <h2>Vous avez reçu un coffret cadeau de {{prenom}} {{nom}} ! ({{mail}})</h2>
         {% if estOuvrable %}
             <div class="main_containLinkBox">
-                <p>"{{messageCoffret}}"</p>
-                <p>Contenu du coffret {{nomCoffret}} : </p>
+                <p>{{messageCoffret}}</p>
+                <h2>Contenu du coffret {{nomCoffret}} : </h2>
 
                 <div class="containLinkBox">
                         {% for p in listBox %}
                             <div class="itemPay">
-                                <div class="grid_item_pres"><img src="{{base_url()}}/web/img/{{p[2]}}"/></div>
+                                <div class="grid_item_link"><img src="{{base_url()}}/web/img/{{p[2]}}"/></div>
                                 <p id="nomPrestation">{{p[0]}}</p>
                                 <p>{{p[1]}}</p>
                                 <p>x{{p[3]}}</p>

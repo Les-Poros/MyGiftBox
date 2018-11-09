@@ -108,7 +108,7 @@ class BoxController {
     public function displayBox($request, $response, $args){
         $memberName = $_SESSION['prenomMembre'];
         $idBox = $args['id'];
-        $box = Coffret::select('nomCoffret','dateOuvertureCoffret','estPaye','estTransmis','estOuvert','messageCoffret','idMembre')->where('idCoffret','=',$idBox)->first()->toArray();
+        $box = Coffret::where('idCoffret','=',$idBox)->first()->toArray();
 
         $infoList = array();
         $priceList = array();
@@ -119,7 +119,6 @@ class BoxController {
            array_push($infoList,[$presta['img'],$values['quantite']]);
               $totalPrice += $presta['prix']*$values['quantite'];
         }
-        
         if($_SESSION["idMembre"]==$box["idMembre"]){
         return $this->view->render($response, 'BoxView.html.twig', [
             'nomMembre' => $memberName,
@@ -130,6 +129,7 @@ class BoxController {
             'prix' => $totalPrice,
             'paye' => $box['estPaye'],
             'message' => $box['messageCoffret'],
+            'messageRemer'=> $box['msgRemerciement'],
             'ouvert' => $box['estOuvert'],
             'transmis' => $box['estTransmis'],
         ]);
