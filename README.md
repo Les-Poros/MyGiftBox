@@ -15,6 +15,8 @@ Lien pour consulter l'application : https://webetu.iutnc.univ-lorraine.fr/www/sc
     - Pour un compte non administrateur, il suffit de saisir "visiteur@visiteur.fr" en tant que mail et "visiteur" en tant que mot de passe lors de la connection
     - Pour un compte administrateur, il suffit de saisir par exemple "camille@camille.fr" en tant que mail et "camille" en tant que mot de passe lors de la connection
 
+* Si vous souhaitez modifier ou consulter la base de données : il suffit d'aller sur https://webetu.iutnc.univ-lorraine.fr/phpmya/ , de saisir "schwarz16u" en tant qu'utilisateur et "mysql" en tant que mot de passe.
+
 # Installation via Docker :
 
 Prérequis : 
