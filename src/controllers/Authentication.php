@@ -15,7 +15,7 @@ class Authentication {
    * @param idMember
    * @param roleMember
    */
-  public static function instantiateSession($nomMember, $prenomMember, $mailMember, $idMember, $roleMember) {
+  public static function instantiateSession($nameMember, $forenameMember, $mailMember, $idMember, $roleMember) {
     $_SESSION['nameMember'] = $nameMember;
     $_SESSION['forenameMember'] = $forenameMember;
     $_SESSION['mailMember'] = $mailMember;

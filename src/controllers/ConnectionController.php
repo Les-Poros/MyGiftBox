@@ -60,7 +60,7 @@ class ConnectionController{
         $mail = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
         $password = filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
 
-		$member = m\Membre::where('mailMembre', '=', $email);
+		$member = m\Membre::where('mailMembre', '=', $mail);
 		if ($member->count() != 1) {
 			echo "Email invalide";
 		} else {	
@@ -70,7 +70,7 @@ class ConnectionController{
 			} else {
 				echo "Mot de passe invalide";
 			}
-		} 
+        }
     }
     
     /**

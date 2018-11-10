@@ -33,8 +33,8 @@ class CatalogController {
     public function displayCatalog($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
         $listPrestations = Prestation::where('activation', '=', 1)->get();
-        for ($i=0; $i<sizeof($prestations); $i++) {
-            $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
+        for ($i=0; $i<sizeof($listPrestations); $i++) {
+            $listPrestations[$i]['categorie'] = $listPrestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
         if (Authentication::checkConnection()) {
             $nameMember = $_SESSION['forenameMember'];
@@ -59,9 +59,9 @@ class CatalogController {
 	 */
     public function displayCatalogPurchase($request, $response, $args) {
         $listCategories = Categorie::select('nomCategorie')->get()->toArray();
-        $prestations = Prestation::where('activation', '=', 1)->get();
-        for ($i=0; $i<sizeof($prestations); $i++) {
-            $prestations[$i]['categorie'] = $prestations[$i]->categorie()->first()->toArray()['nomCategorie'];
+        $listPrestations = Prestation::where('activation', '=', 1)->get();
+        for ($i=0; $i<sizeof($listPrestations); $i++) {
+            $listPrestations[$i]['categorie'] = $listPrestations[$i]->categorie()->first()->toArray()['nomCategorie'];
         }
         $box = Coffret::select("nomCoffret","idMembre","estPaye")->where('idCoffret', '=', $args["box"])->first()->toArray();
         $contentBox = ContenuCoffret::where("idCoffret","=",$args["box"])->get()->toArray();

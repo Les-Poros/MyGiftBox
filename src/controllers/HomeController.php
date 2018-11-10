@@ -33,7 +33,7 @@ class HomeController {
 	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {		
 			$resDisplayBoxMember = BoxController::displayBoxMember($request, $response, $args);
-			$nameMembre = $_SESSION['forenameMember'];
+			$nameMember = $_SESSION['forenameMember'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
 				'nameMember' => $nameMember,
 				'roleMember' => $_SESSION['roleMember'],
