@@ -73,9 +73,11 @@ class PayController{
 	 * @param args
 	 */
     public function displayChoicePay($request, $response, $args) {
-        $box = Coffret::select('idCoffret')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
+        $box = Coffret::select('idCoffret','tokenCagnotte')->where('idCoffret','=',$args['idCoffret'])->first()->toArray();
         $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
         
+        $url = "http://" . $_SERVER["SERVER_NAME"];
+
         $tabCateg = array();
         $presta = array();
         foreach ($idPrestation as $p) {
@@ -95,6 +97,8 @@ class PayController{
             'role' => $_SESSION['roleMember'],
             'idBox' => $box['idCoffret'],
             'nbCateg' => $nbCateg,
+            'tokenBox' => $box['tokenCagnotte'],
+            'url' => $url,
         ]);
     }
 
@@ -209,6 +213,21 @@ class PayController{
         $box = Coffret::where('tokenCagnotte', '=', $tokenCagnotte)->first();
         $box->totalPaye += $_POST['participation'];
         $box->messageCoffret .= "\n".$_POST['msg'];
+
+        $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$box['idCoffret'])->get()->toArray();
+
+        $sum = 0;
+        foreach ($idPrestation as $p) {
+            $prestation = Prestation::select('prix')->where('idPrestation','=',$p)->first()->toArray();
+            $pricePrestation = $prestation['prix'];
+            $quantityPresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
+            $quantityPrestation = $quantityPresta['quantite'];
+            $price = $pricePrestation * $quantityPrestation;
+            $sum += $price;
+        }
+        if($box['totalPaye'] >= $sum){
+            $box->estPaye = 1;
+        }
         $box->save();
     }
 

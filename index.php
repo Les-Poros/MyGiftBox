@@ -214,14 +214,8 @@ $app->get('/{idCoffret}/GeneratePot', function($request, $response, $args){
 })->setName("GeneratePot");
 
 $app->get('/{tokenPot}/ParticipatePot', function($request, $response, $args){
-	if (Authentication::checkConnection()) {
-		$controller = $this['PayController'];
-		$displayParticipatePot = $controller->displayParticipatePot($request, $response, $args);
-	}
-	else {
-		$router = $this->router;
-		return $response->withRedirect($router->pathFor('Home', []));
-	}
+	$controller = $this['PayController'];
+	$displayParticipatePot = $controller->displayParticipatePot($request, $response, $args);
 })->setName("GeneratePot");
 
 $app->post('/{tokenPot}/ParticipatePot', function($request, $response, $args){

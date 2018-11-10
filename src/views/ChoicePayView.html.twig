@@ -8,8 +8,12 @@
 	<div class="main_container">
 		<div class="screen">
 		{% if nbCateg >= 2 %}
-            <a href="{{base_url()}}/{{idBox}}/Pay"><button class="boutton">Paiement classique</button></a>
-		    <a href="{{base_url()}}/{{idBox}}/GeneratePot"><button type="submit" class="boutton">Payer via cagnotte</button></a>
+			{% if tokenBox == "" %}
+				<a href="{{base_url()}}/{{idBox}}/Pay"><button class="boutton">Paiement classique</button></a>
+				<a href="{{base_url()}}/{{idBox}}/GeneratePot"><button type="submit" class="boutton">Payer via cagnotte</button></a>
+			{% else %}
+				<p>votre cagnotte : {{url}}{{base_url()}}/{{tokenBox}}/ParticipatePot </p>
+			{% endif %}
 		{% else %}
             <h2> Vous devez avoir des prestations d'au moins deux catégories différentes</h2>
         {% endif %}

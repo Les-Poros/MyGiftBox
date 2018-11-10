@@ -4,30 +4,31 @@
 <body>
 
 	{% include 'HeaderView.html.twig' %}
-
 	<div class="main_container">
-        <h2> Vos derniers Coffrets</h2>
-		 <div class ="grid_container_homeConnect">
-		 {% for values in variables %}
-		 <div class ="detailsBox">
-		 
-			<p> {{values[0]}}</p> 
-			<div class="grid_box_pres"><img src="{{base_url()}}/web/img/{{values[1]}}"/></div>
-			
-			
-			<button class="boutton"><a href="{{base_url()}}/ViewBox/{{values[2]}}">Voir</a></button>
-			{% if values[3] == 0 %}
-				<a href="{{base_url()}}/{{values[2]}}/ChoicePay"><button class="boutton">Choix paiement</button></a>
-			{% else %}
-				
-				<button type="submit" class="boutton"><a href="{{base_url()}}/{{values[2]}}/ShareBox">URL de partage</a></button>
-		
-			{% endif %}
-		</div>
-         {% endfor %} 
-			</div> 
-         		 
-		
+        <h2> Vos Derniers Coffrets</h2>
+		<div class ="grid_container_homeConnect">
+			{% for res in resDisplayBoxMember %}
+			<div class ="detailsBox">
+				<p> {{res[0]}}</p> 
+				<div class="grid_box_pres">
+					<img src="{{base_url()}}/web/img/{{res[1]}}"/>
+				</div>
+				<button class="boutton">
+					<a href="{{base_url()}}/ViewBox/{{res[2]}}">Voir</a>
+				</button>
+				{% if res[3] == 0 %}
+					<a href="{{base_url()}}/{{res[2]}}/ChoicePay">
+						<button class="boutton">Choix paiement</button>
+					</a>
+				{% else %}
+					<button type="submit" class="boutton">
+						<a href="{{base_url()}}/{{res[2]}}/ShareBox">URL de partage</a>
+					</button>
+				{% endif %}
+			</div>
+        	{% endfor %} 
+		</div> 
     </div>
+
 </body>
 </html>

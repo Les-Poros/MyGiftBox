@@ -122,6 +122,7 @@ class BoxController {
                 $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
                 $imgPrestation = $prestation['img'];
                 array_push($listBoxesName,[$boxName,$imgPrestation,$idBox,$isPay]);
+                var_dump($listBoxesName);
             }
         }
         return($listBoxesName);	
