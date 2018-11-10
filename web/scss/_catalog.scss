@@ -1,6 +1,12 @@
+$colorActivate: #0dff15;
+$colorDeactivate: #ff110d;
+$colorDelete: #ff6f00;
+$colorWhite: white;
+$backgroundSelect: #f5f5f5;
+$colorSelect: #555;
 .grid_container_prestations {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -9,11 +15,11 @@
     gap: 25px;
     & .tabPrestations {
         box-sizing: border-box;
-        border:gray solid 2px;
+        border: gray solid 2px;
         position: relative;
         overflow: hidden;
-        border-radius:5%; 
-        & .formEtatPrestation{
+        border-radius: 5%;
+        & .formEtatPrestation {
             display: flex;
         }
         & .detailsPrestations,
@@ -34,15 +40,15 @@
             width: 100%;
             height: 200px;
             & img {
-                border:gray solid 2px;
+                border: gray solid 2px;
                 width: 100%;
                 height: 100%;
-                border-radius:5%; 
+                border-radius: 5%;
             }
         }
         & a {
             visibility: hidden;
-            color: white;
+            color: $colorWhite;
             font-size: 1em;
             position: absolute;
             top: calc( 10% - 0.5em);
@@ -54,22 +60,22 @@
         & button {
             cursor: pointer;
             & i {
-                color: white;
+                color: $colorWhite;
             }
         }
         & #activatePrestation {
-            background-color: #0dff15;
-            border: #0dff15 solid 1px;
+            background-color: $colorActivate;
+            border-color: $colorActivate;
             width: 100%;
         }
         & #deactivatePrestation {
-            background-color: #ff110d;
-            border: #ff110d solid 1px;
+            background-color: $colorDeactivate;
+            border-color: $colorDeactivate;
             width: 100%;
         }
         & #deletePrestation {
-            background-color: #ff6f00;
-            border: #ff6f00 solid 1px;
+            background-color: $colorDelete;
+            border-color: $colorDelete;
             width: 100%;
         }
         &:hover {
@@ -83,7 +89,7 @@
                 -moz-filter: brightness(20%);
                 -o-filter: brightness(20%);
                 -ms-filter: brightness(20%);
-                background-color: white;
+                background-color: $colorWhite;
             }
             & a {
                 visibility: visible;
@@ -130,11 +136,11 @@
 #triSelect,
 #triSelectCat {
     width: 150px;
-    color: #555;
+    color: $colorSelect;
     border: 1px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
-    background: #f5f5f5;
+    background: $backgroundSelect;
     -moz-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
@@ -149,11 +155,7 @@
 
 @media only screen and (max-width: 1100px) {
     .grid_container_prestations {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    .grid_item_pres {
-        width: 100%;
-        height: 200px;
+        grid-template-columns: repeat(3, 1fr);
     }
     .tri {
         width: 100%;
@@ -170,10 +172,6 @@
 @media only screen and (max-width: 500px) {
     .grid_container_prestations {
         grid-template-columns: 1fr 1fr;
-    }
-    .grid_item_pres {
-        width: 100%;
-        height: 200px;
     }
     .tri {
         width: 100%;

@@ -4,43 +4,40 @@
 <body>
 
 	{% include 'HeaderView.html.twig' %}
-
     <div class="main_container">
-        <h2>Vous avez reçu un coffret cadeau de {{prenom}} {{nom}} ! ({{mail}})</h2>
-        {% if estOuvrable %}
+        <h2>Vous avez reçu un coffret cadeau de {{nameMember}} {{name}} ! ({{mail}})</h2>
+        {% if isBusiness %}
             <div class="main_containLinkBox">
-                <p>{{messageCoffret}}</p>
-                <h2>Contenu du coffret {{nomCoffret}} : </h2>
+                <p>{{mesageBox}}</p>
+                <h2>Contenu du coffret {{nameBox}} : </h2>
 
                 <div class="containLinkBox">
-                        {% for p in listBox %}
+                        {% for prestation in tabPrestations %}
                             <div class="itemPay">
-                                <div class="grid_item_link"><img src="{{base_url()}}/web/img/{{p[2]}}"/></div>
-                                <p id="nomPrestation">{{p[0]}}</p>
-                                <p>{{p[1]}}</p>
-                                <p>x{{p[3]}}</p>
+                                <div class="grid_item_link"><img src="{{base_url()}}/web/img/{{prestation[2]}}"/></div>
+                                <p id="nomPrestation">{{prestation[0]}}</p>
+                                <p>{{prestation[1]}}</p>
+                                <p>x{{prestation[3]}}</p>
                             </div>
                         {% endfor %}
                     </div>
 
                 <form action="" method="post" class="formLinkBox">
-                    {% if msgRemerciement=="" %}
+                    {% if messageThanksBox == "" %}
                         <p>Remerciez votre ami</p>
                         <input type="text" class="msgRemerciement" name="msgRemerciement" placeholder="Saisissez votre message" required/>
                         <button type="submit" class="boutton">Envoyer</button>
                     {% else %}
                         <p>Votre message : </p>
-                        <p>"{{msgRemerciement}}"</p>
+                        <p>"{{messageThanksBox}}"</p>
                     {% endif %}
                 </form>
             </div>
         {% else %}
             <div class="main_containLinkBox">
-                <p>Un ami vous a offert un coffret secret vous découvrirez son contenu après le {{date|date('d/m/Y')}}</p>
+                <p>Un ami vous a offert un coffret secret vous découvrirez son contenu après le {{dateOpenBox|date('d/m/Y')}}</p>
             </div>
-            
         {% endif %}
-        
     </div>
 
 </body>

@@ -8,8 +8,8 @@
     <div class="main_container myaccount">
         <div class="infoMembre">
             <h2>Mes informations : </h2>
-            <p>Nom :  {{nom}}</p>
-            <p>Prénom : {{prenom}} </p>
+            <p>Nom :  {{name}}</p>
+            <p>Prénom : {{forename}} </p>
             <p>Mail : {{mail}}</p>
 
             <button class="boutton">Modifier mes informations</button>
@@ -18,10 +18,10 @@
             <h2>Modifier : </h2>
             <form class="formMenu formMembre" action="" method="post">
                 <label for="nom" id="labelnom">Nom : </label>
-                <input type="text" name="nom" id="nom" placeholder="{{nom}}"/>
+                <input type="text" name="nom" id="nom" placeholder="{{name}}"/>
 
                 <label for="prenom" id="labelmdp">Prénom : </label>
-                <input type="text" name="prenom" id="prenom" placeholder="{{prenom}}"/>
+                <input type="text" name="prenom" id="prenom" placeholder="{{forename}}"/>
 
                 <label for="email" id="labelemail">Mail : </label>
                 <input type="text" name="email" id="email" placeholder="{{mail}}"/>
@@ -34,5 +34,6 @@
         </div>
     </div>
     <script type="text/javascript" src="{{base_url()}}/js/account.js"></script>
+    
 </body>
 </html>

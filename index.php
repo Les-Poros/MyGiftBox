@@ -167,7 +167,18 @@ $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args)
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName('ModifCatalogPurchase');
-  
+
+$app->get('/{idCoffret}/ChoicePay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPayChoice = $controller->displayChoicePay($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ChoicePay");
+
 $app->get('/{idCoffret}/Pay', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['PayController'];
@@ -190,6 +201,35 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName("CheckPay");
+
+$app->get('/{idCoffret}/GeneratePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayGeneratePot = $controller->displayGeneratePot($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("GeneratePot");
+
+$app->get('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	$controller = $this['PayController'];
+	$displayParticipatePot = $controller->displayParticipatePot($request, $response, $args);
+})->setName("GeneratePot");
+
+$app->post('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$chekParticipatePot = $controller->checkParticipatePot($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkPot");
 
 $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
