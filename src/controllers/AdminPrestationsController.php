@@ -2,14 +2,14 @@
 
 namespace MyGiftBox\controllers;
 
-use \Slim\Views\Twig as twig;
-use MyGiftBox\controllers\Authentication;
-use MyGiftBox\controllers\BoxController;
-use MyGiftBox\views\AdminPrestationsView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
 use MyGiftBox\models\Categorie;
 use MyGiftBox\models\ContenuCoffret;
+use MyGiftBox\controllers\Authentication;
+use MyGiftBox\controllers\BoxController;
+use \Slim\Views\Twig as twig;
+use MyGiftBox\views\AdminPrestationsView;
 
 /**
  * Class AdminPrestationsController
@@ -33,47 +33,65 @@ class AdminPrestationsController {
 	 * @param args
 	 */
 	public function displayAdminPrestations($request, $response, $args) {
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'AdminPrestationsView.html.twig', [
-			'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-		]);
-		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		if ($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'AdminPrestationsView.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				'roleMember' => $_SESSION['roleMember'],
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'roleMember' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * Method that displays the form for the add of a prestation
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayAddPrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'AddPrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listCateg' => $listCategories,
-		]);
-		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		if ($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'AddPrestationView.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				'roleMember' => $_SESSION['roleMember'],
+				'listCategories' => $listCategories,
+			]);
+		} else{
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'roleMember' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * Method that checks the add of a prestation in the database
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkAddPrestation($request, $response, $args) {
 		$prestation = new Prestation();
 		$maxsize = 15728640;
-		$erreur = "";
-		$prestation->nomPrestation = filter_var($_POST['namePrestation'],FILTER_SANITIZE_STRING);
+		$error = "";
+		$prestation->nomPrestation = filter_var($_POST['namePrestation'], FILTER_SANITIZE_STRING);
 		$prestation->descr = $_POST['descrPrestation'];
 		if ($_FILES['imgPrestation']['error'] > 0) {
-			$erreur = "Erreur lors du transfert";
+			$error = "Erreur lors du transfert";
 		}
 		if ($_FILES['imgPrestation']['size'] > $maxsize) {
-			$erreur = "Le fichier est trop gros";
+			$error = "Le fichier est trop gros";
 		}
-		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
-		$extension_upload = strtolower(substr(strrchr($_FILES['imgPrestation']['name'], '.')  ,1)  );
+		$extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+		$extension_upload = strtolower(substr(strrchr($_FILES['imgPrestation']['name'], '.'), 1));
 		if (!in_array($extension_upload,$extensions_valides)) {
-			$erreur = "Extension incorrecte";
+			$error = "Extension incorrecte";
 		}
 		$extension = explode('/', $_FILES['imgPrestation']['type']);
 		move_uploaded_file($_FILES['imgPrestation']['tmp_name'], 'web/img/'.$_FILES['imgPrestation']['name']);
@@ -86,43 +104,57 @@ class AdminPrestationsController {
 		else {
 			$prestation->activation = 0;
 		}
-		$categorie = Categorie::select('idCategorie', 'nomCategorie')->where('nomCategorie', '=', $_POST['categoriePrestation'])->first()->toArray();
-		$prestation->idCategorie = $categorie['idCategorie'];
+		$category = Categorie::select('idCategorie', 'nomCategorie')->where('nomCategorie', '=', $_POST['categoriePrestation'])->first()->toArray();
+		$prestation->idCategorie = $category['idCategorie'];
 		$prestation->save();
-		//return $erreur;
+		//return $error;
 		$lastPrestation = Prestation::select('idPrestation')->where('nomPrestation', '=', $_POST['namePrestation'])->first()->toArray();
 		return $lastPrestation['idPrestation'];
 	}
 	
+	/**
+	 * Method that displays the page where an admin can deactivate or reactivate a prestation
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayDeactivateReactivatePrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
 		$prestations = Prestation::all();
-        $prest = array();
+        $tabPrestations = array();
         for($i=0; $i<sizeof($prestations); $i++) {
-            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
-            $prest[$i]['img'] = $prestations[$i]['img'];
-            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
+            $tabPrestations[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
+            $tabPrestations[$i]['picture'] = $prestations[$i]['img'];
+            $tabPrestations[$i]['namePrestation'] = $prestations[$i]['nomPrestation'];
             $category = $prestations[$i]->categorie()->first()->toArray();
-            $prest[$i]['categorie'] = $category['nomCategorie'];
-			$prest[$i]['prix'] = $prestations[$i]['prix'];
-			$prest[$i]['activation'] = $prestations[$i]['activation'];
+            $tabPrestations[$i]['category'] = $category['nomCategorie'];
+			$tabPrestations[$i]['price'] = $prestations[$i]['prix'];
+			$tabPrestations[$i]['activate'] = $prestations[$i]['activation'];
 		}
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listPrestations' => $prest,
-			'listCateg' => $listCategories,
-		]);
-		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		if($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'DeactivateReactivatePrestationView.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				'roleMember' => $_SESSION['roleMember'],
+				'tabPrestations' => $tabPrestations,
+				'listCategories' => $listCategories,
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+			]);
+		}
 	}
 	
+	/**
+	 * Method that check the deactivation or the reactivation of a prestation and modifies the prestation
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkDeactivateReactivatePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
-		$prestation = Prestation::find($idPrestation);
+		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();
 		if (isset($_POST['activatePrestation'])) {
 			if ($_POST['activatePrestation'] == 'v') {
 				$prestation->activation = 1;
@@ -136,34 +168,49 @@ class AdminPrestationsController {
 		$prestation->save();
 	}
 	
+	/**
+	 * Method that displays the page where an admin can delete a prestation
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayDeletePrestation($request, $response, $args) {
 		$listCategories = Categorie::select('nomCategorie')->get()->toArray();
 		$prestations = Prestation::all();
-        $prest = array();
+        $tabPrestations = array();
         for($i=0; $i<sizeof($prestations); $i++) {
-            $prest[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
-            $prest[$i]['img'] = $prestations[$i]['img'];
-            $prest[$i]['nomPrestation'] = $prestations[$i]['nomPrestation'];
+            $tabPrestations[$i]['idPrestation'] = $prestations[$i]['idPrestation'];
+            $tabPrestations[$i]['picture'] = $prestations[$i]['img'];
+            $tabPrestations[$i]['namePrestation'] = $prestations[$i]['nomPrestation'];
             $category = $prestations[$i]->categorie()->first()->toArray();
-            $prest[$i]['categorie'] = $category['nomCategorie'];
-			$prest[$i]['prix'] = $prestations[$i]['prix'];
+            $tabPrestations[$i]['category'] = $category['nomCategorie'];
+			$tabPrestations[$i]['price'] = $prestations[$i]['prix'];
 		}
-		if($_SESSION['roleMembre']==1)
-        return $this->view->render($response, 'DeletePrestationView.html.twig', [
-            'nomMembre' => $_SESSION['prenomMembre'],
-			'role' => $_SESSION['roleMembre'],
-            'listPrestations' => $prest,
-			'listCateg' => $listCategories,
-		]);
-		else
-            return $this->view->render($response, 'RightFailView.html.twig', [
-                'nomMembre' => $_SESSION['prenomMembre'],
-            ]);
+		if($_SESSION['roleMember'] == 1) {
+			return $this->view->render($response, 'DeletePrestationView.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				'roleMember' => $_SESSION['roleMember'],
+				'tabPrestations' => $tabPrestations,
+				'listCategories' => $listCategories,
+			]);
+		} else {
+			return $this->view->render($response, 'Fail.html.twig', [
+				'nameMember' => $_SESSION['forenameMember'],
+				"message" => "Désolé, vous n'avez pas les droits pour venir ici :p",
+				'roleMember' => $_SESSION['roleMember'],
+			]);
+		}
 	}
 	
+	/**
+	 * Method that checks the removal of a prestation from the database
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function checkDeletePrestation($request, $response, $args) {
 		$idPrestation = $_POST['idPrestation'];
-		$prestation = Prestation::find($idPrestation);
+		$prestation = Prestation::where("idprestation",'=',$idPrestation)->first();
 		if (isset($_POST['deletePrestation'])) {
 			if ($_POST['deletePrestation'] == 't') {
 				$contenuCoffret = ContenuCoffret::where('idPrestation', '=', $idPrestation)->delete();

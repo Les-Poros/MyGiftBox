@@ -4,7 +4,6 @@
 <body>
 
 	{% include 'HeaderView.html.twig' %}
-
 	<div class="main_container">
 		<div class="containerCreationPrestation">
             <h2>Créer votre prestation</h2>
@@ -28,7 +27,6 @@
 						<label for="prixPrestation" id="labelPrixPrestation">Le prix de la prestation :</label>
          				<input type="number" name="prixPrestation" placeholder="20.00" required/>
 					</p>
-					<p>
 						<div class="triActivate">
 							<label for="activate" id="labelActivate">Le statut de la prestation :</label>
 								<div class="selectAct">
@@ -38,18 +36,18 @@
 								</select>
 								</div>
 						</div>
-					</p>
-					<p>
-						<div class="triCat">
+				
+						<div class="triCateg">
 							<label for="triSelectCat" id="labelSelectCat">La catégorie de la prestation :</labelhg>
 							<div class="selectCat">
 								<select id="triSelectCat" name="categoriePrestation">
-									{% for cat in listCateg %}
+									{% for cat in listCategories %}
 										<option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
 									{% endfor %}
 								</select>
 							</div>
 						</div>
+					
                     <button type="submit" class="boutton">Créer une prestation</button>
                 </form>
             </div>

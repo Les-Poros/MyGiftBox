@@ -42,7 +42,16 @@ $app = new \Slim\App($container);
 
 $app->get('/','HomeController:displayHome')->setName('Home');
 
-$app->get('/HomeConnect','HomeController:displayHomeConnect')->setName('HomeConnect');
+$app->get('/HomeConnect', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['HomeController'];
+		$displayCreationBox = $controller->displayHomeConnect($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName('HomeConnect');
 
 
 $app->get('/CreateAccount', 'ConnectionController:displayCreateAccount')->setName('CreateAccount');
@@ -106,8 +115,8 @@ $app->get('/Exit', function($request, $response, $args){
 })->setName('Disconnection');
 
 $app->get('/Prestation/{id}', function($request, $response, $args){
-		$router = $this->router;
-		return $response->withRedirect($router->pathFor('Home', []));
+	$controller = $this['PrestationController'];
+	$displayPrestation = $controller->displayPrestation($request, $response, $args);
 })->setName("Prestation");
 
 
@@ -158,7 +167,18 @@ $app->post('/{box}/ConsultCatalogPurchase', function($request, $response, $args)
 		return $response->withRedirect($router->pathFor('Home', []));
 	}
 })->setName('ModifCatalogPurchase');
-  
+
+$app->get('/{idCoffret}/ChoicePay', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayPayChoice = $controller->displayChoicePay($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("ChoicePay");
+
 $app->get('/{idCoffret}/Pay', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['PayController'];
@@ -182,6 +202,35 @@ $app->post('/{idCoffret}/Pay', function($request, $response, $args){
 	}
 })->setName("CheckPay");
 
+$app->get('/{idCoffret}/GeneratePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$displayGeneratePot = $controller->displayGeneratePot($request, $response, $args);
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("GeneratePot");
+
+$app->get('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	$controller = $this['PayController'];
+	$displayParticipatePot = $controller->displayParticipatePot($request, $response, $args);
+})->setName("GeneratePot");
+
+$app->post('/{tokenPot}/ParticipatePot', function($request, $response, $args){
+	if (Authentication::checkConnection()) {
+		$controller = $this['PayController'];
+		$chekParticipatePot = $controller->checkParticipatePot($request, $response, $args);
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('HomeConnect', []));
+	}
+	else {
+		$router = $this->router;
+		return $response->withRedirect($router->pathFor('Home', []));
+	}
+})->setName("checkPot");
+
 $app->get('/{idCoffret}/ShareBox', function($request, $response, $args){
 	if (Authentication::checkConnection()) {
 		$controller = $this['BoxController'];
@@ -200,7 +249,7 @@ $app->post('/LinkBox/{token}', function($request, $response, $args){
 	$controller = $this['BoxController'];
 	$shareBox = $controller->sendThanks($request, $response, $args);
 	$router = $this->router;
-	return $response->withRedirect($router->pathFor('Home', []));
+	return $response->withRedirect($router->pathFor('LinkBox', ["token"=>$args['token']]));
 	})->setName("SendThanks");
 
 

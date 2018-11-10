@@ -29,23 +29,30 @@ class PrestationController {
 	 */
     public function displayPrestation($request, $response, $args) {
         $idPrestation = $args['id'];
-        $prestation = Prestation::find($idPrestation)->toArray();
-        $imgPrestation = $prestation['img'];
-        $nomPrestation = $prestation['nomPrestation'];
+        $prestation = Prestation::where('idPrestation', '=', $idPrestation)->first()->toArray();
+        $picturePrestation = $prestation['img'];
+        $namePrestation = $prestation['nomPrestation'];
         $idCategory = $prestation['idCategorie'];
-        $category = Categorie::find($idCategory)->toArray();
-        $categoriePrestation = $category['nomCategorie'];
-        $descrPrestation = $prestation['descr'];
-        $prixPrestation = $prestation['prix'];
-		$nomMembre = $_SESSION['prenomMembre'];
+        $category = Categorie::where("idCategorie", "=", $idCategory)->first()->toArray();
+        $categoryPrestation = $category['nomCategorie'];
+        $descriptionPrestation = $prestation['descr'];
+        $pricePrestation = $prestation['prix'];
+        if (Authentication::checkConnection()){
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
+        }
+        else{
+            $nameMember = "";
+            $roleMember = 0;
+        }
         return $this->view->render($response, 'PrestationView.html.twig', [
-            'nomMembre' => $nomMembre,
-			'role' => $_SESSION['roleMembre'],
-            'imgPrestation' => $imgPrestation,
-            'nomPrestation' => $nomPrestation,
-            'categoriePrestation' => $categoriePrestation,
-            'descrPrestation' => $descrPrestation,
-            'prixPrestation' => $prixPrestation,
+            'nameMember' => $nameMember,
+            'picturePrestation' => $picturePrestation,
+            'namePrestation' => $namePrestation,
+            'categoryPrestation' => $categoryPrestation,
+            'descriptionPrestation' => $descriptionPrestation,
+            'pricePrestation' => $pricePrestation,
+            'roleMember' => $roleMember,
         ]);
     }
 

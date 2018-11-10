@@ -1,0 +1,32 @@
+.containPot{
+    display: flex;
+    flex-direction: row;
+    & .containBox{
+        & p{
+            text-align: center;
+        }
+    }
+}
+
+.participationPot{
+    border: solid grey;
+    padding: 10%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    & p{
+        margin-bottom: 5px;
+    }
+    & form{
+        display: flex;
+        flex-direction: column;
+        & label{
+            margin-bottom: 5px;
+        }
+        & input{
+            width: 50%;
+        }
+    }
+}

@@ -94,6 +94,10 @@ footer {
 .main_container {
   width: 70%;
   margin: auto;
+  word-break: break-word;
+}
+.main_container h2 {
+  text-align: center;
 }
 @media only screen and (max-width: 1250px) {
   .main_container {
@@ -107,6 +111,7 @@ footer {
 }
 
 .boutton {
+  cursor: pointer;
   padding: 6px 0 6px 0;
   font: bold 13px Arial;
   background: #f5f5f5;
@@ -336,13 +341,22 @@ header .container_header .list_grid_menu li a {
 
 .share_container {
   border: solid grey;
+  word-wrap: break-word;
   padding: 10%;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .main_containLinkBox {
+  text-align: center;
   padding: 5%;
+}
+.main_containLinkBox .grid_item_link {
+  margin: auto;
+  width: 300px;
+}
+.main_containLinkBox .grid_item_link img {
+  width: 100%;
 }
 .main_containLinkBox :first-child {
   text-align: center;
@@ -359,6 +373,14 @@ header .container_header .list_grid_menu li a {
   width: 50%;
   height: 200px;
 }
+@media screen and (max-width: 500px) {
+  .main_containLinkBox .grid_item_link {
+    width: 80%;
+  }
+  .main_containLinkBox .formLinkBox .msgRemerciement {
+    width: initial;
+  }
+}
 
 #nomPrestation {
   font-weight: bold;
@@ -366,7 +388,7 @@ header .container_header .list_grid_menu li a {
 
 .grid_container_prestations {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -374,25 +396,40 @@ header .container_header .list_grid_menu li a {
   margin-bottom: 30px;
   gap: 25px;
 }
-.grid_container_prestations .detailsPrestations,
-.grid_container_prestations .detailsPrestationsCateg,
-.grid_container_prestations .detailsPrestationsPrix {
-  text-align: center;
-}
 .grid_container_prestations .tabPrestations {
+  box-sizing: border-box;
+  border: gray solid 2px;
   position: relative;
-  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5%;
   margin-bottom: 5px;
   width: 100%;
 }
-.grid_container_prestations .tabPrestations .grid_item_pres_tab {
-  width: 100%;
-  height: 200px;
+.grid_container_prestations .tabPrestations .formEtatPrestation {
+  display: flex;
+}
+.grid_container_prestations .tabPrestations .detailsPrestations,
+.grid_container_prestations .tabPrestations .detailsPrestationsCateg,
+.grid_container_prestations .tabPrestations .detailsPrestationsPrix,
+.grid_container_prestations .tabPrestations .detailsPrestationsQuantite {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.grid_container_prestations .tabPrestations .detailsPrestationsPrix {
   padding-bottom: 10px;
 }
+.grid_container_prestations .tabPrestations .grid_item_pres_tab {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  height: 200px;
+}
 .grid_container_prestations .tabPrestations .grid_item_pres_tab img {
+  border: gray solid 2px;
   width: 100%;
   height: 100%;
+  border-radius: 5%;
 }
 .grid_container_prestations .tabPrestations a {
   visibility: hidden;
@@ -402,6 +439,9 @@ header .container_header .list_grid_menu li a {
   top: calc( 10% - 0.5em);
   width: 100%;
   text-align: center;
+}
+.grid_container_prestations .tabPrestations button {
+  cursor: pointer;
 }
 .grid_container_prestations .tabPrestations button i {
   color: white;
@@ -424,8 +464,8 @@ header .container_header .list_grid_menu li a {
 .grid_container_prestations .tabPrestations:hover .detailsPrestations,
 .grid_container_prestations .tabPrestations:hover .detailsPrestationsCateg,
 .grid_container_prestations .tabPrestations:hover .grid_item_pres_tab,
-.grid_container_prestations .tabPrestations:hover .detailsPrestationsPrix {
-  text-align: center;
+.grid_container_prestations .tabPrestations:hover .detailsPrestationsPrix,
+.grid_container_prestations .tabPrestations:hover .detailsPrestationsQuantite {
   filter: brightness(20%);
   -webkit-filter: brightness(20%);
   -moz-filter: brightness(20%);
@@ -494,12 +534,7 @@ header .container_header .list_grid_menu li a {
 
 @media only screen and (max-width: 1100px) {
   .grid_container_prestations {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .grid_item_pres {
-    width: 100%;
-    height: 200px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .tri {
@@ -515,11 +550,6 @@ header .container_header .list_grid_menu li a {
 @media only screen and (max-width: 500px) {
   .grid_container_prestations {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .grid_item_pres {
-    width: 100%;
-    height: 200px;
   }
 
   .tri {
@@ -563,7 +593,6 @@ header .container_header .list_grid_menu li a {
 }
 .container_buy .grid_container_buy .cross {
   color: red;
-  float: right;
   cursor: pointer;
 }
 .container_buy .grid_container_prestations_buy {
@@ -577,7 +606,11 @@ header .container_header .list_grid_menu li a {
   gap: 10px;
 }
 .container_buy .grid_container_prestations_buy .tabPrestations {
+  box-sizing: border-box;
+  border: gray solid 2px;
   position: relative;
+  overflow: hidden;
+  border-radius: 5%;
   cursor: pointer;
 }
 .container_buy .grid_container_prestations_buy .tabPrestations .detailsPrestationsId {
@@ -638,8 +671,10 @@ header .container_header .list_grid_menu li a {
   height: 200px;
 }
 .container_buy .grid_container_prestations_buy .tabPrestations .grid_item_pres img {
+  border: gray solid 2px;
   width: 100%;
   height: 100%;
+  border-radius: 5%;
 }
 @media only screen and (max-width: 850px) {
   .container_buy {
@@ -759,6 +794,7 @@ header .container_header .list_grid_menu li a {
 
 .pay {
   width: 60%;
+  align-self: center;
 }
 .pay h2 {
   margin-bottom: 15px;
@@ -782,29 +818,47 @@ header .container_header .list_grid_menu li a {
   margin: auto;
   margin-top: 5px;
 }
-
-.buttonPay {
+.infoPay .buttonPay {
   width: 30%;
   margin: auto;
   padding: 5px;
   margin-top: 10px;
 }
 
-.containBox {
+.coffret {
+  text-align: center;
+}
+.coffret .containBox {
   height: 450px;
   width: 250px;
   overflow-y: scroll;
 }
-
-.itemPay {
+.coffret .containBox .itemPay {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.itemPay p {
+.coffret .containBox .itemPay p {
   margin: auto;
 }
 
+@media only screen and (max-width: 850px) {
+  .pay {
+    width: 100%;
+  }
+
+  .mainPay {
+    flex-direction: column;
+  }
+
+  .coffret {
+    border-bottom: grey solid 2px;
+    padding-bottom: 20px;
+  }
+  .coffret .containBox {
+    margin: auto;
+  }
+}
 .containerCreationPrestation h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -821,13 +875,17 @@ header .container_header .list_grid_menu li a {
   text-align: center;
 }
 .containerCreationPrestation input {
-  width: 150px;
+  width: 100%;
   height: 25px;
   padding: 10px;
   margin: 10px;
 }
 .containerCreationPrestation label {
+  width: 100%;
   font-size: 14pt;
+  margin-top: 10px;
+}
+.containerCreationPrestation .triCateg {
   margin-top: 10px;
 }
 
@@ -859,6 +917,11 @@ header .container_header .list_grid_menu li a {
 .grid_container_homeConnect .detailsBox {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px;
+  border: gray solid 2px;
+  overflow: hidden;
+  border-radius: 5%;
 }
 .grid_container_homeConnect .detailsBox p, .grid_container_homeConnect .detailsBox button {
   width: 100%;
@@ -866,23 +929,59 @@ header .container_header .list_grid_menu li a {
   margin-left: auto;
   margin-right: auto;
 }
-@media only screen and (max-width: 850px) {
+.grid_container_homeConnect .detailsBox .boutton {
+  padding: 0;
+}
+.grid_container_homeConnect .detailsBox .boutton a {
+  width: 100%;
+  padding: 6px 0 6px 0;
+  display: block;
+}
+@media only screen and (max-width: 1100px) {
   .grid_container_homeConnect {
     grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
   }
 }
 @media only screen and (max-width: 600px) {
   .grid_container_homeConnect {
     grid-template-columns: 1fr 1fr;
-    width: 100%;
   }
 }
 @media only screen and (max-width: 350px) {
   .grid_container_homeConnect {
     grid-template-columns: 1fr;
-    width: 100%;
   }
+}
+
+.containPot {
+  display: flex;
+  flex-direction: row;
+}
+.containPot .containBox p {
+  text-align: center;
+}
+
+.participationPot {
+  border: solid grey;
+  padding: 10%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+}
+.participationPot p {
+  margin-bottom: 5px;
+}
+.participationPot form {
+  display: flex;
+  flex-direction: column;
+}
+.participationPot form label {
+  margin-bottom: 5px;
+}
+.participationPot form input {
+  width: 50%;
 }
 
 /*# sourceMappingURL=mygiftbox.css.map */

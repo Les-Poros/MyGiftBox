@@ -2,12 +2,12 @@
 
 namespace MyGiftBox\controllers;
 
-use \Slim\Views\Twig as twig;
-use MyGiftBox\controllers\Authentication;
-use MyGiftBox\controllers\BoxController;
-use MyGiftBox\views\HomeView;
 use MyGiftBox\models\Prestation;
 use MyGiftBox\models\Membre;
+use MyGiftBox\controllers\Authentication;
+use MyGiftBox\controllers\BoxController;
+use \Slim\Views\Twig as twig;
+use MyGiftBox\views\HomeView;
 
 /**
  * Class HomeController
@@ -25,47 +25,44 @@ class HomeController {
     }
 
 	/**
-	 * Method that displays the home
+	 * Method that displays the home connect if we are in the database
 	 * @param request
 	 * @param response
 	 * @param args
 	 */
 	public function displayHomeConnect($request, $response, $args) {
 		if (Authentication::checkConnection()) {		
-			$variables = BoxController::displayBoxMember($request, $response, $args);
-			$nomMembre = $_SESSION['prenomMembre'];
+			$resDisplayBoxMember = BoxController::displayBoxMember($request, $response, $args);
+			$nameMember = $_SESSION['forenameMember'];
 			return $this->view->render($response, 'HomeConnectView.html.twig', [
-				  'nomMembre' => $nomMembre,
-				  'role' => $_SESSION['roleMembre'],
-				  'variables' => $variables,
+				'nameMember' => $nameMember,
+				'roleMember' => $_SESSION['roleMember'],
+				'resDisplayBoxMember' => $resDisplayBoxMember,
 			]);
-	
 		}
-		else {
-			$nomMembre = "";		
-			$prestations = array();
-			$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
-			return $this->view->render($response, 'HomeView.html.twig', [
-				'prestations' => $prestations,
-		  		'nomMembre' => $nomMembre,
-			]);
-		}	
-
-		
 	}
 
+	/**
+	 * Method that displays the home when we are not in the database
+	 * @param request
+	 * @param response
+	 * @param args
+	 */
 	public function displayHome($request, $response, $args) {
-		if (Authentication::checkConnection()) {
-			$nomMembre = $_SESSION['prenomMembre'];
-		}else
-		$nomMembre = "";
 		$prestations = array();
-		$prestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
-			return $this->view->render($response, 'HomeView.html.twig', [
-				'prestations' => $prestations,
-		        'nomMembre' => $nomMembre,
-			]);
+		$randomPrestations = Prestation::inRandomOrder()->select('img')->take(9)->get()->toArray();	
+		if (Authentication::checkConnection()) {
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
+        } else {
+            $nameMember = "";
+            $roleMember = 0;
+        }
+		return $this->view->render($response, 'HomeView.html.twig', [
+			'randomPrestations' => $randomPrestations,
+			'nameMember' => $nameMember,
+			'roleMember' => $roleMember,
+		]);
 	}
 
-	
 }

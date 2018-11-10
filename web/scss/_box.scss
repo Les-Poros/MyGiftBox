@@ -42,13 +42,22 @@
 
 .share_container{
     border: solid grey;
+    word-wrap: break-word;
     padding: 10%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .main_containLinkBox{
+    text-align: center;
     padding: 5%;
+    & .grid_item_link{
+        margin: auto;
+        width: 300px;
+        & img{
+            width: 100%;
+        }
+    }
     & :first-child{
         text-align: center;
         margin-bottom: 10px;
@@ -62,6 +71,17 @@
         & .msgRemerciement{
             width: 50%;
             height: 200px;
+        }
+    }
+
+    @media screen and (max-width: 500px){
+        & .grid_item_link{
+            width: 80%; 
+        }
+        & .formLinkBox{
+            & .msgRemerciement{
+                width: initial;
+            }
         }
     }
 }
