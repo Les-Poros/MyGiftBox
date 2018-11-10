@@ -264,6 +264,9 @@ class BoxController {
         $token = $args['token'];
         $date = new \DateTime();
         $box = Coffret::where('tokenCoffret','=',$token)->first();
+        $idMember = $box['idMembre'];
+        $member = Membre::where('idMembre','=',$idMember)->first();
+          
         $dateOpenBox = new \DateTime($box['dateOuvertureCoffret']);
         $box->estOuvert = 1;
         $box->save();
@@ -287,6 +290,15 @@ class BoxController {
             array_push($tabPrestations, [$namePrestation,$descriptionPrestation,$picturePrestation,$quantityPrestation]);
         }
 
+        if (Authentication::checkConnection()){
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
+        }
+        else{
+            $nameMember = "";
+            $roleMember = 0;
+        }
+
         return $this->view->render($response, 'LinkBoxView.html.twig', [
             'token' => $token,
             'nameBox' => $box['nomCoffret'],
@@ -295,10 +307,11 @@ class BoxController {
             'messageThanksBox' => $box['msgRemerciement'],
             'tabPrestations' => $tabPrestations,
             'isBusiness' => $isBusiness,
-            'name' => $_SESSION['nameMember'],
-            'nameMember' => $_SESSION['forenameMember'],
-            'mail' => $_SESSION['mailMember'],
-			'roleMember' => $_SESSION['roleMember'],
+            'name' => $member['prenomMembre'],
+            'nameOfMember' => $member['nomMembre'],
+            'mail' => $member['mailMembre'],
+            'roleMember' => $roleMember,
+            'nameMember' => $nameMember,
 		]);
     }
 
