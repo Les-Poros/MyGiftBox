@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
   `nomCategorie` text NOT NULL,
   PRIMARY KEY(`idCategorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 CREATE TABLE IF NOT EXISTS `prestation` (
   `idPrestation` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `prestation` (
   `idCategorie` int(11) NOT NULL,
   PRIMARY KEY(`idPrestation`),
   FOREIGN KEY(`idCategorie`) REFERENCES `categorie`(`idCategorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 
 CREATE TABLE IF NOT EXISTS `coffret` (
@@ -79,7 +79,8 @@ INSERT INTO `categorie` (`idCategorie`, `nomCategorie`) VALUES
 (1, 'Attention'),
 (2, 'Activité'),
 (3, 'Restauration'),
-(4, 'Hébergement');
+(4, 'Hébergement'),
+(5, 'Voyage');
 
 INSERT INTO `prestation` (`idPrestation`, `nomPrestation`, `descr`, `img`, `prix`, `activation`, `idCategorie`) VALUES
 (1, 'Champagne', 'Bouteille de champagne + flutes + jeux à gratter', 'champagne.jpg', '20.00', 1, 1),
@@ -108,7 +109,11 @@ INSERT INTO `prestation` (`idPrestation`, `nomPrestation`, `descr`, `img`, `prix
 (24, 'Hôtel d''Haussonville', 'Hôtel d''Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas', 'hotel_haussonville_logo.jpg', '169.00', 1, 4),
 (25, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '32.00', 1, 2),
 (26, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '15.00', 1, 2),
-(27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l''élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '25.00', 1, 2);
+(27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l''élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '25.00', 1, 2),
+(28, 'Voyage à New-York', 'Une semaine de voyage à la grande pomme', 'newyork.jpg', '550.00', 1, 5),
+(29, 'Voyage à Rome', 'Trois jours de voyage dans la capitale italienne', 'rome.jpg', '650.00', 1, 5),
+(30, 'Voyage à Dubaï', 'Une semaine de rêve à Dubaï', 'dubai.jpg', '550.00', 1, 5),
+(31, 'Voyage à Tokyo', 'Une semaine de rêve au Japon', 'tokyo.jpg', '950.00', 1, 5);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

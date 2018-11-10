@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	{% include 'HeadView.html.twig' %}
+<body>
+
+	{% include 'HeaderView.html.twig' %}
+
+	<div class="main_container">
+		<div class="screen">
+			{% if tokenBox == "" %}
+				<a href="{{base_url()}}/{{idBox}}/Pay"><button class="boutton">Paiement classique</button></a>
+				<a href="{{base_url()}}/{{idBox}}/GeneratePot"><button type="submit" class="boutton">Payer via cagnotte</button></a>
+			{% else %}
+				<p>votre cagnotte : {{urlBox}}{{base_url()}}/{{tokenBox}}/ParticipatePot </p>
+			{% endif %}
+        </div>
+    </div>
+</body>
+</html>

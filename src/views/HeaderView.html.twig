@@ -2,7 +2,7 @@
 	<div class="container_header">
 		<nav class="nav_header_account">
 			<ul class="list_grid_account">
-				{% if nomMembre == "" %}
+				{% if nameMember == "" %}
 				<li>Bienvenue sur MyGiftBox </li>
 				<li><a href="{{base_url()}}/Connection">Connexion</a></li>
 				<li><a href="{{base_url()}}/CreateAccount">Inscription</a></li>
@@ -20,7 +20,7 @@
 		</ul>
 		</nav>
 				{% else %}
-				<li class="li">Bienvenue sur MyGiftBox {{nomMembre}}</li>
+				<li class="li">Bienvenue sur MyGiftBox {{nameMember}}</li>
 				<li class="grid_item_header"><a href="{{base_url()}}/MyAccount">Mon Compte</a></li>
 				<li class="grid_item_header"><a href="{{base_url()}}/Exit">Déconnexion</a></li>
 		</nav>
@@ -35,7 +35,7 @@
 			<li ><a href="{{base_url()}}/ConsultCatalog">Consulter Catalogue</a></li>
 			<li><a href="{{base_url()}}/CreateBox">Créer Un Coffret</a></li>
 			<li><a href="{{base_url()}}/HomeConnect">Voir Vos Coffrets</a></li>
-			{% if role == 1 %}
+			{% if roleMember == 1 %}
 				<li><a href="{{base_url()}}/AdminPrestations">Admin Prestations</a></li>
 			{% endif %}
 		</ul>

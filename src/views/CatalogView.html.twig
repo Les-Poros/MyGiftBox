@@ -9,7 +9,7 @@
             <div class="selectCat">
 				<select id="triSelectCat" name="triCat" onchange="triCategories(this.value)">
 				    <option value="Défaut">Défaut</option>
-                    {% for cat in listCateg %}
+                    {% for cat in listCategories %}
                         <option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
                     {% endfor %}
 				</select>
