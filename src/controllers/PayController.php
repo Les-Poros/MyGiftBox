@@ -81,9 +81,9 @@ class PayController{
         foreach ($idPrestation as $p) {
             $prestation = Prestation::select('idCategorie')->where('idPrestation','=',$p)->first()->toArray();
             $quantitePresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
-            $idCateg= $prestation['idCategorie'];
-            if( in_array($idCateg, $tabCateg)==false){
-                array_push($tabCateg,$idCateg);
+            $idCategory = $prestation['idCategorie'];
+            if(in_array($idCategory, $tabCategories)==false){
+                array_push($tabCategories, $idCategory);
             }
         }
         $numberCategories = 0;

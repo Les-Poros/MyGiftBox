@@ -6,7 +6,7 @@
 {% include 'HeaderView.html.twig' %} 
 
     <div class="main_container">
-        {% if paye == false %}
+        {% if isPay == false %}
             <div class="screen">
                 {{nameBox}} 
                 <h4> Date d'ouverture prévu au : {{dateOpenBox}} </h4>
@@ -21,6 +21,11 @@
                 <p>{{nameBox}}</p> 
                 <p>Prix : {{price}} €</p>
                 <p>{{messageBox}} </p>
+                {% if tokenCagnotte == "" %}
+                    <p>Mode de paiement : paiement classique</p>
+                {% else %}
+                    <p>Mode de paiement : paiement par cagnotte</p>
+                {% endif %}
                 {% if isTransmitted %}
                     <p>Le coffret a été envoyé à son destinataire</p>
                 {% else %}

@@ -145,7 +145,7 @@ class BoxController {
             $prestaTab['categorie'] = $prestation->categorie()->first()->toArray()['nomCategorie'];
             $prestaTab['quantite'] = $content["quantite"];
             array_push($tabPrestations, $prestaTab);
-            $totalPrice += $prestation['prix']*$content['quantite'];
+            $totalPrice += $prestaTab['prix']*$content['quantite'];
         }
         if ($_SESSION["idMember"] == $box["idMembre"]) {
             return $this->view->render($response, 'BoxView.html.twig', [
@@ -161,6 +161,7 @@ class BoxController {
                 'isOpen' => $box['estOuvert'],
                 'isTransmitted' => $box['estTransmis'],
                 'roleMember' => $_SESSION['roleMember'],
+                'tokenCagnotte' => $box['tokenCagnotte'],
             ]);
         } else {
             return $this->view->render($response, 'Fail.html.twig', [
