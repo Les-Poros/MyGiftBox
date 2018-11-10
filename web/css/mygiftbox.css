@@ -448,17 +448,17 @@ header .container_header .list_grid_menu li a {
 }
 .grid_container_prestations .tabPrestations #activatePrestation {
   background-color: #0dff15;
-  border-color: #0dff15;
+  border: solid 1px #0dff15;
   width: 100%;
 }
 .grid_container_prestations .tabPrestations #deactivatePrestation {
   background-color: #ff110d;
-  border-color: #ff110d;
+  border: solid 1px #ff110d;
   width: 100%;
 }
 .grid_container_prestations .tabPrestations #deletePrestation {
   background-color: #ff6f00;
-  border-color: #ff6f00;
+  border: solid 1px #ff6f00;
   width: 100%;
 }
 .grid_container_prestations .tabPrestations:hover .detailsPrestations,

@@ -65,17 +65,17 @@ $colorSelect: #555;
         }
         & #activatePrestation {
             background-color: $colorActivate;
-            border-color: $colorActivate;
+            border: solid 1px $colorActivate;
             width: 100%;
         }
         & #deactivatePrestation {
             background-color: $colorDeactivate;
-            border-color: $colorDeactivate;
+            border: solid 1px $colorDeactivate;
             width: 100%;
         }
         & #deletePrestation {
             background-color: $colorDelete;
-            border-color: $colorDelete;
+            border:solid 1px $colorDelete;
             width: 100%;
         }
         &:hover {
