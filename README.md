@@ -9,6 +9,8 @@ Lien pour consulter le tableau de bord de ce projet : https://trello.com/b/XFk4J
 
 Lien pour consulter l'application : https://webetu.iutnc.univ-lorraine.fr/www/schwarz16u/MyGiftBox/
 
+Lien du dépôt GitHub : https://github.com/Les-Poros/MyGiftBox
+
 # Pour tester l'application sur webetu
 
 * Des comptes membre sont déjà créés :
