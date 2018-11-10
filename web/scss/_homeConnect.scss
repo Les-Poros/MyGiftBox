@@ -32,13 +32,13 @@ $borderColor: grey !default;
             margin-left: auto;
             margin-right: auto;
         }
+        & a {
+            width: 100%;
+            margin:10px 0;
+        }
         & .boutton {
-            padding: 0;
-            & a {
-                width: 100%;
-                padding: 6px 0 6px 0;
-                display: block;
-            }
+            margin: 0;
+            width: 100%;
         }
     }
     @media only screen and (max-width: 1100px) {

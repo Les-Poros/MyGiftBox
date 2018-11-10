@@ -59,6 +59,14 @@ $container['PayController'] = function ($c){
 $container['AdminPrestationsController'] = function($c) {
     $view = $c->get('view');
     return new AdminPrestationsController($view);
-}
+};
+
+$container['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $response->withStatus(404)
+            ->withHeader('Content-Type', 'text/html')
+            ->write("Cette page n'existe pas");
+    };
+};
 
 ?>
