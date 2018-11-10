@@ -116,7 +116,7 @@ class BoxController {
                 $pictureDefault = "defaultBox.png";
                 array_push($listBoxesName, [$boxName, $pictureDefault, $idBox, $isPay]);
             } else {
-                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->first()->toArray();
+                $idPrestation = ContenuCoffret::select('idPrestation')->where('idCoffret','=',$idBox)->inRandomOrder()->first()->toArray();
                 $prestation = Prestation::select('img')->where('idPrestation','=',$idPrestation)->first()->toArray();
                 $pictureDefault = $prestation['img'];
                 array_push($listBoxesName, [$boxName, $pictureDefault, $idBox, $isPay]);
