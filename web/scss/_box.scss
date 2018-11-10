@@ -1,91 +1,83 @@
-.containerCreationBox{
-    & h2{
+$borderColor: grey !default;
+.containerCreationBox {
+    & h2 {
         text-align: center;
-        padding-bottom:10px; 
+        padding-bottom: 10px;
     }
-
-    & .form{
+    & .form {
         width: 40%;
         margin: auto;
         margin-bottom: 20px;
-        border: solid grey;
+        border: solid $borderColor;
         padding-left: 15%;
         padding-right: 15%;
         padding-top: 5%;
         padding-bottom: 5%;
         text-align: center;
     }
-
-    & input{
+    & input {
         width: 150px;
         height: 25px;
         padding: 10px;
         margin: 10px;
     }
-
-    & label{
+    & label {
         font-size: 14pt;
         margin-top: 10px;
     }
-
-    & .boutton {
-        //background: #bebebe;
-        //color: black;
-    }
 }
 
-.formCreationBox{
+.formCreationBox {
     display: flex;
     flex-direction: column;
     align-items: center
 }
 
-.share_container{
-    border: solid grey;
+.share_container {
+    border: solid $borderColor;
     word-wrap: break-word;
     padding: 10%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.main_containLinkBox{
+.main_containLinkBox {
     text-align: center;
     padding: 5%;
-    & .grid_item_link{
+    & .grid_item_link {
         margin: auto;
         width: 300px;
-        & img{
+        & img {
             width: 100%;
         }
     }
-    & :first-child{
+    & :first-child {
         text-align: center;
         margin-bottom: 10px;
     }
-    & .formLinkBox{
-        border: solid grey;
+    & .formLinkBox {
+        border: solid $borderColor;
         padding: 3%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        & .msgRemerciement{
+        & .msgRemerciement {
             width: 50%;
             height: 200px;
         }
     }
-
-    @media screen and (max-width: 500px){
-        & .grid_item_link{
-            width: 80%; 
+    @media screen and (max-width: 500px) {
+        & .grid_item_link {
+            width: 80%;
         }
-        & .formLinkBox{
-            & .msgRemerciement{
+        & .formLinkBox {
+            & .msgRemerciement {
                 width: initial;
             }
         }
     }
 }
 
-#nomPrestation{
+#nomPrestation {
     font-weight: bold;
 }

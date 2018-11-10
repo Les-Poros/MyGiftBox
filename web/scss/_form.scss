@@ -1,6 +1,6 @@
-
 /*FORMULAIRE*/
-.screen{
+
+.screen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,10 +8,7 @@
     border: 2px solid rgb(95, 89, 89);
     padding-bottom: 15px;
     padding-top: 15px;
-    
-} 
-
-
+}
 
 .formMenu {
     text-align: center;
@@ -25,22 +22,17 @@
     border-radius: 2px;
 }
 
-
-@media screen and (max-width: 500px){
-   h2{
-       text-align: center;
-   }
-
-   .screen{
-       text-align: center;
-   }
-
-   input{
-       margin-bottom: 50px;
-   }
-
-  button {
-    padding: 20px 10px 20px 10px;
-   }
-
+@media screen and (max-width: 500px) {
+    h2 {
+        text-align: center;
+    }
+    .screen {
+        text-align: center;
+    }
+    input {
+        margin-bottom: 50px;
+    }
+    button {
+        padding: 20px 10px 20px 10px;
+    }
 }

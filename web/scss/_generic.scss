@@ -1,3 +1,11 @@
+$backgColor: lighten(cyan, 60%) !default;
+$fontColor: darken(#303030, 20%) !default;
+$descrColor: grey !default;
+$colorBlack: black !default;
+$backgroundBoutton: #f5f5f5 !default;
+$colorBorderBoutton: #ccc !default;
+$colorBoxShadow: #999 !default;
+$colorRed: red !default;
 body {
     background-color: $backgColor;
     width: 100%;
@@ -19,7 +27,7 @@ div {
 
 a {
     text-decoration: none;
-    color: black;
+    color: $colorBlack;
 }
 
 h2 {
@@ -45,7 +53,7 @@ footer {
     width: 70%;
     margin: auto;
     word-break: break-word;
-    & h2{
+    & h2 {
         text-align: center;
     }
     @media only screen and (max-width: 1250px) {
@@ -60,12 +68,12 @@ footer {
     cursor: pointer;
     padding: 6px 0 6px 0;
     font: bold 13px Arial;
-    background: #f5f5f5;
-    color: black;
+    background: $backgroundBoutton;
+    color: $colorBlack;
     border-radius: 2px;
     width: 150px;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 3px #999;
+    border: 1px solid $colorBorderBoutton;
+    box-shadow: 1px 1px 3px $colorBoxShadow;
     text-align: center;
     margin-bottom: 15px;
     margin-top: 15px;
@@ -75,9 +83,9 @@ footer {
     text-align: center;
     padding: 25px;
     margin: auto;
-    border: solid 2px black;
+    border: solid 2px $colorBlack;
     & h2 {
         text-align: center;
-        color: red;
+        color: $colorRed;
     }
 }

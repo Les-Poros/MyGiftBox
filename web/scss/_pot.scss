@@ -1,31 +1,32 @@
-.containPot{
+$borderColor: grey !default;
+.containPot {
     display: flex;
     flex-direction: row;
-    & .containBox{
-        & p{
+    & .containBox {
+        & p {
             text-align: center;
         }
     }
 }
 
-.participationPot{
-    border: solid grey;
+.participationPot {
+    border: solid $borderColor;
     padding: 10%;
     width: 50%;
     display: flex;
     flex-direction: column;
     margin: auto;
     align-items: center;
-    & p{
+    & p {
         margin-bottom: 5px;
     }
-    & form{
+    & form {
         display: flex;
         flex-direction: column;
-        & label{
+        & label {
             margin-bottom: 5px;
         }
-        & input{
+        & input {
             width: 50%;
         }
     }

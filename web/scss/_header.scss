@@ -1,106 +1,97 @@
-header{
+$backgColor: lighten(cyan, 60%) !default;
+$fontColor: darken(#303030, 20%) !default;
+$descrColor: grey !default;
+header {
     width: 100%;
-    margin:0;
-    background-color:darken($backgColor,10%);
-    & .container_header{
+    margin: 0;
+    background-color: darken($backgColor, 10%);
+    & .container_header {
         width: 70%;
-        margin:auto;
+        margin: auto;
         word-wrap: break-word;
-        & a{
+        & a {
             text-decoration: none;
         }
-    
-        & .homeButton{
-            color:$fontColor;
+        & .homeButton {
+            color: $fontColor;
             font-size: 2em;
         }
-    
-        & .pres_header{
+        & .pres_header {
             margin: auto;
             margin-top: 30px;
             margin-bottom: 30px;
-            width:fit-content;
-            text-align:center;
-    
-            & h1{
+            width: fit-content;
+            text-align: center;
+            & h1 {
                 font-size: 40pt;
                 font-weight: bold;
                 color: $fontColor;
             }
-       
-            & .descr_header{
+            & .descr_header {
                 color: $descrColor;
             }
         }
-    
         & .list_grid_account {
             display: flex;
-            & li{
+            & li {
                 padding: 15px;
                 text-decoration: underline;
-                color:$fontColor;
-                &:first-child{
-                    padding-left:0;
+                color: $fontColor;
+                &:first-child {
+                    padding-left: 0;
                     text-decoration: none;
                 }
-                &:nth-child(2){
+                &:nth-child(2) {
                     margin-left: auto;
                 }
-                &:last-child{
+                &:last-child {
                     padding-right: 0;
                 }
             }
-           
         }
-
         & .list_grid_menu {
             display: flex;
             justify-content: left;
-            & li{
-                margin-left:45px;
+            & li {
+                margin-left: 45px;
                 text-decoration: underline;
                 align-self: flex-end;
-                & a{
+                & a {
                     color: $descrColor;
                 }
             }
         }
-        
     }
     @media only screen and (max-width: 1250px) {
-        & .container_header{
+        & .container_header {
             width: 80%;
         }
     }
-
-    
     @media only screen and (max-width: 850px) {
-        & .container_header{
+        & .container_header {
             width: 95%;
             & .list_grid_account {
-                & li:first-child{
-                display: none;
+                & li:first-child {
+                    display: none;
                 }
-                
             }
-
         }
     }
-
     @media only screen and (max-width: 650px) {
-        & .container_header{
+        & .container_header {
             & .list_grid_account {
-                justify-content : space-between;
-                & li:nth-child(2){
+                justify-content: space-between;
+                & li:nth-child(2) {
                     margin-left: 0;
-                    padding-left:0; 
+                    padding-left: 0;
                 }
             }
             & .list_grid_menu {
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
-                & li,a{
+                & li,
+                a {
                     padding-top: 20px;
                     margin-left: 0;
                     align-self: center;

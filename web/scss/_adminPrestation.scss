@@ -1,4 +1,4 @@
-$descrColor: grey;
+$descrColor: grey !default;
 .containerCreationPrestation {
     & h2 {
         text-align: center;
@@ -26,7 +26,7 @@ $descrColor: grey;
         font-size: 14pt;
         margin-top: 10px;
     }
-    & .triCateg{
+    & .triCateg {
         margin-top: 10px;
     }
 }

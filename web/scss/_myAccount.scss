@@ -1,58 +1,56 @@
-.myaccount{
+.myaccount {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     @media only screen and (max-width: 850px) {
         flex-direction: column;
         justify-content: initial;
-        & .infoMembre{
+        & .infoMembre {
             margin-left: auto;
             margin-right: auto;
         }
-        & .modifMembre{
-            margin-top:20px;
+        & .modifMembre {
+            margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
         }
     }
-& .modifMembre{
-    display : none;
-    width: 40%;
-    & h2{
-        margin-left: 0;
-    }
-    & .formMembre{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        & input{
-            width: 49%;
+    & .modifMembre {
+        display: none;
+        width: 40%;
+        & h2 {
             margin-left: 0;
-            margin-right: 0;
-            margin-bottom : 5px;
-            padding: 0;
         }
-        & label{
-            width: 49%;
+        & .formMembre {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            & input {
+                width: 49%;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 5px;
+                padding: 0;
+            }
+            & label {
+                width: 49%;
+                margin-left: 0;
+                margin-right: 0;
+                text-align: left;
+                margin-bottom: 5px;
+                padding: 0;
+            }
+        }
+    }
+    & .infoMembre {
+        width: max-content;
+        & h2 {
             margin-left: 0;
-            margin-right: 0;
-            text-align: left;
-            margin-bottom : 5px;
-            padding: 0;
+            margin-bottom: 10px;
+        }
+        & .buttonAccount {
+            margin-top: 10px;
         }
     }
-}
-
-
-& .infoMembre{
-    width: max-content;
-    & h2{
-        margin-left:0; 
-        margin-bottom: 10px;
-    }
-    & .buttonAccount{
-        margin-top: 10px;
-    }
-}
 }
