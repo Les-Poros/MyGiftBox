@@ -161,7 +161,7 @@ class PayController{
             $quantityPresta = ContenuCoffret::select('quantite')->where('idPrestation','=',$p)->first()->toArray();
             $quantityPrestation = $quantityPresta['quantite'];
             $price = $pricePrestation * $quantityPrestation;
-            $somme += $price;
+            $sum += $price;
             $idCategory = $prestation['idCategorie'];
             if (in_array($idCategory, $tabCategories) == false) {
                 array_push($tabCategories, $idCategory);

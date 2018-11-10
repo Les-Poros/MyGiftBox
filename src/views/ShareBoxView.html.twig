@@ -4,12 +4,12 @@
 <body>
 
 	{% include 'HeaderView.html.twig' %}
-
     <div class="main_container">
-		<h2>Partager votre coffret {{box}}</h2>
+		<h2>Partager votre coffret {{nameBox}}</h2>
 		<div class="share_container">
-			<p>Votre url à partager : {{url}}{{base_url()}}/LinkBox/{{token}}</p>
+			<p>Votre url à partager : {{urlBox}}{{base_url()}}/LinkBox/{{tokenBox}}</p>
 		</div>
 	</div>
+	
 </body>
 </html>

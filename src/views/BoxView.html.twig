@@ -7,61 +7,62 @@
 
     <div class="main_container">
         {% if paye == false %}
-         <div class="screen">
-         {{nomCoffret}} 
-         <h4> Date d'ouverture prévu au : {{date}} </h4>
-           <p> statut : En cours de création</p>
-            prix : {{ prix }} €
-   <a href="{{base_url()}}/EditBox/{{idBox}}"><button type="submit" class="boutton">Modifier Infos Coffret </button></a>
-
-        
-         </div>
-			  
-              {% else %}
-                 <div class="screen">
-                  <p>{{nomCoffret}}</p> 
-                  <p>Prix : {{prix}} €</p>
-                  <p>{{message}} </p>
-                   {% if transmis %}
-                   <p>Le coffret a été envoyé à son destinataire</p>
-                   {% else %}
-                   <p>Le coffret n'a pas encore été envoyé à son destinataire</p>
-                   {% endif %}
-                   
-                   {% if ouvert %}
-                   {% if messageRemer == "" %}
-                     <p>Le coffret a été ouvert par le destinataire</p>
-                      {% else %}
-                     <p>Le coffret a été ouvert par le destinataire et à laisser le message suivant :</p>
-                    <p>{{messageRemer}}</p>
+            <div class="screen">
+                {{nameBox}} 
+                <h4> Date d'ouverture prévu au : {{dateOpenBox}} </h4>
+                <p> statut : En cours de création</p>
+                prix : {{ price }} €
+                <a href="{{base_url()}}/EditBox/{{idBox}}">
+                    <button type="submit" class="boutton">Modifier Infos Coffret </button>
+                </a>
+            </div>
+        {% else %}
+            <div class="screen">
+                <p>{{nameBox}}</p> 
+                <p>Prix : {{price}} €</p>
+                <p>{{messageBox}} </p>
+                {% if isTransmitted %}
+                    <p>Le coffret a été envoyé à son destinataire</p>
+                {% else %}
+                    <p>Le coffret n'a pas encore été envoyé à son destinataire</p>
+                {% endif %}
+                {% if isOpen %}
+                    {% if messageThanksBox == "" %}
+                        <p>Le coffret a été ouvert par le destinataire</p>
+                    {% else %}
+                        <p>Le coffret a été ouvert par le destinataire et à laisser le message suivant :</p>
+                        <p>{{messageThanksBox}}</p>
                     {% endif %}
-                   {% else %}
-                  <p> Le coffret n'a pas été ouvert par le destinataire</p>
-                   {% endif %}
-                   
-
-                  </div>
-                
-             {% endif %}
+                {% else %}
+                    <p> Le coffret n'a pas été ouvert par le destinataire</p>
+                {% endif %}
+            </div>
+        {% endif %}
 
        <div class="grid_container_prestations">
-			{% for prestations in listPrestations %}
+			{% for prestation in tabPrestations %}
                 <div class="tabPrestations">
-                    <div class="grid_item_pres_tab"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
-                    <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
-                    <p class='detailsPrestationsQuantite'>x{{prestations['quantite']}}</p>
-                    <p class='detailsPrestationsPrix'>{{prestations['prix'] * prestations['quantite']}} €</p>
-                    <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}' target="_blank">Plus d'info</a>
+                    <div class="grid_item_pres_tab"><img src="{{base_url()}}/web/img/{{prestation['img']}}"/></div>
+                    <p class='detailsPrestations'>{{prestation['nomPrestation']}}</p>
+                    <p class='detailsPrestationsQuantite'>x{{prestation['quantite']}}</p>
+                    <p class='detailsPrestationsPrix'>{{prestation['prix'] * prestation['quantite']}} €</p>
+                    <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestation['idPrestation']}}' target="_blank">Plus d'info</a>
                 </div>
             {% endfor %}
         </div>
-             {% if paye == false %}
-            <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase"><button class="boutton">Modifier Contenu</button></a>
-            <a href="{{base_url()}}/{{idBox}}/ChoicePay"><button class="boutton">Choix paiement</button></a>
-            {% else %}
-            <a href="{{base_url()}}/{{idBox}}/ShareBox"><button class="boutton">URL de partage</button></a>
-            {% endif %}
+        {% if isPay == false %}
+            <a href="{{base_url()}}/{{idBox}}/ConsultCatalogPurchase">
+                <button class="boutton">Modifier Contenu</button>
+            </a>
+            <a href="{{base_url()}}/{{idBox}}/ChoicePay">
+                <button class="boutton">Choix paiement</button>
+            </a>
+        {% else %}
+            <a href="{{base_url()}}/{{idBox}}/ShareBox">
+                <button class="boutton">URL de partage</button>
+            </a>
+        {% endif %}
     </div>
-</body>
 
+</body>
 </html>
