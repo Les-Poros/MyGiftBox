@@ -58,8 +58,10 @@ class PayController{
                 'roleMember' => $_SESSION['roleMember'],
             ]);
         } else {
-            return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            return $this->view->render($response, 'Fail.html.twig', [
                 'nomMembre' => $_SESSION['forenameMember'],
+                'message'=>"Vous n'etes pas le responsable de cette box",
+                'roleMember' => $_SESSION['roleMember'],
             ]);
         }
     }
@@ -86,17 +88,20 @@ class PayController{
                 array_push($tabCategories, $idCategory);
             }
         }
-        $numberCategories = 0;
-        foreach ($tabCategories as $category) {
-            $numberCategories .= 1;
-        }
+        if(count($tabCategories)>=2)
 		return $this->view->render($response, 'ChoicePayView.html.twig', [
             'nameMember' => $_SESSION['forenameMember'],
             'roleMember' => $_SESSION['roleMember'],
             'idBox' => $box['idCoffret'],
-            'numberCategories' => $numberCategories,
+            'numberCategories' => count($tabCategories),
             'tokenBox' => $box['tokenCagnotte'],
             'urlBox' => $urlBox,
+        ]);
+        else
+        return $this->view->render($response, 'Fail.html.twig', [
+            'nameMember' => $_SESSION['forenameMember'],
+            "message" => "Vous devez avoir des prestations d'au moins deux catégories différentes",
+            'roleMember' => $_SESSION['roleMember'],
         ]);
     }
 
@@ -143,8 +148,10 @@ class PayController{
                 'urlBox' => $urlBox,
             ]);
         } else {
-            return $this->view->render($response, 'BoxMemberFail.html.twig', [
+            return $this->view->render($response, 'Fail.html.twig', [
                 'nameMember' => $_SESSION['forenameMember'],
+                "message" => "Désolé, seul le membre possédant cette boite y à accès",
+                'roleMember' => $_SESSION['roleMember'],
             ]);
         }
     }
@@ -179,24 +186,24 @@ class PayController{
         foreach ($tabCategories as $category) {
             $numberCategories .= 1;
         }
-        if ($_SESSION["idMember"] == $box["idMembre"]) {
+        if (Authentication::checkConnection()) {
+            $nameMember = $_SESSION['forenameMember'];
+            $roleMember = $_SESSION['roleMember'];
+        } else {
+            $nameMember = "";
+            $roleMember = 0;
+        }
             return $this->view->render($response, 'ParticipatePotView.html.twig', [
-                'nameMember' => $_SESSION['forenameMember'],
+                'nameMember' => $nameMember,
                 'nameBox' => $box['nomCoffret'],
                 'idBox' => $box['idCoffret'],
                 'tabPrestations' => $tabPrestations,
                 'sum' => $sum,
-                'roleMember' => $_SESSION['roleMember'],
+                'roleMember' => $roleMember,
                 'numberCategories' => $numberCategories,
                 'totalPayeBox' => $box['totalPaye'],
             ]);
-        } else {
-            return $this->view->render($response, 'Fail.html.twig', [
-                'nameMember' => $_SESSION['forenameMember'],
-                "message" => "Désolé, seul le membre possédant cette boite y à accès",
-                'roleMember' => $_SESSION['roleMember'],
-            ]);
-        }
+        
     }
 
     /**

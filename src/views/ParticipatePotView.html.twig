@@ -19,6 +19,9 @@
             <div class="participationPot">
                 <p>Total : {{sum}}€</p>
                 <p>Total déjà payé : {{totalPayeBox}}€</p>
+                {% if totalPayeBox >= sum %}
+                    <p> La box est deja entierement financé </p>
+                    {% else %}
                 <form action="" method="post">
                     <label>Votre participation</label>
                     <input type="number" name="participation" placeholder="10" required/>
@@ -26,6 +29,7 @@
                     <input name="msg" type="texte"/>
                     <button type="submit" class="boutton buttonPay">Participer</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
