@@ -2,6 +2,7 @@
 <html>
 	{% include 'HeadView.html.twig' %}
 <body>
+
 	{% include 'HeaderView.html.twig' %}
     <div class="main_container">
         <div class="triCat">
@@ -9,7 +10,7 @@
             <div class="selectCat">
 				<select id="triSelectCat" name="triCat" onchange="triCategories(this.value)">
 				    <option value="Défaut">Défaut</option>
-                    {% for cat in listCateg %}
+                    {% for cat in listCategories %}
                         <option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
                     {% endfor %}
 				</select>
@@ -27,16 +28,16 @@
 			</div>
         </div>
         <div class="grid_container_prestations">
-			{% for prestations in listPrestations %}
+			{% for prestations in tabPrestations %}
                 <div class="tabPrestations">
-                    <div class="grid_item_pres_tab"><img src="{{base_url()}}/web/img/{{prestations['img']}}"/></div>
-                    <p class='detailsPrestations'>{{prestations['nomPrestation']}}</p>
-                    <p class='detailsPrestationsCateg'>{{prestations['categorie']}}</p>
-                    <p class='detailsPrestationsPrix'>{{prestations['prix']}} €</p>
+                    <div class="grid_item_pres_tab"><img src="{{base_url()}}/web/img/{{prestations['picture']}}"/></div>
+                    <p class='detailsPrestations'>{{prestations['namePrestation']}}</p>
+                    <p class='detailsPrestationsCateg'>{{prestations['category']}}</p>
+                    <p class='detailsPrestationsPrix'>{{prestations['price']}} €</p>
                     <a class='detailsPrestationsLien' href='{{base_url()}}/Prestation/{{prestations['idPrestation']}}' target="_blank">Plus d'info</a>
                     <form class="formEtatPrestation" action="" method="post">
                         <input type="hidden" id="idPrestation" name="idPrestation" value="{{prestations['idPrestation']}}"/>
-                        {% if prestations['activation'] == 0 %}
+                        {% if prestations['activate'] == 0 %}
                             <button type="submit" id="activatePrestation" name="activatePrestation" value="v"><i class="fas fa-check"></i></button>
                         {% else %}
                             <button type="submit" id="deactivatePrestation" name="deactivatePrestation" value="x"><i class="fas fa-times"></i></button>
@@ -48,5 +49,6 @@
         <hr/>
     </div>
 	<script type="text/javascript" src="{{base_url()}}/js/catalog.js"></script>
+
 </body>
 </html>

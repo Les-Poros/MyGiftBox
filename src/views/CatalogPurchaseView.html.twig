@@ -10,7 +10,7 @@
             <div class="selectCat">
 				<select id="triSelectCat" name="triCat" onchange="triCategories(this.value)">
 				    <option value="Défaut">Défaut</option>
-                    {% for cat in listCateg %}
+                    {% for cat in listCategories %}
                         <option value={{cat['nomCategorie']}} name="triCat">{{cat['nomCategorie']}}</option>
                     {% endfor %}
 				</select>
@@ -43,11 +43,11 @@
             </div>
             <div class="buyBar"></div>
             <div class="grid_container_buy">
-            <h2>{{box}}</h2>
+            <h2>{{nameBox}}</h2>
             </br>
                 <div>
-                {% for cont in contenu %}
-                    <p class="buy">-<span class="presta">{{listPrestations[cont["idPrestation"]-1]['nomPrestation']}}</span> x<span class="nbPresta">{{cont["quantite"]}}</span> : <span class="prixPresta">{{(listPrestations[cont["idPrestation"]-1]['prix'] * cont["quantite"])}}</span>€ <i class="cross fas fa-times"></i></p>
+                {% for content in contentBox %}
+                    <p class="buy">-<span class="presta">{{listPrestations[content["idPrestation"]-1]['nomPrestation']}}</span> x<span class="nbPresta">{{content["quantite"]}}</span> : <span class="prixPresta">{{(listPrestations[content["idPrestation"]-1]['prix'] * content["quantite"])}}</span>€ <i class="cross fas fa-times"></i></p>
                  {% endfor %}
                  </div>
                  <form class="formActuBox" action="" method="post">
